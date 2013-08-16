@@ -37,9 +37,9 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
       },
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server']
+      stylus: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.styl'],
+        tasks: ['stylus']
       },
       livereload: {
         options: {
@@ -137,24 +137,11 @@ module.exports = function (grunt) {
         }]
       }
     },
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        generatedImagesDir: '.tmp/images/generated',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
-        relativeAssets: false
-      },
-      dist: {},
-      server: {
-        options: {
-          debugInfo: true
+    stylus: {
+      compile: {
+        files: {
+          '.tmp/styles/main.css': '<%= yeoman.app %>/styles/main.styl',
+          '.tmp/styles/bootstrap.css': ['<%= yeoman.app %>/bower_components/bootstrap-stylus/stylus/bootstrap.styl','<%= yeoman.dist %>/bower_components/bootstrap-stylus/stylus/responsive.styl']
         }
       }
     },
@@ -270,15 +257,15 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'coffee:dist',
-        'compass:server'
+        'stylus'
       ],
       test: [
         'coffee',
-        'compass'
+        'stylus'
       ],
       dist: [
         'coffee',
-        'compass:dist',
+        'stylus',
         'imagemin',
         'svgmin',
         'htmlmin'
