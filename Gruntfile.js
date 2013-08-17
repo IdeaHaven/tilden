@@ -50,7 +50,8 @@ module.exports = function (grunt) {
           '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '{.tmp,<%= yeoman.app %>}/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
+        ],
+        tasks: ['karma']
       },
       dev: {
         files: ['<%= yeoman.app %>/{,*/}*.{html,ico,txt,png,jpg,jpeg,gif,webp,svg}'],
@@ -308,7 +309,7 @@ module.exports = function (grunt) {
     },
     karma: {
       unit: {
-        configFile: 'karma.conf.js',
+        configFile: 'karma2.conf.js',
         singleRun: true
       }
     },
