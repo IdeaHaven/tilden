@@ -1,5 +1,5 @@
 node_modules
-dist
-.tmp
-app/bower_components
+client-code/dist
+client-code/.tmp
+client-code/app/bower_components
 libpeerconnection.log
