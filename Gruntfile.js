@@ -46,11 +46,15 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
+          '{.tmp,<%= yeoman.app %>}/{,*/}*.html',
           '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '{.tmp,<%= yeoman.app %>}/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      },
+      dev: {
+        files: ['<%= yeoman.app %>/{,*/}*.{html,ico,txt,png,jpg,jpeg,gif,webp,svg}'],
+        tasks: ['copy:dev']
       }
     },
     connect: {
@@ -252,6 +256,37 @@ module.exports = function (grunt) {
             'generated/*'
           ]
         }]
+      },
+      tmp: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '.tmp',
+          src: [
+            '*.{ico,png,txt,html}',
+            '.htaccess',
+            'bower_components/**/*',
+            'views/**/*',
+            'images/{,*/}*.{gif,webp}',
+            'styles/fonts/*'
+          ]
+        }]
+      },
+      dev: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '.tmp',
+          src: [
+            '*.{ico,png,txt,html}',
+            '.htaccess',
+            'views/**/*',
+            'images/{,*/}*.{gif,webp}',
+            'styles/fonts/*'
+          ]
+        }]
       }
     },
     concurrent: {
@@ -336,6 +371,13 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin'
+  ]);
+
+  grunt.registerTask('dev', [
+    'concurrent:test',
+    'connect:test',
+    'copy:tmp',
+    'watch'
   ]);
 
   grunt.registerTask('default', [

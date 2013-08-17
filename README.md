@@ -10,11 +10,17 @@ Quick Start
     `node static-server.js`
     `http://localhost:4000`
 
+How to add new angular modules using yeoman
+===========================================
+Have [Yeoman](http://yeoman.io/) installed
+Have [Yeoman Angular Generator](https://github.com/yeoman/generator-angular) installed
+Follow the directions [here](https://github.com/yeoman/generator-angular) *USING* flags: `--coffee --minsafe`
+
 Global Package Requirements
 ===========================
-[Node](http://nodejs.org/)
-[Bower](http://bower.io/)
-[Grunt-CLI](http://gruntjs.com/)
+* [Node](http://nodejs.org/)
+* [Bower](http://bower.io/)
+* [Grunt-CLI](http://gruntjs.com/)
 
 License
 =========
