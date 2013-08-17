@@ -66,13 +66,14 @@
     "grunt-google-cdn": "~0.2.0",
     "grunt-ngmin": "~0.0.2",
     "express": "~3.3.5",
+    "karma-jasmine": "~0.1.0",
     "karma": "~0.10.1"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt karma"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "license": "AGPL3"
 }
