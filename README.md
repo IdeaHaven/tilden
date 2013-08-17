@@ -4,6 +4,8 @@ This was created using the [Yeoman Angular Generator](https://github.com/yeoman/
 
 Quick Start
 ===========
+    `npm install`
+    `bower install`
     `grunt build`
     `node static-server.js`
     `http://localhost:4000`
