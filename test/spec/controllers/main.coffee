@@ -9,7 +9,9 @@ describe 'Controller: MainCtrl', () ->
   scope = {}
 
   # Initialize the controller and a mock scope
-  beforeEach inject ($controller, $rootScope) ->
+  beforeEach inject ($injector, $controller, $rootScope) ->
+    $httpBackend = $injector.get('$httpBackend')
+    $httpBackend.whenGET(/.*/).respond({fake: 'data'})
     scope = $rootScope.$new()
     MainCtrl = $controller 'MainCtrl', {
       $scope: scope
@@ -17,3 +19,4 @@ describe 'Controller: MainCtrl', () ->
 
   it 'should attach a list of awesomeThings to the scope', () ->
     expect(scope.awesomeThings.length).toBe 3;
+
