@@ -3,3 +3,4 @@ client-code/dist
 client-code/.tmp
 client-code/app/bower_components
 libpeerconnection.log
+.DS_Store
