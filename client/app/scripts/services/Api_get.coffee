@@ -6,7 +6,7 @@ angular.module('appApp.services', [])
       args = Array.prototype.slice.call(arguments, 2)
       context = args.shift()
       $http
-        url: "http://congress.api.sunlightfoundation.com/#{path}&apikey=XXXX"
+        url: "http://congress.api.sunlightfoundation.com/#{path}&apikey=83c0368c509f468e992218f41e6529d7"
         method: "GET"
       .success (data, status, headers, config)->
         args.unshift data.results
