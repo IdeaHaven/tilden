@@ -8,9 +8,9 @@ var mountFolder = function (connect, dir) {
 
 // # Globbing
 // for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
+// '<%= yeoman.test %>/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
+// '<%= yeoman.test %>/spec/**/*.js'
 
 module.exports = function (grunt) {
   // load all grunt tasks
@@ -18,9 +18,10 @@ module.exports = function (grunt) {
 
   // configurable paths
   var yeomanConfig = {
-    app: 'client-code/app',
-    dist: 'client-code/dist',
-    tmp: 'client-code/.tmp'
+    app: 'client/app',
+    dist: 'client/dist',
+    tmp: 'client/.tmp',
+    test: 'client/test'
   };
 
   try {
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
         tasks: ['coffee:dist']
       },
       coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
+        files: ['<%= yeoman.test %>/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
       },
       stylus: {
@@ -81,7 +82,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               mountFolder(connect, '<%= yeoman.tmp %>'),
-              mountFolder(connect, 'test')
+              mountFolder(connect, '<%= yeoman.test %>')
             ];
           }
         }
@@ -136,7 +137,7 @@ module.exports = function (grunt) {
       test: {
         files: [{
           expand: true,
-          cwd: 'client-code/test/spec',
+          cwd: '<%= yeoman.test %>/spec',
           src: '{,*/}*.coffee',
           dest: '<%= yeoman.tmp %>/spec',
           ext: '.js'
@@ -208,7 +209,7 @@ module.exports = function (grunt) {
       // dist: {
       //   files: {
       //     '<%= yeoman.dist %>/styles/main.css': [
-      //       '.tmp/styles/{,*/}*.css',
+      //       '<%= yeoman.tmp %>/styles/{,*/}*.css',
       //       '<%= yeoman.app %>/styles/{,*/}*.css'
       //     ]
       //   }
@@ -376,6 +377,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('dev', [
+    'clean',
     'concurrent:test',
     'connect:test',
     'copy:tmp',

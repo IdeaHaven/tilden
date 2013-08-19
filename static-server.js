@@ -5,7 +5,7 @@
 
   app = express();
 
-  app.use(express["static"](__dirname + '/.tmp'));
+  app.use(express["static"](__dirname + '/client/.tmp'));
 
   app.listen("4000");
 
