@@ -7,3 +7,13 @@ before_script:
   - 'bower install'
 script:
   - 'npm test'
+notifications:
+  email:
+    recipients:
+      - epiphanymachine@gmail.com
+      - quetzaluz@gmail.com
+      - mcguireghs@gmail.com
+      - jjspragu@asu.edu
+      - riksidhu@gmail.com
+    on_success: change
+    on_failure: always
