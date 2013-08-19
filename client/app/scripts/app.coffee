@@ -2,12 +2,9 @@
 
 angular.module('appApp', ['appApp.services', 'appApp.controllers'])
   .config ['$routeProvider', ($routeProvider) ->
-    $routeProvider
-      .when '/',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
-      .otherwise
-        redirectTo: '/'
+    $routeProvider.when('/', {templateUrl: 'views/main.html', controller: 'MainCtrl'})
+    $routeProvider.when('/individual', {templateUrl: 'views/individual.html', controller: 'IndividualCtrl'})
+    $routeProvider.otherwise({redirectTo: '/'})
   ]
 
 # set default headers to cors for api access
