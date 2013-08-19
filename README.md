@@ -15,6 +15,7 @@ How to add new angular modules using yeoman
 Have [Yeoman](http://yeoman.io/) installed
 Have [Yeoman Angular Generator](https://github.com/yeoman/generator-angular) installed
 Follow the directions [here](https://github.com/yeoman/generator-angular) *USING* flags: `--coffee --minsafe`
+Note: yeoman generators should not be executed in the root directory but rather within the /client or /server directories.
 
 Global Package Requirements
 ===========================
