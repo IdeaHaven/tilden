@@ -8,11 +8,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'client/app/bower_components/angular/angular.js',
-      'client/app/bower_components/angular-mocks/angular-mocks.js',
-      'client/app/scripts/**/*.coffee',
-      'client/test/mock/**/*.coffee',
-      'client/test/spec/**/*.coffee'
+      'app/bower_components/angular/angular.js',
+      'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/scripts/**/*.coffee',
+      'test/mock/**/*.coffee',
+      'test/spec/**/*.coffee'
     ],
 
     // list of files to exclude
