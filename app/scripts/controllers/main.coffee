@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('appApp.controllers', ['appApp.services'])
+angular.module('appApp.controllers', ['appApp.services', 'appApp.directives'])
   .controller('MainCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
     $scope.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma']
     $scope.reps = {}

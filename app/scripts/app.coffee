@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('appApp', ['appApp.services', 'appApp.controllers'])
+angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.directives'])
   .config ['$routeProvider', ($routeProvider) ->
     $routeProvider
       .when '/',
@@ -9,6 +9,9 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers'])
       .when '/bills',
         templateUrl: 'views/billtext.html'
         controller: 'BillCtrl'
+      .when '/individual',
+        templateUrl: 'views/individual.html'
+        controller: 'IndividualCtrl'
       .otherwise
         redirectTo: '/'
   ]
