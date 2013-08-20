@@ -23,7 +23,6 @@ angular.module('appApp.controllers', ['appApp.services', 'appApp.directives', 'u
   .controller('BillCtrl', ['$scope', '$http', ($scope, $http) ->
     $scope.bill = {}
     $scope.bills = []
-    $scope.bills.text = []
     $scope.$watch "bill", ->
       getBillText $scope.bill.last_version.urls.html
 
@@ -52,10 +51,11 @@ angular.module('appApp.controllers', ['appApp.services', 'appApp.directives', 'u
           q: "select * from html where url=\'#{url}\'"
           format: "json"
       ).success((data, status) ->
-        $scope.bill.text = data.query.results.body.pre.replace(/[\n\r]/g, ' ').replace(/[_]/g, '').replace(/<all>/g, '')
-        console.log $scope.bills
+        $scope.bill.text = data.query.results.body.pre.replace(/<all>/g, '').replace(/^[^_]*_/, '').replace(/\n/g, '<br>')
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
 
     getBillList()
   ])
+
+# regex ugly parts:  .replace(/[\n\r]/g, ' ').replace(/[_]/g, '')
