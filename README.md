@@ -4,6 +4,7 @@ This was created using the [Yeoman Angular Generator](https://github.com/yeoman/
 
 Quick Start
 ===========
+    `npm install -g bower grunt-cli` unless you have them already
     `npm install`
     `bower install`
     `grunt dev`
@@ -14,12 +15,14 @@ How to add new angular modules using yeoman
 Have [Yeoman](http://yeoman.io/) installed
 Have [Yeoman Angular Generator](https://github.com/yeoman/generator-angular) installed
 Follow the directions [here](https://github.com/yeoman/generator-angular) *USING* flags: `--coffee --minsafe`
+Note: yeoman generators should not be executed in the root directory but rather within the /client or /server directories.
 
 Global Package Requirements
 ===========================
 * [Node](http://nodejs.org/)
-* [Bower](http://bower.io/)
-* [Grunt-CLI](http://gruntjs.com/)
+* after node is installed run: `npm install -g bower grunt-cli`
+ * [Bower](http://bower.io/)
+ * [Grunt-CLI](http://gruntjs.com/)
 
 License
 =========
