@@ -67,13 +67,16 @@
     "grunt-ngmin": "~0.0.2",
     "express": "~3.3.5",
     "karma-jasmine": "~0.1.0",
-    "karma": "~0.10.1"
+    "karma": "~0.10.1",
+    "grunt-nodemon": "~0.1.0"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS",
+    "build": "grunt build",
+    "start": "node server-prod.js"
   },
   "license": "AGPL3"
 }
