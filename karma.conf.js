@@ -11,6 +11,7 @@ module.exports = function(config) {
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/scripts/**/*.coffee',
+      'app/bower_components/angular-bootstrap/*.js',
       'test/mock/**/*.coffee',
       'test/spec/**/*.coffee'
     ],

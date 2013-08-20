@@ -3,8 +3,10 @@
 describe 'Controller: MainCtrl', () ->
 
   # load the controller's module
-  beforeEach module 'appApp'
-
+  beforeEach(()->
+    module('appApp.controllers')
+    module('ui.bootstrap')
+  )
   MainCtrl = {}
   scope = {}
 
@@ -20,7 +22,11 @@ describe 'Controller: MainCtrl', () ->
 describe 'Controller: BillCtrl', () ->
 
   # load the controller's module
-  beforeEach module 'appApp'
+  beforeEach(()->
+    module 'appApp.controllers' 
+    module 'ui.bootstrap'
+  )
+
 
   BillCtrl = {}
   scope = {}
