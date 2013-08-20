@@ -6,6 +6,9 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers'])
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
+      .when '/bills',
+        templateUrl: 'views/billtext.html'
+        controller: 'BillCtrl'
       .otherwise
         redirectTo: '/'
   ]
