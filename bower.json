@@ -2,7 +2,7 @@
   "name": "app",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.0.7",
+    "angular": "PatternConsulting/bower-angular#v1.1.5",
     "json3": "~3.2.4",
     "jquery": "~1.9.1",
     "bootstrap-stylus": "*",
@@ -17,5 +17,8 @@
     "angular-mocks": "~1.0.7",
     "angular-scenario": "~1.0.7",
     "bootstrap-stylus": "*"
+  },
+  "resolutions": {
+    "angular": "v1.1.5"
   }
 }
