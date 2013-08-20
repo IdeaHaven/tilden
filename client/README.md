@@ -6,9 +6,8 @@ Quick Start
 ===========
     `npm install`
     `bower install`
-    `grunt build`
-    `node static-server.js`
-    `http://localhost:4000`
+    `grunt dev`
+    `http://localhost:8080`
 
 How to add new angular modules using yeoman
 ===========================================
