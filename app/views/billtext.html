@@ -2,6 +2,6 @@
   <select ng-model="bill" ng-options="bill.bill_id for bill in bills"></select>
   <h1>{{bill.official_title}}</h1>
   <div id="billTextContainer">
-    <span class="billText" ng-bind-html-unsafe="bill.text"></span>
+    <span id="billText" ng-bind-html-unsafe="bill.text"></span>
   </div>
 </div>

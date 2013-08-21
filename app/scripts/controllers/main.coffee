@@ -20,19 +20,15 @@ angular.module('appApp.controllers', ['appApp.services', 'appApp.directives', 'u
     $scope.get_all_reps_in_office()
     
   ])
-  .controller('BillCtrl', ['$scope', '$http', ($scope, $http) ->
+  .controller('BillCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
     $scope.bill = {}
     $scope.bills = []
     $scope.$watch "bill", ->
       getBillText $scope.bill.last_version.urls.html
-
-    jsonToArray = (data) ->
-      results = []
-      i = 0
-      while i < data.length
-        results.push data[i].text
-        i++
-      results
+      setTimeout (->
+        $("#billText").annotator().annotator('setupPlugins', {token: 'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJpc3N1ZWRBdCI6ICIyMDEzLTA4LTIxVDE3OjU5OjQwWiIsICJjb25zdW1lcktleSI6ICI2N2NkYjJmOWNmZGY0NTE4YmIxMWQ3NTQ2YWUzMTExMSIsICJ1c2VySWQiOiAiYWxsIiwgInR0bCI6IDEyMDk2MDB9.mEQHB3rx81tfqGs7zA3VOcckOyo-Dsa3HyEeva_daIA'})
+      ), 3000
+      console.log "Ready to annotate!"
 
     getBillList = ->
       $http(
@@ -57,5 +53,3 @@ angular.module('appApp.controllers', ['appApp.services', 'appApp.directives', 'u
 
     getBillList()
   ])
-
-# regex ugly parts:  .replace(/[\n\r]/g, ' ').replace(/[_]/g, '')
