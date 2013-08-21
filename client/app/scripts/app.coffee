@@ -1,11 +1,15 @@
 'use strict'
 
-angular.module('appApp', ['appApp.services', 'appApp.controllers'])
+angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.directives'])
   .config ['$routeProvider', ($routeProvider) ->
     $routeProvider
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
+        #add when here for new view
+      .when '/soloRep',
+        templateUrl: 'views/soloRep.html'
+        controller: 'soloRep'
       .otherwise
         redirectTo: '/'
   ]

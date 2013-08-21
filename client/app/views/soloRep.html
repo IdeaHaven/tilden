@@ -1,0 +1,17 @@
+<div class="repDetail">
+  <select ng-model="rep" ng-options="rep.bioID for rep in reps"></select>
+  <h1>{{rep.last_name}}, {{rep.first_name}}</h1>
+  <div class="span4">
+    <ng-switch on="loaded.sectors">
+      <div ng-switch-when="false">
+        <sub-view template="loading"></sub-view>
+      </div>
+      <div ng-switch-when="true">
+        <div class="component">
+          <h1> Top Sectors </h1>
+          <d3-bar-chart class="d3" data="selected_rep.funding.sectors" number="amount" text="name"></d3-bar-chart>
+        </div>
+      </div>
+    </ng-switch>
+  </div>
+</div>
