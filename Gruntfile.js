@@ -18,10 +18,10 @@ module.exports = function (grunt) {
 
   // configurable paths
   var yeomanConfig = {
-    app: 'client/app',
-    dist: 'client/dist',
-    tmp: 'client/.tmp',
-    test: 'client/test'
+    app: 'app',
+    dist: 'dist',
+    tmp: '.tmp',
+    test: 'test'
   };
 
   try {
@@ -307,7 +307,16 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin',
         'htmlmin'
-      ]
+      ],
+      dev: {
+        tasks: [
+          'dev-build',
+          'nodemon:dev'
+        ],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
     },
     karma: {
       unit: {
@@ -318,6 +327,13 @@ module.exports = function (grunt) {
     cdnify: {
       dist: {
         html: ['<%= yeoman.dist %>/*.html']
+      }
+    },
+    nodemon: {
+      dev: {
+        options: {
+          file: 'server-dev.js'
+        }
       }
     },
     ngmin: {
@@ -376,12 +392,16 @@ module.exports = function (grunt) {
     'usemin'
   ]);
 
-  grunt.registerTask('dev', [
+  grunt.registerTask('dev-build', [
     'clean',
     'concurrent:test',
     'connect:test',
     'copy:tmp',
     'watch'
+  ]);
+
+  grunt.registerTask('dev', [
+    'concurrent:dev'
   ]);
 
   grunt.registerTask('default', [

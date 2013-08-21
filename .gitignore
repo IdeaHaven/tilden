@@ -1,6 +1,6 @@
 node_modules
-client/dist
-client/.tmp
-client/app/bower_components
+dist
+.tmp
+app/bower_components
 libpeerconnection.log
 .DS_Store

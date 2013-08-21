@@ -7,7 +7,7 @@ basePath = '';
 files = [
   ANGULAR_SCENARIO,
   ANGULAR_SCENARIO_ADAPTER,
-  'client/test/e2e/**/*.coffee'
+  'test/e2e/**/*.coffee'
 ];
 
 // list of files to exclude
