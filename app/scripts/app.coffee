@@ -6,10 +6,12 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
-        #add when here for new view
-      .when '/soloRep',
-        templateUrl: 'views/soloRep.html'
-        controller: 'soloRep'
+      .when '/bills',
+        templateUrl: 'views/billtext.html'
+        controller: 'BillCtrl'
+      .when '/individual',
+        templateUrl: 'views/individual.html'
+        controller: 'IndividualCtrl'
       .otherwise
         redirectTo: '/'
   ]
