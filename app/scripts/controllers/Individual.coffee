@@ -13,7 +13,7 @@ angular.module('appApp')
       if not error
         for rep in data
           rep.fullname = "#{rep.title}. #{rep.first_name} #{rep.last_name}"
-          $scope.reps_names_list.push({name: rep.fullname})
+          $scope.reps_names_list.push({name: rep.fullname, bioguide_id: rep.bioguide_id})
           rep.chamber = rep.chamber.charAt(0).toUpperCase() + rep.chamber.slice(1)  # cap first letter
           rep.party_name = if rep.party is "D" then "Democrat" else if rep.party is "R" then "Republican" else rep.party
           $scope.reps[rep.bioguide_id] = {}
@@ -23,7 +23,7 @@ angular.module('appApp')
    
     $scope.get_all_reps_in_office()
   ])
-  .controller('ChartCtrl', ['$scope', '$http', 'ApiGet' ($scope, $http) ->
+  .controller('ChartCtrl', ['$scope', '$http', 'ApiGet', ($scope, $http) ->
     $scope.source = {}
     $scope.sources = []
 
@@ -37,8 +37,5 @@ angular.module('appApp')
         $scope.selected_rep.funding.contributors = data.json
         $scope.loaded.contributors = true
       else console.log "Error: ", error
-    
-
-
-  # ])
+  ])
   #Add new controller to module hered
