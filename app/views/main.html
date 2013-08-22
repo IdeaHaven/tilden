@@ -1,20 +1,27 @@
-<div class="hero-unit" ng-controller="CarouselCtrl">
-  <h1>'Allo, 'Allo!</h1>
-
-  <carousel interval="myInterval">
-    <slide ng-repeat="slide in slides" active="slide.active">
-      <img ng-src="{{slide.image}}" style="margin:auto;">
-      <div class="carousel-caption">
-        <h4>Slide {{$index}}</h4>
-        <p>{{slide.text}}</p>
-      </div>
-    </slide>
-  </carousel>
-
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
-  </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding! - Yeoman</h3>
+<div id="wrap">
+<header id="header" class="clearfix section">
+  <nav id="nav" class="center grid-14">
+    <div class="fonts-display clearfix">
+      <p class="logo mq-mobile-i-block">
+        <img src=""/>
+      </p>
+      <br class="mq-mobile" />
+      <p class="text-left alpha"><a href="/">Home</a>
+      <p class="text-left"><a href="">District Map</a>
+      <p class="text-left"><a href="">Bill Annotater</a>
+      <!-- <p class="logo mq-wide-i-block mq-mid-i-block mq-small-i-block">
+        <a href="/" title="Built by Buffalo - Web Design Brighton UK">
+          <img src="/assets/img/logo-type@2x.png" alt="Built By" />
+          <img class="logo-img" src="/assets/img/logo-plain@2x.png" alt="Buffalo" />
+        </a> -->
+      <p class="text-right"><a href="/feed">Links</a>
+      <p class="text-right"><a href="/jobs">Links</a>
+      <p class="text-right omega"><a href="/contact">Links</a>
+    </div>
+  </nav> <!-- /#nav -->
+  <hr class="grid-2 center mq-mobile" />
+  <h2 id="tagline" class="text-center">Influence</h2>
+</header>
 </div>
+
+
