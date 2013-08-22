@@ -18,12 +18,10 @@ angular.module('appApp.controllers')
       console.log "Ready to annotate!"
 
     makeBillCode = ->
-      billCode = "BILLS-#{$scope.bill.congress}#{$scope.bill.bill_type}#{$scope.bill.number}#{$scope.bill.last_version.version_code}"
-      return billCode
+      return "BILLS-#{$scope.bill.congress}#{$scope.bill.bill_type}#{$scope.bill.number}#{$scope.bill.last_version.version_code}"
     
     makeBillUrl = (billCode) ->
-      requestUrl = "http://www.gpo.gov/fdsys/pkg/#{billCode}/html/#{billCode}.htm"
-      return requestUrl
+      return "http://www.gpo.gov/fdsys/pkg/#{billCode}/html/#{billCode}.htm"
 
     makeBillId = ->
       billCode = $location.path().split("").splice(13,15)
