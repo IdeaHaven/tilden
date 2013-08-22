@@ -36,8 +36,14 @@ angular.module('appApp')
       ready = (error, us, congress) ->
         $scope.usMap.append("defs").append("path").attr("id", "land").datum(topojson.feature(us, us.objects.land)).attr "d", path
         $scope.usMap.append("clipPath").attr("id", "clip-land").append("use").attr "xlink:href", "#land"
-        $scope.usMap.append("g").attr("class", "districts").attr("clip-path", "url(#clip-land)").selectAll("path").data(topojson.feature(congress, congress.objects.districts).features).enter().append("path").attr("d", path).append("title").text (d) ->
+        district = $scope.usMap.append("g").attr("class", "districts").attr("clip-path", "url(#clip-land)").selectAll("path").data(topojson.feature(congress, congress.objects.districts).features).enter().append("path").attr("d", path).text (d) ->
           "#{$scope.FIPS_to_state[d.id / 100 | 0]}-#{d.id % 100}"
+        district.on("mouseover", () ->
+          return tooltip.style("visibility", "visible").text(d3.select(this).text())
+        ).on("mousemove", () -> 
+          return tooltip.style("top", (event.pageY-10)+"px").style("left", (event.pageX+10+"px"))
+        ).on("mouseout", () -> 
+          return tooltip.style("visibility", "hidden"))
         $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
           (a.id / 1000 | 0) is (b.id / 1000 | 0)
         )).attr "d", path
@@ -49,6 +55,11 @@ angular.module('appApp')
       path = d3.geo.path()
       svg = d3.select("#map_holder").append("svg").attr("width", width).attr("height", height)
       $scope.usMap = svg.append("g").attr("id", "map_with_districts")
+      tooltip = d3.select("#map_holder")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
       queue().defer(d3.json, "views/us.json").defer(d3.json, "views/us-congress-113.json").await ready
 
     $scope.zoomIn = (d) ->
