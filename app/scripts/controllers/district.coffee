@@ -26,7 +26,7 @@ angular.module('appApp')
 
     $scope.highlightDistrict = () ->
       if $scope.state_district.state
-        $scope.district_element = d3.select(d3.selectAll('title').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0].parentElement)
+        $scope.district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
         $scope.district_element.attr('class', 'selected')
         $scope.bounding_box = $scope.district_element[0][0].getBoundingClientRect()
         $scope.district_element.call($scope.zoomIn)
@@ -57,6 +57,7 @@ angular.module('appApp')
       $scope.usMap = svg.append("g").attr("id", "map_with_districts")
       tooltip = d3.select("#map_holder")
         .append("div")
+        .attr("class", "map_tooltip")
         .style("position", "absolute")
         .style("z-index", "10")
         .style("visibility", "hidden")
