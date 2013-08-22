@@ -15,6 +15,10 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .otherwise
         redirectTo: '/'
   ]
+# depency inject should happen here
+angular.module('appApp.controllers', ['appApp.services', 'appApp.directives', 'ui.bootstrap'])
+angular.module('appApp.directives', [])
+angular.module('appApp.services', [])
 
 # set default headers to cors for api access
 angular.module('appApp')
