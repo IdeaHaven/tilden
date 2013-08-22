@@ -65,23 +65,6 @@ angular.module('appApp.controllers')
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
 
-    # wordGraph = (string) ->
-    #   wordGraph(data.query.results.body.pre.replace(/<all>/g, '').replace(/^[^_]*_/, '').replace(/_\n\r/g, ''))
-    #   array = string.replace(/[^a-zA-Z0-9 -]/g, "").split(" ")
-    #   result = {}
-    #   i = 0
-    #   while i < array.length
-    #     if array[i].length > 3
-    #       if result[array[i]]
-    #         result[array[i]] += 1
-    #       else
-    #         result[array[i]] = 1
-    #     i++
-    #   for key of result
-    #     delete result[key] if result[key] < 3
-    #     delete result[key] if key is 'the' or key is 'and' or key is 'for'
-    #   result
-
     getBillList()
     getBillTitleOnLoad()
     getBillTextOnLoad()
