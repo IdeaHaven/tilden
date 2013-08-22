@@ -7,7 +7,6 @@ angular.module('appApp')
     $scope.reps_names_list = []
     $scope.selected_rep = {bioguide_id: "K000381"} #grab from URL
 
-
     #loading checks
     $scope.loaded_trandparencydata_id = false
     $scope.loaded_bio = false
@@ -54,6 +53,16 @@ angular.module('appApp')
         $scope.selected_rep.bio = data
         $scope.loaded_bio = true
       else console.log "Error: ", error
+
+    $scope.get_nyt = ()->
+      ApiGet.nyt 'members/M000303', $scope.callback_nyt, this
+
+    $scope.callback_nyt = (error, data)->
+      if not error
+        $scope.nyt_data = data
+      else console.log "Error: ", error
+
+    $scope.get_nyt()
   ])
   # .controller('ChartCtrl', ['$scope', '$http', 'ApiGet', ($scope, $http) ->
   #   $scope.source = {}
