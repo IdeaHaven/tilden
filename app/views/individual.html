@@ -1,4 +1,41 @@
 <sub-view template="header/individual"></sub-view>
-<ul>
-  <li ng-repeat="rep in reps_names_list">{{rep.name}}</li>
+<div class="row-fluid">
+  <div class="span2">
+    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{reps["C001100"].overview.bioguide_id}}.jpg" width="100%"/>
+  </div>
+  <div>{{ reps["C001100"]["overview"]['first_name'] }} {{ reps["C001100"]["overview"]['last_name'] }}</div>
+  <div>{{ reps["C001100"]["overview"]['chamber'] }} Member representing {{ reps["C001100"]["overview"]['state_name'] }}</div>
+</div>
+<ul class="nav nav-pills">
+  <li><a ng-init="showRepInfo = false" ng-click="showRepInfo = !showRepInfo">Rep Info</a></li>
+  <li><a ng-init="showContactInfo = false" ng-click="showContactInfo = !showContactInfo">Contact Info</a></li>
 </ul>
+  <div ng-show="showRepInfo">
+    <dl class="dl-horizontal">
+      <dt>Term Start</dt>
+      <dd>{{ reps["C001100"]["overview"]['term_start'] }}</dd>
+      <dt>Term End</dt>
+      <dd>{{ reps["C001100"]["overview"]['term_end'] }}</dd>
+      <dt>Party</dt>
+      <dd>{{ reps["C001100"]["overview"]['party'] }}</dd>
+    </dl>
+  </div>
+  <div ng-show="showContactInfo">
+    <dl class="dl-horizontal">
+      <dt>Phone</dt>
+      <dd>{{ reps["C001100"]["overview"]['phone'] }}</dd>
+      <dt>Website</dt>
+      <dd>{{ reps["C001100"]["overview"]['website'] }}</dd>
+      <dt>Office</dt>
+      <dd>{{ reps["C001100"]["overview"]['office'] }}</dd>
+      <dt>Contact Form</dt>
+      <dd>{{ reps["C001100"]["overview"]['contact_form'] }}</dd>
+      <dt>Twitter</dt>
+      <dd>{{ reps["C001100"]["overview"]['twitter_id'] }}</dd>
+      <dt>Facebook</dt>
+      <dd>{{ reps["C001100"]["overview"]['facebook_id'] }}</dd>
+      <dt>YouTube Channel</dt>
+      <dd>{{ reps["C001100"]["overview"]['youtube_id'] }}</dd>
+    </dl>
+  </div>
+
