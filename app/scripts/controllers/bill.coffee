@@ -9,7 +9,6 @@ angular.module('appApp.controllers')
       billCode = makeBillCode()
       $location.path("bills/#{billCode}")
       getBillText makeBillUrl(billCode)
-      annotate()
 
     annotate = ->
       setTimeout (->
