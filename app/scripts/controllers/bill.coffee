@@ -9,6 +9,9 @@ angular.module('appApp.controllers')
       billCode = makeBillCode()
       $location.path("bills/#{billCode}")
       getBillText makeBillUrl(billCode)
+      annotate()
+
+    annotate = ->
       setTimeout (->
         $("#billText").annotator().annotator('setupPlugins', {token: 'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJpc3N1ZWRBdCI6ICIyMDEzLTA4LTIxVDE3OjU5OjQwWiIsICJjb25zdW1lcktleSI6ICI2N2NkYjJmOWNmZGY0NTE4YmIxMWQ3NTQ2YWUzMTExMSIsICJ1c2VySWQiOiAiYWxsIiwgInR0bCI6IDEyMDk2MDB9.mEQHB3rx81tfqGs7zA3VOcckOyo-Dsa3HyEeva_daIA'})
       ), 3000
@@ -82,4 +85,5 @@ angular.module('appApp.controllers')
     getBillList()
     getBillTitleOnLoad()
     getBillTextOnLoad()
+    annotate()
   ])
