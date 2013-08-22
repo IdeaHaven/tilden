@@ -4,6 +4,7 @@ angular.module('appApp.controllers')
   .controller('BillCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
     $scope.bill = {}
     $scope.bills = []
+    $scope.title = ""
     $scope.$watch "bill", ->
       billCode = makeBillCode()
       $location.search(billCode)
@@ -21,8 +22,25 @@ angular.module('appApp.controllers')
       requestUrl = "http://www.gpo.gov/fdsys/pkg/#{billCode}/html/#{billCode}.htm"
       return requestUrl
 
+    makeBillId = ->
+      billCode = Object.keys($location.search())[0].split("")
+      bill = billCode.splice(9,11).join("").replace(/ih/, '').replace(/is/, '').replace(/ats/, '')
+      congress = billCode.splice(6,3).join("")
+      return "#{bill}-#{congress}"
+
     getBillTextOnLoad = ->
       if Object.keys($location.search()) then getBillText(makeBillUrl(Object.keys($location.search())[0]))
+
+    getBillTitleOnLoad = ->
+      bill_id = makeBillId()
+      $http(
+        method: "GET"
+        url: "http://congress.api.sunlightfoundation.com/bills?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&bill_id=#{bill_id}"
+      ).success((data, status) ->
+        console.log data
+        $scope.title = data.results[0].short_title or data.results[0].official_title
+      ).error (data, status) ->
+        console.log "Error #{status}: #{data} (thrown by getBillTitleOnLoad)"
 
     getBillList = ->
       $http(
@@ -41,6 +59,7 @@ angular.module('appApp.controllers')
           q: "select * from html where url=\'#{url}\'"
           format: "json"
       ).success((data, status) ->
+        console.log data
         # console.log wordGraph(data.query.results.body.pre.replace(/<all>/g, '').replace(/^[^_]*_/, '').replace(/_\n\r/g, ''))
         $scope.bill.text = data.query.results.body.pre.replace(/<all>/g, '').replace(/^[^_]*_/, '').replace(/\n/g, '<br>')
       ).error (data, status) ->
@@ -63,6 +82,6 @@ angular.module('appApp.controllers')
       result
 
     getBillList()
-    console.log Object.keys($location.search())[0]
+    getBillTitleOnLoad()
     getBillTextOnLoad()
   ])
