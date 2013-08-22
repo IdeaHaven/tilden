@@ -1,7 +1,7 @@
 <sub-view template="header/individual"></sub-view>
 <div class="row-fluid">
   <div class="span2">
-    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{reps["C001100"].overview.bioguide_id}}.jpg" width="100%"/>
+    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/F000062.jpg" width="100%"/>
   </div>
   <div>{{ reps["C001100"]["overview"]['first_name'] }} {{ reps["C001100"]["overview"]['last_name'] }}</div>
   <div>{{ reps["C001100"]["overview"]['chamber'] }} Member representing {{ reps["C001100"]["overview"]['state_name'] }}</div>
@@ -17,7 +17,7 @@
       <dt>Term End</dt>
       <dd>{{ reps["C001100"]["overview"]['term_end'] }}</dd>
       <dt>Party</dt>
-      <dd>{{ reps["C001100"]["overview"]['party'] }}</dd>
+      <dd>{{ reps["C001100"]["overview"]['party_name'] }}</dd>
     </dl>
   </div>
   <div ng-show="showContactInfo">
@@ -38,4 +38,3 @@
       <dd>{{ reps["C001100"]["overview"]['youtube_id'] }}</dd>
     </dl>
   </div>
-
