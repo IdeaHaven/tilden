@@ -7,6 +7,7 @@ angular.module('appApp')
     $scope.selected_zip = null
     $scope.warning = null
     $scope.state_district = {state: null, district: null}
+    $scope.state_district_data = null
     $scope.FIPS_to_state = {1:'AL', 2:'AK', 4:'AZ', 5:'AR', 6:'CA', 8:'CO', 9:'CT', 10:'DE', 11:'DC', 12:'FL', 13:'GA', 15:'HI', 16:'ID', 17:'IL', 18:'IN', 19:'IA', 20:'KS', 21:'KY', 22:'LA', 23:'ME', 24:'MD', 25:'MA', 26:'MI', 27:'MN', 28:'MS', 29:'MO', 30:'MT', 31:'NE', 32:'NV', 33:'NH', 34:'NJ', 35:'NM', 36:'NY', 37:'NC', 38:'ND', 39:'OH', 40:'OK', 41:'OR', 42:'PA', 44:'RI', 45:'SC', 46:'SD', 47:'TN', 48:'TX', 49:'UT', 50:'VT', 51:'VA', 53:'WA', 54:'WV', 55:'WI', 56:'WY', 60:'AS', 64:'FM', 66:'GU', 68:'MH', 69:'MP', 70:'PW', 72:'PR', 74:'UM', 78:'VI'}
 
     $scope.getLocation = () ->
@@ -28,17 +29,21 @@ angular.module('appApp')
         unless data.length
           return $scope.warning = "No district was found for #{$scope.selected_zip}."
         $scope.state_district = {state: data[0].state, district: data[0].district}
-      else
-        console.log "Error: ", error
+      else console.log "Error: ", error
+
+    $scope.setDistrictData = () ->
+      ApiGet.congress "legislators?state=#{$scope.state_district.state}&district=#{$scope.state_district.district}"
+        , (error, data) ->
+          if not error
+            $scope.state_district_data = data
+          else console.log "Error: ", error
+          , this
 
     $scope.highlightDistrict = () ->
       d3.select('.districts').selectAll('path').classed('selected', false)
-      if $scope.state_district.state
-        $scope.district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
-        $scope.district_element.attr('class', 'selected')
-        $scope.bounding_box = $scope.district_element[0][0].getBoundingClientRect()
-        $scope.district_element.call($scope.zoomIn)
-        $scope.showDistrictDialog()
+      $scope.district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
+      $scope.district_element.attr('class', 'selected')
+      $scope.district_element.call($scope.zoomIn)
 
     $scope.drawMap = () ->
       ready = (error, us, congress) ->
@@ -55,7 +60,7 @@ angular.module('appApp')
         ).on("click", () ->
           district_id = d3.select(this).text()
           $scope.state_district = {state: district_id.slice(0, 2), district: district_id.slice(3, 6)}
-          $scope.highlightDistrict()
+          $scope.$apply()
         )
         $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
           (a.id / 1000 | 0) is (b.id / 1000 | 0)
@@ -107,9 +112,19 @@ angular.module('appApp')
         .transition()
         .duration(750)
         .style("opacity", 1)
+        .text("#{JSON.stringify($scope.state_district_data)}")
 
     $scope.drawMap()
 
-    $scope.$watch('state_district', $scope.highlightDistrict);
+    $scope.$watch('state_district', (newVals, oldVals) -> 
+      if $scope.state_district.state
+        $scope.setDistrictData()
+        $scope.highlightDistrict()
+    , true)
+
+    $scope.$watch('state_district_data', (newVals, oldVals) ->
+      if $scope.state_district_data
+        $scope.showDistrictDialog()
+    , true)
 
   ]
