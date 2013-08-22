@@ -26,8 +26,8 @@ angular.module('appApp')
     $scope.setDistrict = (error, data) ->
       if not error
         unless data.length
-          $scope.warning = "No district was found for #{$scope.selected_zip}."
-        else $scope.state_district = {state: data[0].state, district: data[0].district}
+          return $scope.warning = "No district was found for #{$scope.selected_zip}."
+        $scope.state_district = {state: data[0].state, district: data[0].district}
       else
         console.log "Error: ", error
 
@@ -37,8 +37,7 @@ angular.module('appApp')
         $scope.district_element.attr('class', 'selected')
         $scope.bounding_box = $scope.district_element[0][0].getBoundingClientRect()
         $scope.district_element.call($scope.zoomIn)
-        
- 
+
     $scope.drawMap = () ->
       ready = (error, us, congress) ->
         $scope.usMap.append("defs").append("path").attr("id", "land").datum(topojson.feature(us, us.objects.land)).attr "d", path
@@ -57,6 +56,9 @@ angular.module('appApp')
         $scope.usMap.append("path").attr("class", "state-boundaries").datum(topojson.mesh(us, us.objects.states, (a, b) ->
           a isnt b
         )).attr "d", path
+        $('#map_holder').on("dblclick", () ->
+          $scope.zoomOut()
+        )
       width = 960
       height = 500
       path = d3.geo.path()
@@ -75,8 +77,15 @@ angular.module('appApp')
       bbox = element.getBBox()
       x = bbox.x + bbox.width/2
       y = bbox.y + bbox.height/2
-      scale = 10
+      scale = 200/Math.sqrt(Math.pow(bbox.width, 2) + Math.pow(bbox.height,2))
       $scope.usMap.transition().duration(750).attr("transform", "translate(" + 960 / 2 + "," + 600 / 2 + ")scale(" + scale + ")translate(" + -x + "," + -y + ")").style "stroke-width", 1.5 / scale + "px"
+
+    $scope.zoomOut = (d) ->
+      $scope.position = null
+      $scope.selected_zip = null
+      $scope.warning = null
+      $scope.state_district = {state: null, district: null}
+      $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
 
     $scope.drawMap()
 
