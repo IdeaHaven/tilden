@@ -32,6 +32,7 @@ angular.module('appApp')
         console.log "Error: ", error
 
     $scope.highlightDistrict = () ->
+      d3.select('.districts').selectAll('path').classed('selected', false)
       if $scope.state_district.state
         $scope.district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
         $scope.district_element.attr('class', 'selected')
@@ -49,7 +50,12 @@ angular.module('appApp')
         ).on("mousemove", () -> 
           return tooltip.style("top", (event.pageY-10)+"px").style("left", (event.pageX+10+"px"))
         ).on("mouseout", () -> 
-          return tooltip.style("visibility", "hidden"))
+          return tooltip.style("visibility", "hidden")
+        ).on("click", () ->
+          district_id = d3.select(this).text()
+          $scope.state_district = {state: district_id.slice(0, 2), district: district_id.slice(3, 6)}
+          $scope.highlightDistrict()
+        )
         $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
           (a.id / 1000 | 0) is (b.id / 1000 | 0)
         )).attr "d", path
@@ -81,6 +87,7 @@ angular.module('appApp')
       $scope.usMap.transition().duration(750).attr("transform", "translate(" + 960 / 2 + "," + 600 / 2 + ")scale(" + scale + ")translate(" + -x + "," + -y + ")").style "stroke-width", 1.5 / scale + "px"
 
     $scope.zoomOut = (d) ->
+      d3.select('.districts').selectAll('path').classed('selected', false)
       $scope.position = null
       $scope.selected_zip = null
       $scope.warning = null
