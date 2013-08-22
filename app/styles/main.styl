@@ -124,3 +124,32 @@ ul
     margin: 0 auto
     font-size: 18px
     line-height: 18px
+
+#map_canvas path {
+  stroke-linejoin: round;
+}
+
+.districts {
+  fill: #bbb;
+}
+
+.districts :hover {
+  fill: orange;
+}
+
+.districts .selected {
+  fill: green;
+}
+
+.district-boundaries {
+  pointer-events: none;
+  fill: none;
+  stroke: #ddd;
+}
+
+.state-boundaries {
+  pointer-events: none;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}

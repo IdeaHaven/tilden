@@ -41,5 +41,5 @@ describe 'Controller: BillCtrl', () ->
       $scope: scope
     }
 
-  it 'should add the 20 most recent bills to the dropdown menu', () ->
+  xit 'should add the 20 most recent bills to the dropdown menu', () ->
     expect(scope.bills.length).toBe > 0;
