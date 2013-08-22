@@ -1,5 +1,16 @@
-<div class="hero-unit">
+<div class="hero-unit" ng-controller="CarouselCtrl">
   <h1>'Allo, 'Allo!</h1>
+
+  <carousel interval="myInterval">
+    <slide ng-repeat="slide in slides" active="slide.active">
+      <img ng-src="{{slide.image}}" style="margin:auto;">
+      <div class="carousel-caption">
+        <h4>Slide {{$index}}</h4>
+        <p>{{slide.text}}</p>
+      </div>
+    </slide>
+  </carousel>
+
   <p>You now have</p>
   <ul>
       <li ng-repeat="thing in awesomeThings">{{thing}}</li>
