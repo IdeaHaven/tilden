@@ -14,7 +14,7 @@ angular.module('appApp')
 
 
     $scope.get_all_reps_in_office = ()->
-      ApiGet.congress "/legislators?per_page_all", $scope.callback_all_reps_in_office, this
+      ApiGet.congress "legislators?per_page_all", $scope.callback_all_reps_in_office, this
 
     $scope.callback_all_reps_in_office = (error, data) ->
       if not error
