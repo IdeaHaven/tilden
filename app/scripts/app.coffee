@@ -12,6 +12,9 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/individual',
         templateUrl: 'views/individual.html'
         controller: 'IndividualCtrl'
+      .when '/district_map',
+        templateUrl: 'views/district_map.html'
+        controller: 'DistrictCtrl'
       .otherwise
         redirectTo: '/'
   ]
