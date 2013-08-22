@@ -5,11 +5,24 @@ angular.module('appApp.controllers')
     $scope.bill = {}
     $scope.bills = []
     $scope.$watch "bill", ->
-      getBillText $scope.bill.last_version.urls.html
+      billCode = makeBillCode()
+      $location.search(billCode)
+      getBillText makeBillUrl(billCode)
       setTimeout (->
         $("#billText").annotator().annotator('setupPlugins', {token: 'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJpc3N1ZWRBdCI6ICIyMDEzLTA4LTIxVDE3OjU5OjQwWiIsICJjb25zdW1lcktleSI6ICI2N2NkYjJmOWNmZGY0NTE4YmIxMWQ3NTQ2YWUzMTExMSIsICJ1c2VySWQiOiAiYWxsIiwgInR0bCI6IDEyMDk2MDB9.mEQHB3rx81tfqGs7zA3VOcckOyo-Dsa3HyEeva_daIA'})
       ), 3000
       console.log "Ready to annotate!"
+
+    makeBillCode = ->
+      billCode = "BILLS-#{$scope.bill.congress}#{$scope.bill.bill_type}#{$scope.bill.number}#{$scope.bill.last_version.version_code}"
+      return billCode
+    
+    makeBillUrl = (billCode) ->
+      requestUrl = "http://www.gpo.gov/fdsys/pkg/#{billCode}/html/#{billCode}.htm"
+      return requestUrl
+
+    getBillTextOnLoad = ->
+      if Object.keys($location.search()) then getBillText(makeBillUrl(Object.keys($location.search())[0]))
 
     getBillList = ->
       $http(
@@ -28,7 +41,7 @@ angular.module('appApp.controllers')
           q: "select * from html where url=\'#{url}\'"
           format: "json"
       ).success((data, status) ->
-        console.log wordGraph(data.query.results.body.pre.replace(/<all>/g, '').replace(/^[^_]*_/, '').replace(/_\n\r/g, ''))
+        # console.log wordGraph(data.query.results.body.pre.replace(/<all>/g, '').replace(/^[^_]*_/, '').replace(/_\n\r/g, ''))
         $scope.bill.text = data.query.results.body.pre.replace(/<all>/g, '').replace(/^[^_]*_/, '').replace(/\n/g, '<br>')
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
@@ -50,4 +63,6 @@ angular.module('appApp.controllers')
       result
 
     getBillList()
+    console.log Object.keys($location.search())[0]
+    getBillTextOnLoad()
   ])
