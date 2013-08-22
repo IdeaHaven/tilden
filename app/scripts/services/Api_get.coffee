@@ -48,4 +48,21 @@ angular.module('appApp.services')
           callback.apply(context, args)
       .error (data, status, headers, config)->
         callback "Error pulling #{path} from New York Times API", null
+    littleSis: (path, callback, context)->
+      args = Array.prototype.slice.call(arguments, 2)
+      context = args.shift()
+      apiurl = "http://api.littlesis.org/#{path}.xml?_key=f7415b282639a97967b87a0fa561a92960409a3e"
+      $http
+        method: "GET"
+        url: "http://query.yahooapis.com/v1/public/yql"
+        params:
+          q: "select * from json where url=\"#{apiurl}\""
+          format: "json"
+      .success (data, status, headers, config)->
+        if data.query.results
+          args.unshift data.query.results.json
+          args.unshift null
+          callback.apply(context, args)
+      .error (data, status, headers, config)->
+        callback "Error pulling #{path} from LittleSis", null
   ]
