@@ -34,6 +34,7 @@ angular.module('appApp')
     $scope.highlightDistrict = () ->
       d3.select('.districts').selectAll('path').classed('selected', false)
       if $scope.state_district.state
+        $scope.showDistrictDialog()
         $scope.district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
         $scope.district_element.attr('class', 'selected')
         $scope.bounding_box = $scope.district_element[0][0].getBoundingClientRect()
@@ -48,7 +49,7 @@ angular.module('appApp')
         district.on("mouseover", () ->
           return tooltip.style("visibility", "visible").text(d3.select(this).text())
         ).on("mousemove", () -> 
-          return tooltip.style("top", (event.pageY-10)+"px").style("left", (event.pageX+10+"px"))
+          return tooltip.style("top", (event.pageY-27)+"px").style("left", (event.pageX+"px"))
         ).on("mouseout", () -> 
           return tooltip.style("visibility", "hidden")
         ).on("click", () ->
@@ -83,6 +84,7 @@ angular.module('appApp')
       bbox = element.getBBox()
       x = bbox.x + bbox.width/2
       y = bbox.y + bbox.height/2
+      if y < 106 and (bbox.height > 53 or bbox.width > 53) then y += (106 - y)
       scale = 200/Math.sqrt(Math.pow(bbox.width, 2) + Math.pow(bbox.height,2))
       $scope.usMap.transition().duration(750).attr("transform", "translate(" + 960 / 2 + "," + 600 / 2 + ")scale(" + scale + ")translate(" + -x + "," + -y + ")").style "stroke-width", 1.5 / scale + "px"
 
@@ -93,6 +95,9 @@ angular.module('appApp')
       $scope.warning = null
       $scope.state_district = {state: null, district: null}
       $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
+
+    $scope.showDistrictDialog = () ->
+      console.log "Function definition coming soon!"
 
     $scope.drawMap()
 
