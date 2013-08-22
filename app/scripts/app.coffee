@@ -6,7 +6,7 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
-      .when '/bills',
+      .when '/bills/:billid',
         templateUrl: 'views/billtext.html'
         controller: 'BillCtrl'
       .when '/individual',
