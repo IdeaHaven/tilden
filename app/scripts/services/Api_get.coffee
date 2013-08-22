@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appApp.services', [])
+angular.module('appApp.services')
   .factory 'ApiGet', ['$http', ($http) ->
     congress: (path, callback, context) ->
       args = Array.prototype.slice.call(arguments, 2)

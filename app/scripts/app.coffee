@@ -12,9 +12,16 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/individual',
         templateUrl: 'views/individual.html'
         controller: 'IndividualCtrl'
+      .when '/district_map',
+        templateUrl: 'views/district_map.html'
+        controller: 'DistrictCtrl'
       .otherwise
         redirectTo: '/'
   ]
+# depency inject should happen here
+angular.module('appApp.controllers', ['appApp.services', 'appApp.directives', 'ui.bootstrap'])
+angular.module('appApp.directives', [])
+angular.module('appApp.services', [])
 
 # set default headers to cors for api access
 angular.module('appApp')
