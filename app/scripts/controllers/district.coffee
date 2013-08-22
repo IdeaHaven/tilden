@@ -34,11 +34,11 @@ angular.module('appApp')
     $scope.highlightDistrict = () ->
       d3.select('.districts').selectAll('path').classed('selected', false)
       if $scope.state_district.state
-        $scope.showDistrictDialog()
         $scope.district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
         $scope.district_element.attr('class', 'selected')
         $scope.bounding_box = $scope.district_element[0][0].getBoundingClientRect()
         $scope.district_element.call($scope.zoomIn)
+        $scope.showDistrictDialog()
 
     $scope.drawMap = () ->
       ready = (error, us, congress) ->
@@ -74,9 +74,14 @@ angular.module('appApp')
       tooltip = d3.select("#map_holder")
         .append("div")
         .attr("class", "map_tooltip")
-        .style("position", "absolute")
         .style("z-index", "10")
         .style("visibility", "hidden")
+      dialog = d3.select("#map_holder")
+        .append("div")
+        .style("opacity", 1e-6)
+        .style("z-index", "15")
+        .attr("id", "map_dialog")
+
       queue().defer(d3.json, "views/us.json").defer(d3.json, "views/us-congress-113.json").await ready
 
     $scope.zoomIn = (d) ->
@@ -90,6 +95,7 @@ angular.module('appApp')
 
     $scope.zoomOut = (d) ->
       d3.select('.districts').selectAll('path').classed('selected', false)
+      d3.select('#map_dialog').transition().duration(750).style("opacity", 1e-6)
       $scope.position = null
       $scope.selected_zip = null
       $scope.warning = null
@@ -97,7 +103,10 @@ angular.module('appApp')
       $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
 
     $scope.showDistrictDialog = () ->
-      console.log "Function definition coming soon!"
+      d3.select('#map_dialog')
+        .transition()
+        .duration(750)
+        .style("opacity", 1)
 
     $scope.drawMap()
 
