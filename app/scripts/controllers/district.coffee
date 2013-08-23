@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('appApp')
+angular.module('appApp.controllers')
   .controller 'DistrictCtrl', ['$scope', '$window', '$compile', 'ApiGet', ($scope, $window, $compile, ApiGet) ->
     $scope.supportGeo = $window.navigator
     $scope.position = null
@@ -144,3 +144,4 @@ angular.module('appApp')
     , true)
 
   ]
+  
