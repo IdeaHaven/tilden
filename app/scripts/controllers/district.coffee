@@ -56,9 +56,9 @@ angular.module('appApp.controllers')
 
     $scope.highlightDistrict = () ->
       d3.select('.districts').selectAll('path').classed('selected', false)
-      $scope.district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
-      $scope.district_element.attr('class', 'selected')
-      $scope.district_element.call($scope.zoomIn)
+      district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
+      district_element.attr('class', 'selected')
+      district_element.call($scope.zoomIn)
 
     $scope.drawMap = () ->
       ready = (error, us, congress) ->
@@ -102,7 +102,41 @@ angular.module('appApp.controllers')
         .style("z-index", "15")
         .attr("id", "map_dialog")
 
+      $scope.makeMapGradients()      
       queue().defer(d3.json, "views/us.json").defer(d3.json, "views/us-congress-113.json").await ready
+
+    $scope.makeMapGradients = () ->
+      d3.select("#map_holder").select("svg")
+        .append("radialGradient")
+          .attr("id", "selected_gradient")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "100%")
+        .selectAll("stop")
+          .data([
+            {offset: "0%", color: "#d2ff52"},
+            {offset: "100%", color: "#91e842"}
+          ])
+        .enter().append("stop")
+          .attr("offset", (d)-> return d.offset)
+          .attr("stop-color", (d)->  return d.color)
+
+      d3.select("#map_holder").select("svg")
+        .append("radialGradient")
+          .attr("id", "hover_gradient")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "100%")
+        .selectAll("stop")
+          .data([
+            {offset: "0%", color: "#f1e767"},
+            {offset: "100%", color: "#FCA625"}
+          ])
+        .enter().append("stop")
+          .attr("offset", (d)-> return d.offset)
+          .attr("stop-color", (d)->  return d.color)
 
     $scope.zoomIn = (d) ->
       element = d.node()
