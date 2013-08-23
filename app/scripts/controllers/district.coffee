@@ -1,13 +1,13 @@
 'use strict'
 
 angular.module('appApp')
-  .controller 'DistrictCtrl', ['$scope', '$window', 'ApiGet', ($scope, $window, ApiGet) ->
+  .controller 'DistrictCtrl', ['$scope', '$window', '$compile', 'ApiGet', ($scope, $window, $compile, ApiGet) ->
     $scope.supportGeo = $window.navigator
     $scope.position = null
     $scope.selected_zip = null
     $scope.warning = null
     $scope.state_district = {state: null, district: null}
-    $scope.state_district_data = null
+    $scope.district_reps = []
     $scope.FIPS_to_state = {1:'AL', 2:'AK', 4:'AZ', 5:'AR', 6:'CA', 8:'CO', 9:'CT', 10:'DE', 11:'DC', 12:'FL', 13:'GA', 15:'HI', 16:'ID', 17:'IL', 18:'IN', 19:'IA', 20:'KS', 21:'KY', 22:'LA', 23:'ME', 24:'MD', 25:'MA', 26:'MI', 27:'MN', 28:'MS', 29:'MO', 30:'MT', 31:'NE', 32:'NV', 33:'NH', 34:'NJ', 35:'NM', 36:'NY', 37:'NC', 38:'ND', 39:'OH', 40:'OK', 41:'OR', 42:'PA', 44:'RI', 45:'SC', 46:'SD', 47:'TN', 48:'TX', 49:'UT', 50:'VT', 51:'VA', 53:'WA', 54:'WV', 55:'WI', 56:'WY', 60:'AS', 64:'FM', 66:'GU', 68:'MH', 69:'MP', 70:'PW', 72:'PR', 74:'UM', 78:'VI'}
 
     $scope.getLocation = () ->
@@ -31,11 +31,26 @@ angular.module('appApp')
         $scope.state_district = {state: data[0].state, district: data[0].district}
       else console.log "Error: ", error
 
-    $scope.setDistrictData = () ->
-      ApiGet.congress "legislators?state=#{$scope.state_district.state}&district=#{$scope.state_district.district}"
-        , (error, data) ->
+    $scope.setDistrictData = (newVals, oldVals) ->
+      # Old and new values are passed in to see if there has been a change in state.
+      if newVals.state is oldVals.state
+        $scope.district_reps.pop()
+        ApiGet.congress "legislators?state=#{$scope.state_district.state}&district=#{$scope.state_district.district}", (error, data) ->
           if not error
-            $scope.state_district_data = data
+            $scope.district_reps.push(data[0])
+          else console.log "Error: ", error
+          , this
+      else
+        $scope.district_reps = []
+        ApiGet.congress "legislators?state=#{$scope.state_district.state}&title=Sen", (error, data) ->
+          if not error
+            for sen in data
+              $scope.district_reps.push(sen)
+          else console.log "Error: ", error
+          , this
+        ApiGet.congress "legislators?state=#{$scope.state_district.state}&district=#{$scope.state_district.district}", (error, data) ->
+          if not error
+            $scope.district_reps.push(data[0])
           else console.log "Error: ", error
           , this
 
@@ -100,30 +115,31 @@ angular.module('appApp')
 
     $scope.zoomOut = (d) ->
       d3.select('.districts').selectAll('path').classed('selected', false)
-      d3.select('#map_dialog').transition().duration(750).style("opacity", 1e-6)
       $scope.position = null
       $scope.selected_zip = null
       $scope.warning = null
       $scope.state_district = {state: null, district: null}
+      $scope.district_reps = []
+      d3.select('#map_dialog').transition().duration(750).style("opacity", 1e-6)
       $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
 
     $scope.showDistrictDialog = () ->
+      $('#map_dialog').html($compile("<sub-view template='partial/district_reps'></sub-view>")($scope)) 
       d3.select('#map_dialog')
         .transition()
         .duration(750)
         .style("opacity", 1)
-        .text("#{JSON.stringify($scope.state_district_data)}")
 
     $scope.drawMap()
 
     $scope.$watch('state_district', (newVals, oldVals) -> 
       if $scope.state_district.state
-        $scope.setDistrictData()
+        $scope.setDistrictData(newVals, oldVals)
         $scope.highlightDistrict()
     , true)
 
-    $scope.$watch('state_district_data', (newVals, oldVals) ->
-      if $scope.state_district_data
+    $scope.$watch('district_reps', (newVals, oldVals) ->
+      if $scope.district_reps.length
         $scope.showDistrictDialog()
     , true)
 
