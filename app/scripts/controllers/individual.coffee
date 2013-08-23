@@ -2,32 +2,12 @@
 
 angular.module('appApp.controllers')
   .controller('IndividualCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
-    $scope.reps = {}
     $scope.selected = {rep1: null, rep2: null, zip: null}
-    $scope.reps_names_list = []
     $scope.selected_rep = {bioguide_id: "K000381"} #grab from URL
 
     #loading checks
     $scope.loaded_trandparencydata_id = false
     $scope.loaded_bio = false
-
-
-    $scope.get_all_reps_in_office = ()->
-      ApiGet.congress "legislators?per_page_all", $scope.callback_all_reps_in_office, this
-
-    $scope.callback_all_reps_in_office = (error, data) ->
-      if not error
-        for rep in data
-          rep.fullname = "#{rep.title}. #{rep.first_name} #{rep.last_name}"
-          $scope.reps_names_list.push({name: rep.fullname, bioguide_id: rep.bioguide_id})
-          rep.chamber = rep.chamber.charAt(0).toUpperCase() + rep.chamber.slice(1)  # cap first letter
-          rep.party_name = if rep.party is "D" then "Democrat" else if rep.party is "R" then "Republican" else rep.party
-          $scope.reps[rep.bioguide_id] = {}
-          $scope.reps[rep.bioguide_id].overview = rep
-      else
-        console.log "Error: ", error
-   
-    $scope.get_all_reps_in_office()
 
     $scope.get_transparencydata_id = ()->
       if not $scope.loaded_trandparencydata_id
