@@ -1,30 +1,121 @@
 @import nib
 
-html, body
-  margin: 20px
+html body
+  margin 20px
+  color #eee
+  background #fafafa
+  font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+  color #333
+  text-transform none
+  letter-spacing 0
+  color #6b6b6b
+  text-align center
 
-body
-    background: #fafafa
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-    color: #333
+html body .mq-wide,
+  html body .mq-mid,
+  html body .mq-small,
+  html body .mq-wide-i-block,
+  html body .mq-mid-i-block,
+  html body .mq-small-i-block 
+    display none
+
+
+.clearfix,
+.container,
+.list-hex-grid 
+  *zoom 1
+
+.clearfixafter,
+.containerafter,
+.list-hex-gridafter 
+  content ""
+  display table
+  clear both
+
+.grid-3 
+  width 164.5px
+
+.index-text 
+  font-size 20px
+  margin 10px
+
+
+.index-page
+  padding 0px
+  background-color #eee
+
+.no-js
+  background-color #eee
+
+.container
+  background-color #eee
+
+.text-left 
+  text-align left
+
+.text-center 
+  text-align center 
+
+.text-right
+  text-align right
+
+#nav 
+  margin-top 0px
+  margin-bottom 20px
+  text-align center
+
+
+#nav a 
+  border-color #6a6a65
+  padding-bottom 5px
+  display block
+  font-size 17px
+
+#nav ahover, #nav aactive, #nav afocus 
+  border-color #16a6b6
+
+#tagline
+  font-size 60px
+
+#nav a.active 
+  color #ee6557
+  border-color #ee6557
+
+#nav a.active 
+  color #ee6557
+  border-color #ee6557
+
+#nav p 
+  display -moz-inline-stack
+  display inline-block
+  vertical-align middle
+  *vertical-align auto
+  zoom 1
+  *display inline
+  vertical-align middle
+  width 120px
+  margin 0 10px
+
+#nav p.alpha 
+  margin-left 0
+
+#nav p.omega 
+  margin-right 0
 
 .hero-unit
-    margin: 50px auto 0 auto;
-    width: 300px;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 30px;
-    background-color: #eee;
-    border-radius: 6px;
-    padding: 60px;
+  margin 50px auto 0 auto
+  width 300px
+  font-size 18px
+  font-weight 200
+  line-height 30px
+  background-color #eee
+  border-radius 6px
+  padding 60px
 
 .hero-unit h1
-    font-size: 60px
-    line-height: 1
-    letter-spacing: -1px
-
-ul
-    list-style-type: none
+  font-size 60px
+  line-height 1
+  letter-spacing -1px
 
 .map_tooltip
   user-select: none;
@@ -55,41 +146,444 @@ ul
   word-wrap:break-word;
 
 .billDetail h1
-    text-align: center
-    width: 90%
+  text-align center
+  width 90%
 
 #billText
-    display: block
-    width: 60%
-    margin: 0 auto
-    font-size: 18px
-    line-height: 18px
+  display block
+  width 60%
+  margin 0 auto
+  font-size 18px
+  line-height 18px
 
-#map_canvas path {
-  stroke-linejoin: round;
-}
+#map_canvas path 
+  stroke-linejoin round
 
-.districts {
-  fill: #bbb;
-}
 
-.districts :hover {
-  fill: orange;
-}
+.districts 
+  fill #bbb
 
-.districts .selected {
-  fill: green;
-}
 
-.district-boundaries {
-  pointer-events: none;
-  fill: none;
-  stroke: #ddd;
-}
+.districts hover 
+  fill orange
 
-.state-boundaries {
-  pointer-events: none;
-  fill: none;
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
+
+.districts .selected 
+  fill green
+
+
+.district-boundaries 
+  pointer-events none
+  fill none
+  stroke #ddd
+
+
+.state-boundaries 
+  pointer-events none
+  fill none
+  stroke #fff
+  stroke-width 1.5px
+
+
+.list-hex-grid 
+  margin-top 55px
+  margin-bottom 55px
+  font-size 0px
+  word-spacing 1px
+  word-spacing 0
+
+
+.list-hex-grid.with-labels 
+  margin-bottom 200px
+
+
+.list-hex-grid img 
+  display -moz-inline-stack
+  display inline-block
+  vertical-align middle
+  *vertical-align auto
+  zoom 1
+  *display inline
+  vertical-align top
+
+
+.list-hex-grid div.hex 
+  font-size 16px
+  display -moz-inline-stack
+  display inline-block
+  vertical-align middle
+  *vertical-align auto
+  zoom 1
+  *display inline
+  margin-top 28px
+  margin-bottom 28px
+  float none
+  position relative
+  z-index 10
+  margin-right 10px
+
+
+.list-inline-block > li 
+  margin-top 0
+  display -moz-inline-stack
+  display inline-block
+  vertical-align middle
+  *vertical-align auto
+  zoom 1
+  *display inline
+  vertical-align top
+
+.list-hex-grid div.hex > a,
+.list-hex-grid div.hex > div 
+  height 110px
+  line-height 220px
+
+
+.list-hex-grid div.hex .inner 
+  top -55px
+
+
+.list-hex-grid div.hex .hex-1before,
+.list-hex-grid div.hex .hex-2before 
+  height 220px
+  width 220px
+
+
+.list-hex-grid div.hex .hex-1before 
+  -webkit-transform rotate(-60deg) translate(-110px, 0)
+  -moz-transform rotate(-60deg) translate(-110px, 0)
+  -ms-transform rotate(-60deg) translate(-110px, 0)
+  -o-transform rotate(-60deg) translate(-110px, 0)
+  transform rotate(-60deg) translate(-110px, 0)
+
+
+.list-hex-grid div.hex .hex-2before 
+  -webkit-transform rotate(60deg) translate(40px, 40px)
+  -moz-transform rotate(60deg) translate(40px, 40px)
+  -ms-transform rotate(60deg) translate(40px, 40px)
+  -o-transform rotate(60deg) translate(40px, 40px)
+  transform rotate(60deg) translate(40px, 40px)
+
+
+.list-hex-grid div.hex > a,
+.list-hex-grid div.hex > div 
+  font-size 18px
+  word-spacing 1px
+  -webkit-transition none 1s
+  -moz-transition none 1s
+  -o-transition none 1s
+  transition none 1s
+  background-color whitesmoke
+  background-repeat no-repeat
+  background-position 50% 50%
+  -webkit-background-size auto 220px
+  -moz-background-size auto 220px
+  -o-background-size auto 220px
+  background-size auto 220px
+  text-align center
+  display block
+  border none
+  color #fff
+  -webkit-backface-visibility hidden
+
+
+.list-hex-grid div.hex p 
+  color #fff
+  font-size 16px
+
+
+.list-hex-grid div.hex .inner 
+  display -moz-inline-stack
+  display inline-block
+  vertical-align middle
+  *vertical-align auto
+  zoom 1
+  *display inline
+  white-space normal
+  z-index 20
+  position relative
+  max-width 80%
+  color #fff !important
+  font-family "freightsans_regular", sans-serif
+  font-weight 300
+  text-transform uppercase
+  letter-spacing 3px
+  line-height 22px
+
+
+.list-hex-grid div.hex .inner img 
+  display -moz-inline-stack
+  display inline-block
+  vertical-align middle
+  *vertical-align auto
+  zoom 1
+  *display inline
+
+
+.list-hex-grid div.hex .hex-1,
+.list-hex-grid div.hex .hex-2 
+  position absolute
+  height 100%
+  width 100%
+  top 0
+  left 0
+  z-index -2
+  overflow hidden
+  background inherit
+  -webkit-backface-visibility hidden
+
+
+.list-hex-grid div.hex .hex-1before,
+.list-hex-grid div.hex .hex-2before 
+  content ''
+  position absolute
+  background inherit
+  left 0
+  z-index -1
+  background inherit
+
+
+.list-hex-grid div.hex .hex-1 .after,
+.list-hex-grid div.hex .hex-2 .after 
+  z-index -1
+
+
+.list-hex-grid div.hex .hex-1 
+  z-index -1
+  -webkit-transform rotate(60deg)
+  -moz-transform rotate(60deg)
+  -ms-transform rotate(60deg)
+  -o-transform rotate(60deg)
+  transform rotate(60deg)
+
+
+.list-hex-grid div.hex .hex-1before 
+  -webkit-transform-origin 0 0
+  -moz-transform-origin 0 0
+  -ms-transform-origin 0 0
+  -o-transform-origin 0 0
+  transform-origin 0 0
+
+
+.list-hex-grid div.hex .hex-2 
+  -webkit-transform rotate(-60deg)
+  -moz-transform rotate(-60deg)
+  -ms-transform rotate(-60deg)
+  -o-transform rotate(-60deg)
+  transform rotate(-60deg)
+
+
+.list-hex-grid div.hex .hex-2before 
+  bottom 0
+
+
+.list-hex-grid div.hex .after 
+  -webkit-transition none 1s
+  -moz-transition none 1s
+  -o-transition none 1s
+  transition none 1s
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  z-index 15
+  background #16a6b6
+
+.list-hex-grid div.hex.primary > a,
+.list-hex-grid div.hex.primary > div 
+  background-color #16a6b6
+
+
+.list-hex-grid div.hex.primary .after 
+  background-color #16a6b6
+  border-color #16a6b6
+
+
+.list-hex-grid div.hex.secondary > a,
+.list-hex-grid div.hex.secondary > div 
+  background-color #ee6557
+
+
+.list-hex-grid div.hex.secondary .after 
+  background-color #ee6557
+  border-color #ee6557
+
+
+.list-hex-grid div.hex.tertiary > a,
+.list-hex-grid div.hex.tertiary > div 
+  background-color #bfbfbf
+
+
+.list-hex-grid div.hex.tertiary .after 
+  background-color #bfbfbf
+  border-color #bfbfbf
+
+
+.list-hex-grid div.hex.quaternary > a,
+.list-hex-grid div.hex.quaternary > div 
+  background-color #fff
+
+
+.list-hex-grid div.hex.quaternary .after 
+  background-color #fff
+  border-color #fff
+
+
+.list-hex-grid div.hex.plain-bg > a,
+.list-hex-grid div.hex.plain-bg > div 
+  background-color #fff
+  border-color #fff
+
+.list-hex-grid div.hex.invert .after,.list-hex-grid div.hex.invert .inner 
+// filter progidDXImageTransform.Microsoft.Alpha(Opacity=0)
+  opacity 0
+  -webkit-transition none 1s
+  -moz-transition none 1s
+  -o-transition none 1s
+  transition none 1s
+
+
+.list-hex-grid div.hex.inline-bg img 
+  position absolute
+  top 0
+  left 0
+  max-height 100%
+
+
+.list-hex-grid div.hex.full-img img 
+  max-height 140%
+  width auto
+
+
+.list-hex-grid hr 
+  background-color #fff
+
+
+.list-hex-grid h3 
+  color #fff
+
+
+.list-hex-grid h3.flex 
+  font-size 1.25em
+  line-height 1.375em
+
+
+.list-hex-grid h6.below 
+  position absolute
+  width 100%
+  margin-top 0
+  bottom -84px
+
+
+.list-hex-grid .h1.large 
+  font-size 2em
+  line-height 1.4
+
+
+.list-hex-grid.large div.hex 
+  margin-top 37px
+  margin-bottom 37px
+  margin-top 47px
+  margin-bottom 47px
+
+
+.list-hex-grid.large div.hex > a,
+.list-hex-grid.large div.hex > div 
+  height 150px
+  line-height 300px
+
+
+.list-hex-grid.large div.hex .inner 
+  top -75px
+
+
+.list-hex-grid.large div.hex .hex-1before,
+.list-hex-grid.large div.hex .hex-2before 
+  height 300px
+  width 300px
+
+
+.list-hex-grid.large div.hex .hex-1before 
+  -webkit-transform rotate(-60deg) translate(-150px, 0)
+  -moz-transform rotate(-60deg) translate(-150px, 0)
+  -ms-transform rotate(-60deg) translate(-150px, 0)
+  -o-transform rotate(-60deg) translate(-150px, 0)
+  transform rotate(-60deg) translate(-150px, 0)
+
+
+.list-hex-grid.large div.hex .hex-2before 
+  -webkit-transform rotate(60deg) translate(55px, 55px)
+  -moz-transform rotate(60deg) translate(55px, 55px)
+  -ms-transform rotate(60deg) translate(55px, 55px)
+  -o-transform rotate(60deg) translate(55px, 55px)
+  transform rotate(60deg) translate(55px, 55px)
+
+
+.list-hex-grid.large div.hex > a,
+.list-hex-grid.large div.hex > div 
+  -webkit-background-size auto 300px
+  -moz-background-size auto 300px
+  -o-background-size auto 300px
+  background-size auto 300px
+
+
+.list-hex-grid.mid div.hex 
+  margin-top 37px
+  margin-bottom 37px
+  width 220px
+  margin-top 40px
+  margin-bottom 40px
+
+
+.list-hex-grid.mid div.hex > a,
+.list-hex-grid.mid div.hex > div 
+  height 127px
+  line-height 254px
+
+
+.list-hex-grid.mid div.hex .inner 
+  top -63.5px
+
+
+.list-hex-grid.mid div.hex .hex-1before,
+.list-hex-grid.mid div.hex .hex-2before 
+  height 254px
+  width 254px
+
+
+.list-hex-grid.mid div.hex .hex-1before 
+  -webkit-transform rotate(-60deg) translate(-127px, 0)
+  -moz-transform rotate(-60deg) translate(-127px, 0)
+  -ms-transform rotate(-60deg) translate(-127px, 0)
+  -o-transform rotate(-60deg) translate(-127px, 0)
+  transform rotate(-60deg) translate(-127px, 0)
+
+
+.list-hex-grid.mid div.hex .hex-2before 
+  -webkit-transform rotate(60deg) translate(47px, 47px)
+  -moz-transform rotate(60deg) translate(47px, 47px)
+  -ms-transform rotate(60deg) translate(47px, 47px)
+  -o-transform rotate(60deg) translate(47px, 47px)
+  transform rotate(60deg) translate(47px, 47px)
+
+
+.list-hex-grid.mid div.hex > a,
+.list-hex-grid.mid div.hex > div 
+  -webkit-background-size auto 260px
+  -moz-background-size auto 260px
+  -o-background-size auto 260px
+  background-size auto 260px
+
+
+.list-hex-grid.modal-active div.hex > a,
+.list-hex-grid.modal-active div.hex > div 
+  -webkit-backface-visibility visible
+
+
+.list-hex-grid.modal-active div.hex > a .hex-1,
+.list-hex-grid.modal-active div.hex > a .hex-2,
+.list-hex-grid.modal-active div.hex > div .hex-1,
+.list-hex-grid.modal-active div.hex > div .hex-2 
+  -webkit-backface-visibility visible
+
