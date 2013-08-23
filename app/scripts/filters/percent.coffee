@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appApp.filter')
+angular.module('appApp.filters')
   .filter 'percent', [() ->
     (input) ->
       'percent filter: ' + input
