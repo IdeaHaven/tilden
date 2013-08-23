@@ -18,7 +18,7 @@ angular.module('appApp.controllers')
 
     makeBillCode = ->
       return "BILLS-#{$scope.bill.congress}#{$scope.bill.bill_type}#{$scope.bill.number}#{$scope.bill.last_version.version_code}"
-    
+
     makeBillUrl = (billCode) ->
       return "http://www.gpo.gov/fdsys/pkg/#{billCode}/html/#{billCode}.htm"
 

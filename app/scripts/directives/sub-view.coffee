@@ -7,4 +7,3 @@ angular.module('appApp.directives')
     templateUrl: (element, attrs) ->
       "views/#{attrs.template}.html"
   ])
- 

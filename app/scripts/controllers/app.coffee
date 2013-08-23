@@ -5,7 +5,7 @@ angular.module('appApp.controllers')
     # init root ctrl vars to share data between controllers
     $scope.reps = {}
     $scope.reps_list = []
-    $scope.selected = 
+    $scope.selected =
       rep1: null
       rep2: null
       zip: null
@@ -26,7 +26,7 @@ angular.module('appApp.controllers')
           $scope.reps[rep.bioguide_id].overview = rep
       else
         console.warn "Error: ", error
-   
+
     # init
     $scope.get_all_reps_in_office()
 
