@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller 'AppCtrl', ['$scope', ($scope) ->
+  .controller 'AppCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
     # init root ctrl vars to share data between controllers
     $scope.reps = {}
     $scope.reps_list = []
