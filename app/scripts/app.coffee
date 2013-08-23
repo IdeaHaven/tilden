@@ -9,6 +9,9 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/bills/:billid',
         templateUrl: 'views/billtext.html'
         controller: 'BillCtrl'
+      .when '/words',
+        templateUrl: 'views/words.html'
+        controller: 'WordsCtrl'
       .when '/individual',
         templateUrl: 'views/individual.html'
         controller: 'IndividualCtrl'
