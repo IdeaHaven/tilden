@@ -1,22 +1,18 @@
 'use strict'
 
-angular.module('appApp.controllers', ['appApp.services', 'appApp.directives', 'ui.bootstrap'])
+angular.module('appApp.controllers')
   .controller('MainCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
     $scope.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma']
-    $scope.reps = {}
-    $scope.reps_names_list = []
-
-    $scope.get_all_reps_in_office = ()->
-      ApiGet.congress "/legislators?per_page_all", $scope.callback_all_reps_in_office, this
-
-    $scope.callback_all_reps_in_office = (error, data) ->
-      if not error
-        for rep in data
-          rep.fullname = "#{rep.title}. #{rep.first_name} #{rep.last_name}"
-          $scope.reps_names_list.push({name: rep.fullname})
-      else
-        console.log "Error: ", error
-   
-    $scope.get_all_reps_in_office()
-    
+    $scope.htmlTooltip1 = "Find your Representatives";    
+    $scope.htmlTooltip2 = "Compare your Representatives";    
+    $scope.htmlTooltip3 = "Find your Representatives";    
+    $scope.htmlTooltip4 = "See who Funds your Representatives";    
+    $scope.htmlTooltip5 = "Search for Bills your Representatives Voted On";    
+    $scope.htmlTooltip6 = "Find your Representatives";    
+    $scope.htmlTooltip7 = "Geolocation";    
+    $scope.htmlTooltip8 = "Annotate the Bills!";    
+    $scope.htmlTooltip9 = "Deleted Tweets";    
+    $scope.htmlTooltip10 = "Find your Representatives";    
+    $scope.htmlTooltip11 = "Find your Representatives";    
+    $scope.htmlTooltip12 = "Find your Representatives";    
   ])
