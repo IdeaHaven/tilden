@@ -19,7 +19,6 @@ html body .mq-wide,
   html body .mq-small-i-block 
     display none
 
-
 .clearfix,
 .container,
 .list-hex-grid 
@@ -125,21 +124,23 @@ html body .mq-wide,
   height: 14px;
   padding: 5px;
   font: 10px sans-serif;
+  font-weight: bold;
   background: #ddd;
   border: solid 1px #000;
   pointer-events: none;
 
 #map_dialog
-  cursor: default;
+  user-select: none;
   position: absolute;
   text-align: left;
   top: 80px;
   left: 100px;
   width: 250px;
-  height: 420px;
+  height: 325px;
   padding: 10px;
   font: 10px sans-serif;
-  background: #ddd;
+  color: #3D3D3D;
+  background linear-gradient(bottom left, rgba(246,248,249,0.7) 0%,rgba(229,235,238,0.8) 50%,rgba(215,222,227,0.8) 51%,rgba(245,247,249,0.9) 100%)
   border: solid 1px #aaa;
   border-radius: 8px;
   pointer-events: none;
@@ -159,18 +160,14 @@ html body .mq-wide,
 #map_canvas path 
   stroke-linejoin round
 
-
 .districts 
-  fill #bbb
+  fill #6B6B6B
 
-
-.districts hover 
-  fill orange
-
+.districts :hover 
+  fill: url(#hover_gradient)
 
 .districts .selected 
-  fill green
-
+  fill url(#selected_gradient)
 
 .district-boundaries 
   pointer-events none
