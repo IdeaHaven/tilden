@@ -1,4 +1,5 @@
-<button ng-click="getLocation()">Get Location</button>
-{{position}}
-{{state_district}}
+<button ng-click="getLocation()">Find District by Current Location</button>
+<input class="zip_field" ng-model="selected_zip"></input>
+<button ng-click="findDistrictByZip()">Find District by Zip Code</button>
+{{warning}}
 <div id="map_holder"> </div>
