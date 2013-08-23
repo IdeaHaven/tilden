@@ -3,7 +3,7 @@
 describe 'Controller: IndividualCtrl', () ->
 
   # load the controller's module
-  beforeEach module 'appApp'
+  beforeEach module 'appApp.controllers'
 
   IndividualCtrl = {}
   scope = {}
