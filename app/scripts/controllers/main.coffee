@@ -2,7 +2,6 @@
 
 angular.module('appApp.controllers')
   .controller('MainCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
-    $scope.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma']
     $scope.htmlTooltip1 = "Find your Representatives";    
     $scope.htmlTooltip2 = "Compare your Representatives";    
     $scope.htmlTooltip3 = "Find your Representatives";    

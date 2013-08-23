@@ -1,17 +1,17 @@
 'use strict'
 
-describe 'Controller: CarouselCtrl', () ->
+describe 'Controller: AppCtrl', () ->
 
   # load the controller's module
-  beforeEach module 'appApp'
+  beforeEach module 'appApp.controllers'
 
-  CarouselCtrl = {}
+  AppCtrl = {}
   scope = {}
 
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new()
-    CarouselCtrl = $controller 'CarouselCtrl', {
+    AppCtrl = $controller 'AppCtrl', {
       $scope: scope
     }
 
