@@ -6,9 +6,9 @@ angular.module('appApp.controllers')
     $scope.reps = []
     $scope.words = []
     $scope.$watch "rep", ->
-      getRepWords()
+      $scope.getRepWords()
 
-    getRepWords = ->
+    $scope.getRepWords = ->
       url = "http://capitolwords.org/api/1/phrases.json?entity_type=legislator&entity_value=#{$scope.rep.bioguide_id}&apikey=3cdfa27b289e4d4090fd1b176c45e6cf"
       $http(
         method: "GET"
@@ -17,13 +17,12 @@ angular.module('appApp.controllers')
           q: "select * from json where url=\'#{url}\'"
           format: "json"
       ).success((data, status) ->
-        console.log data
-        $scope.words = data.query.results.json.json
+        $scope.words = $scope.stringToIntForWordCount(data.query.results.json.json)
         console.log $scope.words
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
 
-    getBillList = ->
+    $scope.getBillList = ->
       $http(
         method: "GET"
         url: "http://congress.api.sunlightfoundation.com/legislators?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&chamber=senate&per_page=50&page=2"
@@ -33,5 +32,13 @@ angular.module('appApp.controllers')
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
 
-    getBillList()
+    $scope.stringToIntForWordCount = (array) ->
+      i = 0
+
+      while i < array.length
+        array[i].count = Number(array[i].count)
+        i++
+      return array
+
+    $scope.getBillList()
   ])
