@@ -1,0 +1,26 @@
+<h4>District {{state_district.state}}-{{state_district.district}}</h4>
+<ul ng-repeat="rep in district_reps">
+	<li class="controls-row">
+		<h5>{{rep.title}}. {{rep.first_name}} {{rep.last_name}}</h5>
+	</li>
+	<li class="controls-row">
+		<span class="control-label"><strong>Term:</strong></span>
+		<span class="controls">
+			{{rep.term_start}} to {{rep.term_end}}
+		</span>
+	</li>
+	<li class="controls-row">
+		<span class="control-label"><strong>Phone:</strong></span>
+		<span class="controls">{{rep.phone}}</span>
+	</li>
+	<li class="controls-row">
+		<span class="control-label"><strong>Website:</strong></span>
+		<span class="controls">{{rep.website}}</span>
+	</li>
+	<li class="controls-row">
+		<span class="control-label"><strong>Twitter:</strong></span>
+		<span class="controls">@{{rep.twitter_id}}</span>
+	</li>
+</ul>
+<!-- <a href="{{rep.contact_form}}">Contact This Senator (off-site link)</a>
+ -->
