@@ -5,9 +5,11 @@
   </div>
   <div>{{ reps["K000381"]["overview"]['first_name'] }} {{ reps["K000381"]["overview"]['last_name'] }}</div>
   <div>{{ reps["K000381"]["overview"]['chamber'] }} Member representing {{ reps["K000381"]["overview"]['state_name'] }}</div>
+  <div>LittleSis Data: </div>
 <ul class="nav nav-pills">
   <li><a ng-init="showRepInfo = false" ng-click="showRepInfo = !showRepInfo">Rep Info</a></li>
   <li><a ng-init="showContactInfo = false" ng-click="showContactInfo = !showContactInfo">Contact Info</a></li>
+  <li><a ng-init="showActivityInfo = false" ng-click="showActivityInfo = !showActivityInfo">Activity Info</a></li>
 </ul>
   <div ng-show="showRepInfo">
     <dl class="dl-horizontal">
@@ -24,7 +26,7 @@
       <dt>Phone</dt>
       <dd>{{ reps["K000381"]["overview"]['phone'] }}</dd>
       <dt>Website</dt>
-      <dd>{{ reps["K000381"]["overview"]['website'] }}</dd>
+      <dd><a href="#{reps[\'K000381\'].overview.website}">{{ reps["K000381"]["overview"]['website'] }}</a> </dd>
       <dt>Office</dt>
       <dd>{{ reps["K000381"]["overview"]['office'] }}</dd>
       <dt>Contact Form</dt>
@@ -35,5 +37,13 @@
       <dd>{{ reps["K000381"]["overview"]['facebook_id'] }}</dd>
       <dt>YouTube Channel</dt>
       <dd>{{ reps["K000381"]["overview"]['youtube_id'] }}</dd>
+    </dl>
+  </div>
+  <div ng-show="showActivityInfo">
+    <dl class="dl-horizontal">
+      <dt>Votes with party</dt>
+      <dd>{{ nyt_data['results']['roles'][0]['votes_with_party_pct']}}</dd>
+      <dt>Missed votes</dt>
+      <dd>{{ nyt_data['results']['roles'][0]['missed_votes_pct'] }}</dd>
     </dl>
   </div>

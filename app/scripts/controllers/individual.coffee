@@ -63,6 +63,17 @@ angular.module('appApp')
       else console.log "Error: ", error
 
     $scope.get_nyt()
+
+    $scope.get_littleSis = ()->
+      ApiGet.littleSis "entities/bioguide_id/#{$scope.selected_rep.bioguide_id}", $scope.callback_littleSis, this
+
+    $scope.callback_littleSis = (error, data)->
+      if not error
+        $scope.littleSis_data = data.query
+      else console.log "Error: ", error
+
+    $scope.get_littleSis()
+
   ])
   # .controller('ChartCtrl', ['$scope', '$http', 'ApiGet', ($scope, $http) ->
   #   $scope.source = {}
