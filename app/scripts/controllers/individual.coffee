@@ -35,7 +35,8 @@ angular.module('appApp.controllers')
     $scope.callback_nyt = (error, data)->
       #check for nyt_data on reps, return if there and run API if not
       if not error
-        $scope.nyt_data = data
+        $scope.selected_rep.nyt_data = data
+        $scope.reps[$scope.selected_rep.bioguide_id].overview.nyt_data = data
       else console.log "Error: ", error
 
     $scope.get_transparencydata_id()
