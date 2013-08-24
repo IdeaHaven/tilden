@@ -32,7 +32,6 @@ angular.module('appApp.services')
       .error (data, status, headers, config)->
         callback "Error pulling #{path} from Sunlight Influence Explorer API", null
     nyt: (path, callback, context)->
-      console.log 'in api', arguments
       args = Array.prototype.slice.call(arguments, 2)
       context = args.shift()
       apiurl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/#{path}.json?api-key=3c10766dde4415328ac78b4bb6b824ca:9:67943481"
