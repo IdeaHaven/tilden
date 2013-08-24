@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('IndividualCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
+  .controller('IndividualCtrl', ['$scope', 'ApiGet', 'Member_data', ($scope, ApiGet, Member_data) ->
     $scope.selected = {rep1: null, rep2: null, zip: null}
     $scope.selected_rep = {bioguide_id: "K000381"} #grab from URL
 
@@ -22,8 +22,6 @@ angular.module('appApp.controllers')
         $scope.get_bio()
       else console.log "Error: ", error
 
-    $scope.get_transparencydata_id()
-
     $scope.get_bio = ()->
       if not $scope.loaded_bio
         ApiGet.influence "entities/#{$scope.selected_rep.transparencydata_id}.json?", $scope.callback_bio, this
@@ -34,24 +32,19 @@ angular.module('appApp.controllers')
         $scope.loaded_bio = true
       else console.log "Error: ", error
 
-    $scope.get_nyt = ()->
-      ApiGet.nyt 'members/M000303', $scope.callback_nyt, this
-
     $scope.callback_nyt = (error, data)->
       if not error
-        $scope.nyt_data = data
+        $scope.selected_rep.nyt_data = data
+        $scope.reps[$scope.selected_rep.bioguide_id].overview.nyt_data = data
       else console.log "Error: ", error
-
-    $scope.get_nyt()
-
-    $scope.get_littleSis = ()->
-      ApiGet.littleSis "entities/bioguide_id/#{$scope.selected_rep.bioguide_id}", $scope.callback_littleSis, this
 
     $scope.callback_littleSis = (error, data)->
       if not error
-        $scope.littleSis_data = data.query
-      else console.log "Error: ", error
+        $scope.selected_rep.littleSis_data = data.query
+        $scope.reps[$scope.selected_rep.bioguide_id].overview.littleSis_data = data.query
+      else console.log "Error: ", error  
 
-    $scope.get_littleSis()
+    $scope.get_transparencydata_id()
+    Member_data.get_nyt($scope.selected_rep.bioguide_id, $scope.callback_nyt)
 
   ])
