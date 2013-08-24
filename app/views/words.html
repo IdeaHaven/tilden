@@ -1,8 +1,29 @@
-<div class="repWords">
-  <select ng-model="rep" ng-options="rep.last_name for rep in reps | orderBy:'last_name'"></select>
-  <p ng-repeat="word in (words | orderBy:'count':true)">{{word.ngram}}: {{word.count}}</p>
-</div>
-<div class="wordQuery">
-  <input ng-model="wordQuery"></input>
-  <p class="wordFrequency">{{wordFrequency}}</p>
-</div>
+<!-- <table class="words">
+  <tr class="repWords">
+    <td><h2>What is your legislator saying?</h2></td>
+    <td><select ng-model="rep" ng-options="rep.last_name for rep in reps | orderBy:'last_name'"></select></td>
+    <td><p ng-repeat="word in (words | orderBy:'count':true)">{{word.ngram}}: {{word.count}}</p></td>
+  <tr class="wordQuery">
+    <td><h2>Search how often Congress says a word</h2></td>
+    <td><input ng-model="wordQuery"></input></td>
+    <td><p class="wordFrequency">{{wordFrequency}}</p></td>
+  </tr>
+</table> -->
+
+<table class="words">
+  <tr>
+    <td><h2>What is your legislator saying?</h2></td>
+    <td class="spacer"></td>
+    <td><h2>How often do legislators say...</h2></td>
+  </tr>
+  <tr>
+    <td><select ng-model="rep" ng-options="rep.last_name for rep in reps | orderBy:'last_name'"></select></td>
+    <td class="spacer"></td>
+    <td><input ng-model="wordQuery"></input></td>
+  </tr>
+  <tr>
+    <td><p ng-repeat="word in (words | orderBy:'count':true)">{{word.ngram}}: {{word.count}}</p></td>
+    <td class="spacer"></td>
+    <td class="wordFrequency"><strong>{{wordFrequency}}</strong> times since 1996</td>
+  </tr>
+</table>
