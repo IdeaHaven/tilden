@@ -102,11 +102,9 @@ angular.module('appApp.controllers')
         .attr("class", "map_tooltip")
         .style("z-index", "10")
         .style("visibility", "hidden")
-      dialog = d3.select("#map_holder")
-        .append("div")
+      dialog = d3.select("#map_dialog")
         .style("opacity", 1e-6)
         .style("z-index", "15")
-        .attr("id", "map_dialog")
 
       $scope.makeMapGradients()      
       queue().defer(d3.json, "views/us.json").defer(d3.json, "views/us-congress-113.json").await ready
