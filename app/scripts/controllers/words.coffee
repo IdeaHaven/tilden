@@ -33,7 +33,7 @@ angular.module('appApp.controllers')
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
 
-    $scope.getBillList = ->
+    $scope.getRepList = ->
       $http(
         method: "GET"
         url: "http://congress.api.sunlightfoundation.com/legislators?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&chamber=senate&per_page=50&page=2"
@@ -73,5 +73,5 @@ angular.module('appApp.controllers')
         i++
       return count
 
-    $scope.getBillList()
+    $scope.getRepList()
   ])
