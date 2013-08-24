@@ -73,9 +73,15 @@ angular.module('appApp.controllers')
         ).on("mouseout", () -> 
           return tooltip.style("visibility", "hidden")
         ).on("click", () ->
-          district_id = d3.select(this).text()
-          $scope.state_district = {state: district_id.slice(0, 2), district: district_id.slice(3, 6)}
-          $scope.$apply()
+          if !$scope.district_reps.length and $scope.zoomed
+            $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
+            d3.select('#map_dialog').transition().duration(750).style("opacity", 1e-6)
+            $scope.state_district = {state: null, district: null}
+            $scope.district_reps = []
+          else
+            district_id = d3.select(this).text()
+            $scope.state_district = {state: district_id.slice(0, 2), district: district_id.slice(3, 6)}
+            $scope.$apply()
         )
         $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
           (a.id / 1000 | 0) is (b.id / 1000 | 0)
@@ -173,7 +179,7 @@ angular.module('appApp.controllers')
     , true)
 
     $scope.$watch('district_reps', (newVals, oldVals) ->
-      if $scope.district_reps.length
+      if $scope.district_reps.length and $scope.state_district.state
         $scope.showDistrictDialog()
     , true)
 
