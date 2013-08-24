@@ -1,4 +1,16 @@
 <sub-view template="header/individual"></sub-view>
 <p>Compare Against</p>
 <sub-view template="header/individual"></sub-view>
-{{reps[selected_rep.bioguide_id].overview}}
+nyt overview {{reps[selected.rep1.bioguide_id].nyt_overview.roles.votes_with_party_pct}} || {{reps[selected.rep2.bioguide_id].nyt_overview.roles[0].votes_with_party_pct}}
+<br />
+trans id {{reps[selected.rep1.bioguide_id].influence.id}} || {{reps[selected.rep2.bioguide_id].influence.id}}
+<br />
+trans contrib {{reps[selected.rep1.bioguide_id].influence.contributors[1].name}} || {{reps[selected.rep2.bioguide_id].influence.contributors[1].name}}
+<br />
+trans local {{reps[selected.rep1.bioguide_id].influence.local["In-State"][1] | currency}} || {{reps[selected.rep2.bioguide_id].influence.local["In-State"][1] | currency}}
+<br />
+trans type {{reps[selected.rep1.bioguide_id].influence.type.PACs[1] | currency}} || {{reps[selected.rep2.bioguide_id].influence.type.PACs[1] | currency}}
+<br />
+trans industries {{reps[selected.rep1.bioguide_id].influence.industries[1].name}} || {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}
+<br />
+votes data {{comparison.votes.common_votes}}
