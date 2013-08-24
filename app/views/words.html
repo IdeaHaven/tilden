@@ -1,0 +1,8 @@
+<div class="repWords">
+  <select ng-model="rep" ng-options="rep.last_name for rep in reps | orderBy:'last_name'"></select>
+  <p ng-repeat="word in (words | orderBy:'count':true)">{{word.ngram}}: {{word.count}}</p>
+</div>
+<div class="wordQuery">
+  <input ng-model="wordQuery"></input>
+  <p class="wordFrequency">{{wordFrequency}}</p>
+</div>
