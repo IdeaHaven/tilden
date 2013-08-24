@@ -19,11 +19,11 @@
   <tr>
     <td><select ng-model="rep" ng-options="rep.last_name for rep in reps | orderBy:'last_name'"></select></td>
     <td class="spacer"></td>
-    <td><input ng-model="wordQuery"></input></td>
+    <td class="alignTop"><input ng-model="wordQuery"></input></td>
   </tr>
   <tr>
     <td><p ng-repeat="word in (words | orderBy:'count':true)">{{word.ngram}}: {{word.count}}</p></td>
     <td class="spacer"></td>
-    <td class="wordFrequency"><strong>{{wordFrequency}}</strong> times since 1996</td>
+    <td class="wordFrequency alignTop"><strong>{{wordFrequency}}</strong> times since 1996</td>
   </tr>
 </table>
