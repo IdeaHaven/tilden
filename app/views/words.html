@@ -10,7 +10,7 @@
     <td class="alignTop"><input ng-model="wordQuery"></input></td>
   </tr>
   <tr>
-    <td><p ng-repeat="word in (words | orderBy:'count':true)">{{word.ngram}}: {{word.count}}</p></td>
+    <td><p ng-repeat="word in (words | orderBy:'count':true) | limitTo:15">{{word.ngram}}: {{word.count}}</p></td>
     <td class="spacer"></td>
     <td class="wordFrequency alignTop"><strong>{{wordFrequency}}</strong> times since 1996</td>
   </tr>

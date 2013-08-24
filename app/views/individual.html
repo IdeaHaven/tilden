@@ -42,8 +42,8 @@
   <div ng-show="showActivityInfo">
     <dl class="dl-horizontal">
       <dt>Votes with party</dt>
-      <dd>{{ nyt_data['results']['roles'][0]['votes_with_party_pct']}}</dd>
+      <dd>{{ selected_rep.nyt_data['results']['roles']['votes_with_party_pct']}}</dd>
       <dt>Missed votes</dt>
-      <dd>{{ nyt_data['results']['roles'][0]['missed_votes_pct'] }}</dd>
+      <dd>{{ selected_rep.nyt_data['results']['roles']['missed_votes_pct']}}</dd>
     </dl>
   </div>
