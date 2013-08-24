@@ -14,12 +14,12 @@ angular.module('appApp.controllers')
       $scope.words = []
       $scope.getRepWords()
     $scope.$watch "wordQuery", ->
+      $timeout.cancel
       if $scope.wordQuery == ""
         $scope.wordFrequency = "?"
       else
         $scope.wordFrequency = "..."
-      $timeout.cancel
-      $timeout($scope.getWordFrequency(), 2000)
+        $timeout($scope.getWordFrequency(), 2000)
     $scope.$watch "state", ->
       $scope.getRepList()
     
