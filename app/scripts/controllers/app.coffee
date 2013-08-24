@@ -39,6 +39,7 @@ angular.module('appApp.controllers')
 ######################
 # Initial Method Calls
 ######################
+
     $scope.get_all_reps_in_office()
 
   ]
