@@ -19,7 +19,7 @@ angular.module('appApp.controllers')
         $scope.wordFrequency = "?"
       else
         $scope.wordFrequency = "..."
-        $timeout($scope.getWordFrequency(), 2000)
+        $timeout($scope.getWordFrequency, 2000)
     $scope.$watch "state", ->
       $scope.getRepList()
     
@@ -55,6 +55,7 @@ angular.module('appApp.controllers')
           q: "select * from json where url=\'#{url}\'"
           format: "json"
       ).success((data, status) ->
+        $scope.wordFrequency = 0
         $scope.wordFrequency = $scope.countFrequency(data.query.results.json.results)
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
