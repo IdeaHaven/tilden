@@ -15,7 +15,7 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/individual',
         templateUrl: 'views/individual.html'
         controller: 'IndividualCtrl'
-      .when '/district_map',
+      .when '/district_map/:bioguide_id',
         templateUrl: 'views/district_map.html'
         controller: 'DistrictCtrl'
       .otherwise
