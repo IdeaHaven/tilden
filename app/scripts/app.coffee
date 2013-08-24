@@ -18,6 +18,9 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/district_map',
         templateUrl: 'views/district_map.html'
         controller: 'DistrictCtrl'
+      .when '/compare',
+        templateUrl: 'views/compare.html'
+        controller: 'CompareCtrl'
       .otherwise
         redirectTo: '/'
   ]
