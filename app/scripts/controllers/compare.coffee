@@ -18,6 +18,7 @@ angular.module('appApp.controllers')
     $scope.comparison =
       votes: null
       chamber: "house"
+      congress: 113
 
     $scope.rep1 = $scope.reps[$scope.selected.rep1.bioguide_id]
     $scope.rep2 = $scope.reps[$scope.selected.rep2.bioguide_id]
@@ -102,6 +103,15 @@ angular.module('appApp.controllers')
       else console.log 'error', error
 
 
+    $scope.get.nyt.bills = (bioguide_id1, bioguide_id2, congress, chamber)->
+      unless $scope.comparison.bills
+        ApiGet.nyt "members/#{bioguide_id1}/bills/#{bioguide_id2}/#{congress}/#{chamber}", $scope.cb.nyt.bills, this
+
+    $scope.cb.nyt.bills = (error, data)->
+      unless error
+        $scope.comparison.bills = data.results
+      else console.log 'Error pull nyt bills comparison: ', error
+
     ##### Non-API Methods
 
     # $scope.compare_chambers = ->
@@ -111,8 +121,9 @@ angular.module('appApp.controllers')
     $scope.get.nyt.overview($scope.selected.rep1.bioguide_id)
     $scope.get.nyt.overview($scope.selected.rep2.bioguide_id)
     $timeout(()=>
-      $scope.get.nyt.votes($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id, 113, $scope.comparison.chamber)
-    , 1000)
+      $scope.get.nyt.bills($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id, $scope.comparison.congress, $scope.comparison.chamber)
+      $scope.get.nyt.votes($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id, $scope.comparison.congress, $scope.comparison.chamber)
+    , 1500)
     $scope.get.influence.id($scope.selected.rep1.bioguide_id)
     $scope.get.influence.id($scope.selected.rep2.bioguide_id)
   ]
