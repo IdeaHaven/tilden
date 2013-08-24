@@ -2,26 +2,21 @@
 
 angular.module('appApp.controllers')
   .controller 'CompareCtrl', ['$scope','ApiGet', '$timeout', ($scope, ApiGet, $timeout) ->
-    #### Setup Vars #####
-    #
-    # $scope.selected
-    # $scope.reps
-    #
-    # are intialized in the AppCtrl
-    #
+######################
+# Variable Setup
+######################
 
-    $scope.selected.rep1 = $scope.selected.rep1 or {}
-    $scope.selected.rep2 = $scope.selected.rep2 or {}
-    $scope.selected.rep1.bioguide_id = "K000381"
-    $scope.selected.rep2.bioguide_id = "P000197"
+    # these were defined in AppCtrl and $scope will delegate to $rootScope
+      # $rootScope.reps
+      # $rootScope.selected
+      # $rootScope.reps_list
 
+    # init local variables
     $scope.comparison =
       votes: null
       chamber: "house"
       congress: 113
 
-    $scope.rep1 = $scope.reps[$scope.selected.rep1.bioguide_id]
-    $scope.rep2 = $scope.reps[$scope.selected.rep2.bioguide_id]
     $scope.get =
       nyt: {}
       influence: {}
@@ -29,9 +24,12 @@ angular.module('appApp.controllers')
       nyt: {}
       influence: {}
 
-    ##### API CALLS #####
+######################
+# Define API Methods
+######################
     $scope.get.nyt.overview = (bioguide_id)->
       $scope.reps[bioguide_id] = $scope.reps[bioguide_id] or {}
+      # only run if data is not already available
       unless $scope.reps[bioguide_id].nyt_overview
         ApiGet.nyt "members/#{bioguide_id}", $scope.cb.nyt.overview, this, bioguide_id
 
@@ -41,8 +39,7 @@ angular.module('appApp.controllers')
       else console.log 'error', error
 
     $scope.get.nyt.votes = (bioguide_id1, bioguide_id2, congress, chamber)->
-      unless $scope.comparison.votes
-        ApiGet.nyt "members/#{bioguide_id1}/votes/#{bioguide_id2}/#{congress}/#{chamber}", $scope.cb.nyt.votes, this
+      ApiGet.nyt "members/#{bioguide_id1}/votes/#{bioguide_id2}/#{congress}/#{chamber}", $scope.cb.nyt.votes, this
 
     $scope.cb.nyt.votes = (error, data)->
       unless error
@@ -51,6 +48,7 @@ angular.module('appApp.controllers')
 
     $scope.get.influence.id = (bioguide_id)->
       $scope.reps[bioguide_id] = $scope.reps[bioguide_id] or {}
+      # only run if data is not already available
       unless $scope.reps[bioguide_id].influence
         ApiGet.influence "entities/id_lookup.json?bioguide_id=#{bioguide_id}&", $scope.cb.influence.id, this, bioguide_id
 
@@ -102,28 +100,50 @@ angular.module('appApp.controllers')
         $scope.reps[bioguide_id].influence.industries = data.json
       else console.log 'error', error
 
-
     $scope.get.nyt.bills = (bioguide_id1, bioguide_id2, congress, chamber)->
-      unless $scope.comparison.bills
-        ApiGet.nyt "members/#{bioguide_id1}/bills/#{bioguide_id2}/#{congress}/#{chamber}", $scope.cb.nyt.bills, this
+      ApiGet.nyt "members/#{bioguide_id1}/bills/#{bioguide_id2}/#{congress}/#{chamber}", $scope.cb.nyt.bills, this
 
     $scope.cb.nyt.bills = (error, data)->
       unless error
         $scope.comparison.bills = data.results
       else console.log 'Error pull nyt bills comparison: ', error
 
-    ##### Non-API Methods
+#####################
+# Define Non-API Methods
+#####################
 
-    # $scope.compare_chambers = ->
-    #   if $scope.rep1.nyt_overview
+    # this is used to update a selected rep based on the input boxes
+    $scope.onSelect = ($item, $model, $label, rep)->
+      $scope.selected[rep] = $item
 
-    ##### init
-    $scope.get.nyt.overview($scope.selected.rep1.bioguide_id)
-    $scope.get.nyt.overview($scope.selected.rep2.bioguide_id)
-    $timeout(()=>
-      $scope.get.nyt.bills($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id, $scope.comparison.congress, $scope.comparison.chamber)
-      $scope.get.nyt.votes($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id, $scope.comparison.congress, $scope.comparison.chamber)
-    , 1500)
-    $scope.get.influence.id($scope.selected.rep1.bioguide_id)
-    $scope.get.influence.id($scope.selected.rep2.bioguide_id)
+#####################
+# Define Watchers
+#####################
+
+    # Watchers
+    $scope.$watch 'selected.rep1', (newVal, oldVal)->
+      console.log "Rep1 changed from #{oldVal.name} to #{newVal.name}"
+      $scope.selected_watcher_functions('rep1', newVal.bioguide_id)
+    $scope.$watch 'selected.rep2', (newVal, oldVal)->
+      console.log "Rep2 changed from #{oldVal.name} to #{newVal.name}"
+      $scope.selected_watcher_functions('rep2', newVal.bioguide_id)
+
+    # Watcher Callbacks
+    $scope.selected_watcher_functions = (rep, bioguide_id)->
+      $scope.get.nyt.overview(bioguide_id)
+      # nyt have a rate limit of 2 calls per secon
+      $timeout(()->
+        $scope.get.nyt.bills($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id, $scope.comparison.congress, $scope.comparison.chamber)
+        $scope.get.nyt.votes($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id, $scope.comparison.congress, $scope.comparison.chamber)
+      , 1000)
+      $scope.get.influence.id($scope.selected[rep].bioguide_id)
+
+#####################
+# Set Reps by Route Params and Init
+#####################
+
+    # set selected reps to show in input boxes
+    $scope.rep1 = $scope.selected.rep1.name
+    $scope.rep2 = $scope.selected.rep2.name
+
   ]

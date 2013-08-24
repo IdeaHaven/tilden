@@ -1,6 +1,7 @@
-<sub-view template="header/individual"></sub-view>
+<input type="text" ng-model="rep1" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep1")' placeholder="Find Representative by Name"></input>
 <p>Compare Against</p>
-<sub-view template="header/individual"></sub-view>
+<input type="text" ng-model="rep2" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep2")' placeholder="Find Representative by Name"></input>
+
 nyt overview {{reps[selected.rep1.bioguide_id].nyt_overview.roles.votes_with_party_pct}} || {{reps[selected.rep2.bioguide_id].nyt_overview.roles[0].votes_with_party_pct}}
 <br />
 trans id {{reps[selected.rep1.bioguide_id].influence.id}} || {{reps[selected.rep2.bioguide_id].influence.id}}

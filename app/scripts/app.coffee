@@ -20,7 +20,7 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
         controller: 'DistrictCtrl'
       .when '/compare',
         templateUrl: 'views/compare.html'
-        controller: 'CompareCtrl'  
+        controller: 'CompareCtrl'
       .otherwise
         redirectTo: '/'
   ]
