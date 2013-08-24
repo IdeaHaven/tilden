@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller 'DistrictCtrl', ['$scope', '$window', '$compile', 'ApiGet', ($scope, $window, $compile, ApiGet) ->
+  .controller 'DistrictCtrl', ['$scope', '$window', '$location', '$routeParams', '$compile', 'ApiGet', ($scope, $window, $location, $routeParams, $compile, ApiGet) ->
     $scope.supportGeo = $window.navigator
     $scope.position = null
     $scope.selected_zip = null
@@ -168,7 +168,23 @@ angular.module('appApp.controllers')
         .duration(750)
         .style("opacity", 1)
 
+    $scope.defaultFocus = () ->
+      # TODO: refactor this to not use an API call but only scope variables if possible.
+      if $routeParams.bioguide_id.length > 0
+        console.log $routeParams.bioguide_id
+        ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
+          if not error
+            if not data[0].district 
+              for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
+                if data[0].state is state
+                  data[0].district = "0"
+              if not data[0].district then data[0].district = "1"
+            $scope.state_district = {state: data[0].state, district: data[0].district}
+          else console.log "Error, Senator/Rep not found."
+      else console.log "No parameter"
+
     $scope.drawMap()
+    $scope.defaultFocus()
 
     $scope.$watch('state_district', (newVals, oldVals) -> 
       if $scope.state_district.state
