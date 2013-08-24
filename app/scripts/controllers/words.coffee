@@ -43,7 +43,7 @@ angular.module('appApp.controllers')
         console.log "Error #{status}: #{data}"
 
     $scope.getWordFrequency = ->
-      url = "http://capitolwords.org/api/1/dates.json?phrase=#{$scope.wordQuery}&apikey=3cdfa27b289e4d4090fd1b176c45e6cf"
+      url = "http://capitolwords.org/api/1/dates.json?phrase=#{$scope.wordQuery.replace(/\s/g, '+')}&apikey=3cdfa27b289e4d4090fd1b176c45e6cf"
       $http(
         method: "GET"
         url: "http://query.yahooapis.com/v1/public/yql"
