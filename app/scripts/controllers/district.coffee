@@ -174,7 +174,11 @@ angular.module('appApp.controllers')
         console.log $routeParams.bioguide_id
         ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
           if not error
-            if !data[0].district then data[0].district = "0"
+            if not data[0].district 
+              for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
+                if data[0].state is state
+                  data[0].district = "0"
+              if not data[0].district then data[0].district = "1"
             $scope.state_district = {state: data[0].state, district: data[0].district}
           else console.log "Error, Senator/Rep not found."
       else console.log "No parameter"
