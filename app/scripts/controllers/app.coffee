@@ -6,8 +6,8 @@ angular.module('appApp.controllers')
     $scope.reps = {}
     $scope.reps_list = []
     $scope.selected = 
-      rep1: null
-      rep2: null
+      rep1: {}
+      rep2: {}
       zip: null
       bill: null
       commiitee: null
