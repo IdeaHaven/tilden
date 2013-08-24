@@ -26,7 +26,10 @@ angular.module('appApp.controllers')
           $scope.reps[rep.bioguide_id].overview = rep
       else
         console.warn "Error: ", error
-   
+    
+    #Pulls rep data from NYT using bioguide ID
+
+    
     # init
     $scope.get_all_reps_in_office()
 
