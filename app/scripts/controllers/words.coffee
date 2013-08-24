@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('WordsCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
+  .controller('WordsCtrl', ['$scope', '$http', '$location', '$timeout', ($scope, $http, $location, $timeout) ->
     $scope.rep = {}
     $scope.reps = []
     $scope.state = "Select a State..."
@@ -9,6 +9,7 @@ angular.module('appApp.controllers')
     $scope.words = []
     $scope.wordQuery = ""
     $scope.wordFrequency = ""
+
     $scope.$watch "rep", ->
       $scope.words = []
       $scope.getRepWords()
@@ -17,20 +18,14 @@ angular.module('appApp.controllers')
         $scope.wordFrequency = "?"
       else
         $scope.wordFrequency = "..."
-      clearTimeout $scope.waitForTypingToEnd()
-      $scope.waitForTypingToEnd()
+      $timeout.cancel
+      $timeout($scope.getWordFrequency(), 2000)
     $scope.$watch "state", ->
       $scope.getRepList()
     
 
-    $scope.waitForTypingToEnd = ->
-      setTimeout (->
-        $scope.getWordFrequency()
-      ), 2000
-
     $scope.getRepWords = ->
       url = "http://capitolwords.org/api/1/phrases.json?entity_type=legislator&entity_value=#{$scope.rep.bioguide_id}&apikey=3cdfa27b289e4d4090fd1b176c45e6cf"
-      console.log url
       $http(
         method: "GET"
         url: "http://query.yahooapis.com/v1/public/yql"
@@ -60,10 +55,7 @@ angular.module('appApp.controllers')
           q: "select * from json where url=\'#{url}\'"
           format: "json"
       ).success((data, status) ->
-        if data.query.results.json == null
-          $scope.wordFrequency = 0
-        else
-          $scope.wordFrequency = $scope.countFrequency(data.query.results.json.results)
+        $scope.wordFrequency = $scope.countFrequency(data.query.results.json.results)
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
 
