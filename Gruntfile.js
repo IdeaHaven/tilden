@@ -52,8 +52,8 @@ module.exports = function (grunt) {
           '{<%= yeoman.tmp %>,<%= yeoman.app %>}/styles/{,*/}*.css',
           '{<%= yeoman.tmp %>,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '{<%= yeoman.tmp %>,<%= yeoman.app %>}/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ],
-        tasks: ['karma']
+        ]
+        // tasks: ['karma']
       },
       dev: {
         files: ['<%= yeoman.app %>/{,*/}*.{html,ico,txt,png,jpg,jpeg,gif,webp,svg}'],
