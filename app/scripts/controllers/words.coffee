@@ -10,7 +10,7 @@ angular.module('appApp.controllers')
     $scope.$watch "rep", ->
       $scope.getRepWords()
     $scope.$watch "wordQuery", ->
-      $scope.wordFrequency = "Searching..."
+      $scope.wordFrequency = 0
       clearTimeout $scope.waitForTypingToEnd()
       $scope.waitForTypingToEnd()
     
@@ -29,8 +29,7 @@ angular.module('appApp.controllers')
           q: "select * from json where url=\'#{url}\'"
           format: "json"
       ).success((data, status) ->
-        if data.query.results = null then $scope.wordFrequency = 0
-        else $scope.words = $scope.stringToIntForWordCount(data.query.results.json.json)
+        $scope.words = $scope.stringToIntForWordCount(data.query.results.json.json)
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
 
