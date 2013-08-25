@@ -117,6 +117,12 @@ angular.module('appApp.controllers')
       $scope.selected[rep] = $item
 
 #####################
+# Define D3 Data
+#####################
+
+    $scope.d3_data = {amounts: [200,200,200,200,200]}
+
+#####################
 # Define Watchers
 #####################
 
