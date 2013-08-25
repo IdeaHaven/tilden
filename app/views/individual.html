@@ -11,6 +11,16 @@
       </div>
     </div>
   </div>
+  <div class="span4">
+    <h3>LittleSis Lists</h3>
+    <ul class='text-left'>
+      <li ng-repeat="name in selected_rep.littleSis_data['Lists']['List']">{{name.name}}</li>
+    </ul>
+    <h3>Spouse</h3>
+    <ul class='text-left'>
+      <li ng-repeat="name in selected_rep.littleSis_data['results']['Response']['Data']['Lists']['List']">{{name.name}}</li>
+    </ul>
+  </div>
 </div>
 <div class="row">
   <div class="span8 text-left">

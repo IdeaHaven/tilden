@@ -40,11 +40,12 @@ angular.module('appApp.controllers')
 
     $scope.callback_littleSis = (error, data)->
       if not error
-        $scope.selected_rep.littleSis_data = data.query
-        $scope.reps[$scope.selected_rep.bioguide_id].overview.littleSis_data = data.query
+        $scope.selected_rep.littleSis_data = data
+        $scope.reps[$scope.selected_rep.bioguide_id].overview.littleSis_data = data
       else console.log "Error: ", error  
 
     $scope.get_transparencydata_id()
     Member_data.get_nyt($scope.selected_rep.bioguide_id, $scope.callback_nyt)
+    Member_data.get_littleSis($scope.selected_rep.bioguide_id, $scope.callback_littleSis)
 
   ])
