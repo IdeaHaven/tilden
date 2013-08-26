@@ -121,7 +121,8 @@ angular.module('appApp.controllers')
 #####################
 
     $scope.tempPercent = 0.91
-    d3DonutClick = (item)->
+    $scope.tempCompany = "Gallo Winery"
+    $scope.d3DonutClick = (item)->
       console.log 'D3 clicked', item
     $scope.d3_data = {amounts: [200,200,200,200,200]}
 
