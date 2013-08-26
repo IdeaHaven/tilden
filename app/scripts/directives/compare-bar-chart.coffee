@@ -39,11 +39,15 @@ angular.module('appApp.directives')
             .enter().append("rect")
             .attr('class', (d, i) ->
               return 'bar' + (i+1)
-            ).attr("x", (d, i) ->
-              return x(Math.min(0, d))
-            ).attr("y", 0)
-            .attr("width", x)
+            ).attr("x", x(0))
+            .attr("y", 0)
+            .attr("width", 0)
             .attr("height", 30)
+            .transition()
+              .duration(1000)
+              .attr("width", x)
+              .attr("x", (d, i) -> return x(Math.min(0, d)))
+
 
       scope.drawBarChart()
 
