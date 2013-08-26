@@ -5,7 +5,10 @@
     <td><h2>How often do legislators say...</h2></td>
   </tr>
   <tr>
-    <td><select ng-model="rep" ng-options="rep.last_name for rep in reps | orderBy:'last_name'"></select></td>
+    <td>
+      <select ng-model="state" ng-options="state for state in states"></select>
+      <select ng-model="rep" ng-options="rep.full_name for rep in reps | orderBy:'last_name'"></select>
+    </td>
     <td class="spacer"></td>
     <td class="alignTop"><input ng-model="wordQuery"></input></td>
   </tr>
