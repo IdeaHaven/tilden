@@ -249,7 +249,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{png,svg,gif,webp}',
-            'styles/fonts/*'
+            'styles/fonts/*',
+            'data/*'
           ]
         }, {
           expand: true,
@@ -272,7 +273,8 @@ module.exports = function (grunt) {
             'bower_components/**/*',
             'views/**/*',
             'images/{,*/}*.{png,svg,gif,webp}',
-            'styles/fonts/*'
+            'styles/fonts/*',
+            'data/*'
           ]
         }]
       },
@@ -287,7 +289,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'views/**/*',
             'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*'
+            'styles/fonts/*',
+            'data/*'
           ]
         }]
       }
