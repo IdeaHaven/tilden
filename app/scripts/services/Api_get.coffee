@@ -2,6 +2,17 @@
 
 angular.module('appApp.services')
   .factory 'ApiGet', ['$http', ($http) ->
+    own: (path, callback, context) ->
+      args = Array.prototype.slice.call(arguments, 3)
+      $http
+        url: "http://10.0.1.32:1337/api/#{path}"
+        method: "GET"
+      .success (data, status, headers, config)->
+        args.unshift data
+        args.unshift null
+        callback.apply(context, args)
+      .error (data, status, headers, config) ->
+        callback "Error pulling #{path} from Sunlight Congress API.", null
     congress: (path, callback, context) ->
       args = Array.prototype.slice.call(arguments, 2)
       context = args.shift()
