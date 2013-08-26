@@ -17,37 +17,31 @@ angular.module('appApp.directives')
         .style('fill', '#ddd')
         .attr('width', "100%") # arbitrary
         .attr('height', 100) # arbitrary
+      
+      scope.drawBarChart = () ->
+        raw_data = JSON.parse(d3.select(element[0]).attr('data'))
+        this_data = [-raw_data[0], raw_data[1]]
+        x0 = Math.max(-d3.min(this_data), d3.max(this_data))  
 
-      scope.drawBarChart = () -> 
-        scope.$watch 'data', (newVals, oldVals) ->
-          console.log newVals, oldVals
-          svg.selectAll('*').remove
-          if not newVals
-            return # no change, do nothing
+        x = d3.scale.linear()
+          .domain([-x0, x0])
+          .range([0 , 900]) #arbitrary
+          .nice()
 
-          this_data = [-newVals.amount2, newVals.amount1]
-
-          x0 = Math.max(-d3.min(this_data), d3.max(this_data))  
-
-          x = d3.scale.linear()
-            .domain([-x0, x0])
-            .range([0, '100%'])
-            .nice()
-
-          svg.selectAll("rect")
-            .data(this_data)
-            .enter().append("rect")
-            .attr('class', (d, i) ->
-              return 'bar' + (i+1)
-            ).attr("x", x(0))
-            .attr("y", 0)
-            .attr("width", 0)
-            .attr("height", 30)
-            .transition()
-              .duration(1000)
-              .attr("width", x)
-              .attr("x", (d, i) -> return x(Math.min(0, d)))
-
+        svg.selectAll("rect")
+          .data(this_data)
+          .enter().append("rect")
+          .attr('class', (d, i) ->
+            return 'bar' + (i+1)
+          ).attr("x", x(0))
+          .attr("y", 0)
+          .attr("width", 0)
+          .attr("height", 30)
+          .transition()
+            .duration(1000)
+            .attr("width", (d, i) -> 
+              return Math.abs(x(d) - x(0))
+            ).attr("x", (d, i) -> return x(Math.min(0, d)))
 
       scope.drawBarChart()
 
