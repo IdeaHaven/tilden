@@ -1,6 +1,8 @@
-<input type="text" ng-model="rep1" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep1")' placeholder="Find Representative by Name"></input>
-<p>Compare Against</p>
-<input type="text" ng-model="rep2" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep2")' placeholder="Find Representative by Name"></input>
+<div class="center grid-14">
+  <input type="text" ng-model="rep1" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep1")' placeholder="Find Representative by Name"></input>
+  <h4>Compare Against</h4>
+  <input type="text" ng-model="rep2" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep2")' placeholder="Find Representative by Name"></input>
+</div>
 <div class="top-industries">
   <h2 class="center grid-14">Funding Sources</h2>
   <div class="contributors">
@@ -35,9 +37,9 @@
 
   <p> votes with party percentage by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.votes_with_party_pct}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles.votes_with_party_pct}}</p>
 
-  <p>common votes {{comparison.votes.common_votes}}
-  <p>disagree votes {{comparison.votes.disagree_votes}}
-  <p>agree percentage {{comparison.votes.agree_percent}}
-  <p>disagree percentage {{comparison.votes.disagree_percent}}
-  <p>common bills {{comparison.bills.common_bills}}
+  <p>common votes {{comparison.votes.common_votes}}</p>
+  <p>disagree votes {{comparison.votes.disagree_votes}}</p>
+  <p>agree percentage {{comparison.votes.agree_percent}}</p>
+  <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
+  <p>common bills {{comparison.bills.common_bills}}</p>
 <d3-donut data="d3_data" on-click="d3click(item)" class="span2"></d3-donut>
