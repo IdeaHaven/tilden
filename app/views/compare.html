@@ -36,5 +36,8 @@
   <p> votes with party percentage by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.votes_with_party_pct}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles.votes_with_party_pct}}</p>
 
   <p>common votes {{comparison.votes.common_votes}}
+  <p>disagree votes {{comparison.votes.disagree_votes}}
+  <p>agree percentage {{comparison.votes.agree_percent}}
+  <p>disagree percentage {{comparison.votes.disagree_percent}}
   <p>common bills {{comparison.bills.common_bills}}
 <d3-donut data="d3_data" on-click="d3click(item)" class="span2"></d3-donut>
