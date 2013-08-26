@@ -18,4 +18,6 @@ votes data {{comparison.votes.common_votes}}
 <br />
 bills data {{comparison.bills.common_bills}}
 <br />
-<d3-donut data="d3_data" on-click="d3click(item)" class="span2"></d3-donut>
+<d3-donut percent="0.15" on-click="d3DonutClick(item)" class="span2"></d3-donut>
+<d3-donut percent="0.85" on-click="d3DonutClick(item)" class="span2"></d3-donut>
+<d3-donut percent="tempPercent" ng-click="d3DonutClick('test')" class="span2"></d3-donut>

@@ -4,53 +4,54 @@ angular.module('appApp.directives')
   .directive 'd3Donut', [->
     restrict: 'E'
     scope:
-      data: '='
+      percent: '='
       onClick: '&'
     link: (scope, element, attrs)->
+      scope.$watch 'percent', (newValue)->
+        # onClick('hey')
+        # on window resize, redraw d3 canvas
+        scope.$watch( (-> angular.element(window)[0].innerWidth), (-> scope.drawD3()) )
+        window.onresize = (-> scope.$apply())
 
-      # on window resize, redraw d3 canvas
-      scope.$watch( (()-> angular.element(window)[0].innerWidth), ((newValue, oldValue)-> scope.drawD3()) )
-      window.onresize = (()-> scope.$apply())
-
-
-      scope.drawD3 = ()->
-
-        radius = (d3.select(element[0])[0][0].offsetWidth) / 2
+        canvas = d3.select(element[0]).append("svg")
         τ = 2 * Math.PI # http://tauday.com/tau-manifesto
 
-        arc = d3.svg.arc()
-          .innerRadius(radius - 5)
-          .outerRadius(radius - 15)
-          .startAngle(0);
+        scope.drawD3 = ->
+          canvas.selectAll('*').remove()
+          radius = (d3.select(element[0])[0][0].offsetWidth) / 2
 
-        svg = d3.select(element[0]).append("svg")
-          .attr("width", "100%")
-          .attr("height", radius * 2)
-        .append("g")
-          .attr("transform", "translate(" + radius + "," + radius + ")");
+          arc = d3.svg.arc()
+            .innerRadius(radius - 5)
+            .outerRadius(radius - 15)
+            .startAngle(0)
 
-        background = svg.append("path")
-          .datum({endAngle: τ})
-          .style("fill", "#ddd")
-          .attr("d", arc);
+          arcTween = (transition, newAngle)->
+            transition.attrTween "d", (d)->
+              interpolate = d3.interpolate(d.endAngle, newAngle)
+              (t)->
+                d.endAngle = interpolate(t)
+                arc(d)
 
-        foreground = svg.append("path")
-          .datum({endAngle: 0.0 * τ})
-          .style("fill", "orange")
-          .attr("d", arc);
+          svg = canvas
+            .attr("width", "100%")
+            .attr("height", radius * 2)
+          .append("g")
+            .attr("transform", "translate(" + radius + "," + radius + ")")
 
-        arcTween = (transition, newAngle)->
-          transition.attrTween "d", (d)->
-            interpolate = d3.interpolate(d.endAngle, newAngle);
-            return (t)->
-              d.endAngle = interpolate(t);
-              return arc(d);
+          background = svg.append("path")
+            .datum({endAngle: τ})
+            .classed("d3Donut-background", true)
+            .attr("d", arc)
 
-        foreground.transition()
-          .duration(750)
-          .call(arcTween, 0.75 * τ);
+          foreground = svg.append("path")
+            .datum({endAngle: 0.0 * τ})
+            .classed("d3Donut-foreground", true)
+            .attr("d", arc)
 
+          foreground.transition()
+            .duration(750)
+            .call(arcTween, newValue * τ)
 
-      # initial run
-      scope.drawD3()
+        # initial run
+        scope.drawD3()
   ]
