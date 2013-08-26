@@ -107,7 +107,7 @@ angular.module('appApp.controllers')
         .style("z-index", "15")
 
       $scope.makeMapGradients()      
-      queue().defer(d3.json, "views/us.json").defer(d3.json, "views/us-congress-113.json").await ready
+      queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
     $scope.makeMapGradients = () ->
       d3.select("#map_holder").select("svg")
