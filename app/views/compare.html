@@ -17,25 +17,33 @@
 
     <p>No of PACs: {{reps[selected.rep1.bioguide_id].influence.type.PACs[0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.type.PACs[1] | currency}} || No of PACs: {{reps[selected.rep2.bioguide_id].influence.type.PACs[0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.type.PACs[1] | currency}}</p>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.PACs[0]" data2="reps[selected.rep2.bioguide_id].influence.type.PACs[0]" label="'Number of PACs'" currency=false></compare-bar-chart>
+    <h4>PAC contributions</h4>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.PACs[1]" data2="reps[selected.rep2.bioguide_id].influence.type.PACs[1]" label="'PAC Contributions'" currency=true></compare-bar-chart>
+    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.PACs[0]" data2="reps[selected.rep2.bioguide_id].influence.type.PACs[0]" label="'Number of PACs'" currency="false"></compare-bar-chart>
+
+    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.PACs[1]" data2="reps[selected.rep2.bioguide_id].influence.type.PACs[1]" label="'PAC Contributions'" currency="true"></compare-bar-chart>
 
     <p>In-state: {{reps[selected.rep1.bioguide_id].influence.local["In-State"][0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.local["In-State"][1] | currency}} || No of In-State: {{reps[selected.rep2.bioguide_id].influence.local["In-State"][0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.local["In-State"][1] | currency}}</p>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][0]" label="'In-state Funders'" currency=false></compare-bar-chart>
+    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][0]" label="'In-state Funders'" currency="false"></compare-bar-chart>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][1]" label="'In-state Contrinutions'" currency=true></compare-bar-chart>
+    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][1]" label="'In-state Contributions'" currency="true"></compare-bar-chart>
 
     <p>Out-of-State: {{reps[selected.rep1.bioguide_id].influence.local["Out-of-State"][0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.local["Out-of-State"][1] | currency}} || No of In-State: {{reps[selected.rep2.bioguide_id].influence.local["Out-of-State"][0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.local["Out-of-State"][1] | currency}}</p>
+    
+    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['Out-of-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['Out-of-State'][0]" label="'Out-of-state Funders'" currency="false"></compare-bar-chart>
+
+    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['Out-of-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['Out-of-State'][1]" label="'Out-of-state Contributions'" currency="true"></compare-bar-chart>
+
   </div>
+
 
   <h2 class="center grid-14">Top Industries</h2>
   <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p> -->
   <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p>
 -->
   <h4> Industries Contributing to Both Legislators</h4>
-  <div ng-repeat="(key, value) in compareIndustries"><compare-bar-chart data1="value[0]" data2="value[1]" label="key" currency=true></compare-bar-chart> </div><br/>
+  <div ng-repeat="(key, value) in compareIndustries"><compare-bar-chart data1="value[0]" data2="value[1]" label="key" currency="true"></compare-bar-chart> </div><br/>
 
 <!--
   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[2].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[2].amount | currency}}</p> -->
