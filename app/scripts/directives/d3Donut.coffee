@@ -42,6 +42,7 @@ angular.module('appApp.directives')
           # put company name in circle until image is loaded from API
           canvas.append("text")
             .style("text-anchor", "middle")
+            .classed("d3Donut-company", true)
             .attr("width", scope.radius)
             .attr("transform", "translate(#{scope.radius},#{scope.radius})")
             .text(scope.company)
