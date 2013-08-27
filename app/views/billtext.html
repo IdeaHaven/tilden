@@ -3,6 +3,6 @@
   <select ng-model="bill" ng-options="bill.bill_id for bill in bills"></select>
   <h1>{{title}}</h1>
   <div id="billTextContainer">
-    <span id="billText" ng-bind-html-unsafe="bill.text"></span>
+    <iframe src="http://docs.google.com/gview?url={{bill_url}}&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe>
   </div>
 </div>

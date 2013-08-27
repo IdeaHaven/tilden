@@ -174,7 +174,7 @@ angular.module('appApp.controllers')
         console.log $routeParams.bioguide_id
         ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
           if not error
-            if not data[0].district
+            if not data[0].district 
               for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
                 if data[0].state is state
                   data[0].district = "0"

@@ -4,23 +4,19 @@ angular.module('appApp.controllers')
   .controller('BillCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
     $scope.bill = {}
     $scope.bills = []
+    $scope.bill_url = "http://gpo.gov/fdsys/pkg/BILLS-113hr3059ih/pdf/BILLS-113hr3059ih.pdf"
     $scope.title = ""
     $scope.$watch "bill", ->
       billCode = makeBillCode()
       $location.path("bills/#{billCode}")
       getBillText makeBillUrl(billCode)
 
-    annotate = ->
-      setTimeout (->
-        $("#billText").annotator().annotator('setupPlugins', {token: 'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJpc3N1ZWRBdCI6ICIyMDEzLTA4LTIxVDE3OjU5OjQwWiIsICJjb25zdW1lcktleSI6ICI2N2NkYjJmOWNmZGY0NTE4YmIxMWQ3NTQ2YWUzMTExMSIsICJ1c2VySWQiOiAiYWxsIiwgInR0bCI6IDEyMDk2MDB9.mEQHB3rx81tfqGs7zA3VOcckOyo-Dsa3HyEeva_daIA'})
-      ), 3000
-      console.log "Ready to annotate!"
 
     makeBillCode = ->
       return "BILLS-#{$scope.bill.congress}#{$scope.bill.bill_type}#{$scope.bill.number}#{$scope.bill.last_version.version_code}"
-
+    
     makeBillUrl = (billCode) ->
-      return "http://www.gpo.gov/fdsys/pkg/#{billCode}/html/#{billCode}.htm"
+      return "http://www.gpo.gov/fdsys/pkg/#{billCode}/pdf/#{billCode}.pdf"
 
     makeBillId = ->
       billCode = $location.path().split("").splice(13,15)
@@ -37,7 +33,13 @@ angular.module('appApp.controllers')
         method: "GET"
         url: "http://congress.api.sunlightfoundation.com/bills?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&bill_id=#{bill_id}"
       ).success((data, status) ->
-        $scope.title = data.results[0].short_title or data.results[0].official_title
+        console.log data
+        if data.results[0].short_title
+          $scope.title = data.results[0].short_title
+        else if data.results[0].official_title.length < 140
+          $scope.title = data.results[0].official_title
+        else
+          $scope.title = "#{data.results[0].bill_type.toUpperCase()} #{data.results[0].number}"
       ).error (data, status) ->
         console.log "Error #{status}: #{data} (thrown by getBillTitleOnLoad)"
 
@@ -51,19 +53,9 @@ angular.module('appApp.controllers')
         console.log "Error #{status}: #{data}"
 
     getBillText = (url) ->
-      $http(
-        method: "GET"
-        url: "http://query.yahooapis.com/v1/public/yql"
-        params:
-          q: "select * from html where url=\'#{url}\'"
-          format: "json"
-      ).success((data, status) ->
-        $scope.bill.text = data.query.results.body.pre.replace(/<all>/g, '').replace(/^[^_]*_/, '').replace(/\n/g, '<br>')
-      ).error (data, status) ->
-        console.log "Error #{status}: #{data}"
+      $scope.bill_url = url
 
     getBillList()
     getBillTitleOnLoad()
     getBillTextOnLoad()
-    annotate()
   ])
