@@ -15,18 +15,20 @@ angular.module('appApp.directives')
       window.onresize = (()-> scope.$apply())
 
       scope.drawBarChart = () ->
+        width = $('.bar-holder').width() || 800
         this_data = [-scope.data1, scope.data2]
         x0 = Math.max(-d3.min(this_data), d3.max(this_data))  
         d3.select(element[0]).selectAll('*').remove()
         svg = d3.select(element[0]).append("svg")
           .attr('class', 'bar-holder')
           .style('fill', '#ddd')
-          .attr('width', "100%")
+          .attr('width', width)
           .attr('height', 30) # arbitrary
+
 
         x = d3.scale.linear()
           .domain([-x0, x0])
-          .range([0 , "100%"])
+          .range([0 , width])
           .nice()
 
         svg.selectAll("rect")
@@ -35,21 +37,20 @@ angular.module('appApp.directives')
           .attr('class', (d, i) ->
             return 'bar' + (i+1)
           ).attr("x", (d, i) ->
-            if i is 0 then x(x0*0.4 -(x0/2))
-            else x(x0 *0.6 -(x0/2))
+            if i is 0 then x(0) - 50
+            else x(0) + 50
           ).attr("y", 0)
-          .attr("width", 0)
+          .attr("width", 10)
           .attr("height", 30)
           .transition()
             .duration(1000)
             .attr("width", (d, i) -> 
               if i is 0
-                Math.abs(parseInt(x(d)) - parseInt(x(x0 *0.4 -(x0/2)))) + "%"
-              else Math.abs(parseInt(x(d)) - parseInt(x(x0 *0.6 -(x0/2)))) + "%"
-
+                Math.abs(parseInt(x(d)) - parseInt(x(0) - 50))
+              else Math.abs(parseInt(x(d)) - parseInt(x(0) + 50))
             ).attr("x", (d, i) -> 
-              if i is 0 then  x(Math.min(x0 *0.4 -(x0/2), d))
-              else x(x0 *0.6 -(x0/2)))
+              if i is 0 then  x(Math.min(parseInt(x(0) - 50), d))
+              else x(0) + 50)
 
         svg.selectAll('text')
           .data(this_data)
@@ -58,8 +59,8 @@ angular.module('appApp.directives')
             .attr("fill", "Black")
             .attr("y", 20)
             .attr("x", (d, i) ->
-              if i is 0 then x(x0 *0.65-(x0/2))
-              else x(x0 *0.35 -(x0/2))
+              if i is 1 then x(0) - 60
+              else x(0) + 60
             ).attr("text-anchor", (d, i) ->
               if i is 0 then "start"
               else "end"
