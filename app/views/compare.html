@@ -24,11 +24,11 @@
 
   <h2 class="center grid-14">Top Industries</h2>
   <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p> -->
-  <!-- <li ng-repeat="industry in compareIndustries">   <li ng-repeat="(key,val) in industry"> {{key}},{{val}}</li>
-  </li> -->
-  <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p>
-
-  <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[2].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[2].amount | currency}}</p> -->
+  <span ng-repeat="industry in compareIndustries">
+    <span ng-repeat="(key,val) in industry">
+     ||{{key}} => {{val}}||
+    </span>
+  </span>
 
   <h2 class="center grid-14">Report Card</h2>
   <p> Bills sponsored by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.bills_sponsored}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles[0].bills_sponsored}}</p>
@@ -45,7 +45,6 @@
   <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
   <p>common bills {{comparison.bills.common_bills}}</p>
 
-  {{analysis}}
-
-<d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="tempContrib" class="span2"></d3-donut>
-<d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="tempContrib2" class="span2"></d3-donut>
+{{reps[selected.rep1.bioguide_id].influence.contributors[0]}}
+<d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2"></d3-donut>
+<!--   -->
