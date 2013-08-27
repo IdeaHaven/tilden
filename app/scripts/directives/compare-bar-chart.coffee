@@ -59,8 +59,8 @@ angular.module('appApp.directives')
             .attr("fill", "Black")
             .attr("y", 20)
             .attr("x", (d, i) ->
-              if i is 1 then x(0) - 60
-              else x(0) + 60
+              if i is 1 then x(0) - 90
+              else x(0) + 90
             ).attr("text-anchor", (d, i) ->
               if i is 0 then "start"
               else "end"

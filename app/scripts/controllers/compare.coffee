@@ -125,15 +125,12 @@ angular.module('appApp.controllers')
 #####################
 
     $scope.analysis.industries = (bioguide_id1, bioguide_id2 )->
-      both = []
+      both = {}
       _.each($scope.reps[bioguide_id1].influence.industries, (val)->
         _.each($scope.reps[bioguide_id2].influence.industries, (val1)->
           if val.id is val1.id
-            obj1 = {}
-            obj2 = {}
-            obj1[val.name] = val.amount
-            obj2[val1.name] = val1.amount
-            both.push([obj1,obj2])
+            values = [val.amount, val1.amount]
+            both[val.name] = values
         )
       )
       $scope.compareIndustries = both
