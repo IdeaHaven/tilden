@@ -9,12 +9,18 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/bills/:billid',
         templateUrl: 'views/billtext.html'
         controller: 'BillCtrl'
+      .when '/words',
+        templateUrl: 'views/words.html'
+        controller: 'WordsCtrl'
       .when '/individual',
         templateUrl: 'views/individual.html'
         controller: 'IndividualCtrl'
-      .when '/district_map',
+      .when '/district_map/:bioguide_id',
         templateUrl: 'views/district_map.html'
         controller: 'DistrictCtrl'
+      .when '/compare',
+        templateUrl: 'views/compare.html'
+        controller: 'CompareCtrl'
       .otherwise
         redirectTo: '/'
   ]
