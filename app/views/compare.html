@@ -24,10 +24,10 @@
 
   <h2 class="center grid-14">Top Industries</h2>
   <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p> -->
-  <!-- <li ng-repeat="industry in compareIndustries">   <li ng-repeat="(key,val) in industry"> {{key}},{{val}}</li>
-  </li> -->
   <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p>
-
+-->
+  <span ng-repeat="pair in compareIndustries[0]"><span ng-repeat="(key, value) in pair">{{key}}: {{value}}</span><br/></span>
+<!--
   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[2].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[2].amount | currency}}</p> -->
 
   <h2 class="center grid-14">Report Card</h2>
