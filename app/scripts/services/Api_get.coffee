@@ -5,7 +5,7 @@ angular.module('appApp.services')
     own: (path, callback, context) ->
       args = Array.prototype.slice.call(arguments, 3)
       $http
-        url: "http://10.0.1.32:1337/api/#{path}"
+        url: "http://10.1.1.145:1337/api/#{path}"
         method: "GET"
       .success (data, status, headers, config)->
         args.unshift data

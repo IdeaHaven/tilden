@@ -42,7 +42,10 @@
   <p>agree percentage {{comparison.votes.agree_percent}}</p>
   <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
   <p>common bills {{comparison.bills.common_bills}}</p>
-<d3-donut data="d3_data" on-click="d3click(item)" class="span2"></d3-donut>
 <d3-donut percent="tempPercent" on-click="d3DonutClick(item)" company="tempCompany" class="span2"></d3-donut>
+<d3-donut percent="tempPercent2" on-click="d3DonutClick(item)" company="tempCompany2" class="span2"></d3-donut>
 
-
+<br />
+trans ids for testing:
+{{reps[selected.rep1.bioguide_id].influence.id}}
+{{reps[selected.rep2.bioguide_id].influence.id}}

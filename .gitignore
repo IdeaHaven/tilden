@@ -5,3 +5,4 @@ dist
 app/bower_components
 libpeerconnection.log
 .DS_Store
+npm-debug.log
