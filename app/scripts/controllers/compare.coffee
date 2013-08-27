@@ -112,18 +112,29 @@ angular.module('appApp.controllers')
 # Define Non-API Methods
 #####################
 
-    # this is used to update a selected rep based on the input boxes
-    $scope.onSelect = ($item, $model, $label, rep)->
-      $scope.selected[rep] = $item
-
 #####################
 # Define D3 Data
 #####################
 
-    $scope.tempPercent = 0.91
-    $scope.tempCompany = "Gallo Winery"
-    $scope.tempPercent2 = 0.45
-    $scope.tempCompany2 = "Google Inc"
+    $scope.tempScale = 1750000
+    $scope.tempContrib =
+      "employee_amount": "1504133.00",
+      "total_amount": "1504133.00",
+      "total_count": "3074",
+      "name": "University of California",
+      "direct_count": "0",
+      "employee_count": "3074",
+      "id": "0e85264c0c0e4dfb9a4b38cfc181f030",
+      "direct_amount": "0"
+    $scope.tempCompany2 =
+      "employee_amount": "814645.00",
+      "total_amount": "814645.00",
+      "total_count": "1241",
+      "name": "Microsoft Corp",
+      "direct_count": "0",
+      "employee_count": "1241",
+      "id": "f1244474fad44ad9a3a57859b4a709b1",
+      "direct_amount": "0"
     $scope.d3DonutClick = (item)->
       console.log 'D3 clicked', item
     $scope.d3_data = {amounts: [200,200,200,200,200]}

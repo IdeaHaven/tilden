@@ -1,7 +1,7 @@
 <div class="center grid-14">
-  <input type="text" ng-model="rep1" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep1")' placeholder="Find Representative by Name"></input>
+  <sub-view template="partial/select_rep1_name"></sub-view>
   <h4>Compare Against</h4>
-  <input type="text" ng-model="rep2" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep2")' placeholder="Find Representative by Name"></input>
+  <sub-view template="partial/select_rep2_name"></sub-view>
 </div>
 <div class="top-industries">
   <h2 class="center grid-14">Funding Sources</h2>
@@ -42,8 +42,8 @@
   <p>agree percentage {{comparison.votes.agree_percent}}</p>
   <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
   <p>common bills {{comparison.bills.common_bills}}</p>
-<d3-donut percent="tempPercent" on-click="d3DonutClick(item)" company="tempCompany" class="span2"></d3-donut>
-<d3-donut percent="tempPercent2" on-click="d3DonutClick(item)" company="tempCompany2" class="span2"></d3-donut>
+<d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="tempContrib" class="span2"></d3-donut>
+<!-- <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="tempContrib2" class="span2"></d3-donut> -->
 
 <br />
 trans ids for testing:
