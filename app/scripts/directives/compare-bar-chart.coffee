@@ -15,7 +15,7 @@ angular.module('appApp.directives')
       scope.drawBarChart = () ->
         this_data = [-scope.data[0], scope.data[1]]
         x0 = Math.max(-d3.min(this_data), d3.max(this_data))  
-
+        d3.select(element[0]).selectAll('*').remove()
         svg = d3.select(element[0]).append("svg")
           .attr('class', 'bar-holder')
           .style('fill', '#ddd')
@@ -41,5 +41,19 @@ angular.module('appApp.directives')
             .attr("width", (d, i) -> 
               return Math.abs(parseInt(x(d)) - parseInt(x(0))) + "%"
             ).attr("x", (d, i) -> return x(Math.min(0, d)))
+
+          svg.selectAll('text')
+            .data(this_data)
+            .enter()
+              .append("text")
+              .attr("fill", "Black")
+              .attr("y", 20)
+              .attr("x", (d, i) ->
+                if i is 0 then x(0+10)
+                else x(0-10)
+              ).attr("text-anchor", (d, i) ->
+                if i is 0 then "start"
+                else "end"
+              ).text( ((d)-> Math.abs(d)) )
 
   ]
