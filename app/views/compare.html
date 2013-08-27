@@ -22,11 +22,12 @@
   </div>
 
   <h2 class="center grid-14">Top Industries</h2>
-  <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p>
+  <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p> -->
+  <!-- <li ng-repeat="industry in compareIndustries">   <li ng-repeat="(key,val) in industry"> {{key}},{{val}}</li>
+  </li> -->
+  <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p>
 
-  <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p>
-
-  <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[2].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[2].amount | currency}}</p>
+  <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[2].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[2].amount | currency}}</p> -->
 
   <h2 class="center grid-14">Report Card</h2>
   <p> Bills sponsored by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.bills_sponsored}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles[0].bills_sponsored}}</p>
@@ -42,6 +43,7 @@
   <p>agree percentage {{comparison.votes.agree_percent}}</p>
   <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
   <p>common bills {{comparison.bills.common_bills}}</p>
+  {{analysis}}
 <d3-donut data="d3_data" on-click="d3click(item)" class="span2"></d3-donut>
 <d3-donut percent="tempPercent" on-click="d3DonutClick(item)" company="tempCompany" class="span2"></d3-donut>
 
