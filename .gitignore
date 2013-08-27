@@ -1,6 +1,8 @@
 node_modules
+client-code
 dist
 .tmp
 app/bower_components
 libpeerconnection.log
 .DS_Store
+npm-debug.log
