@@ -68,9 +68,9 @@ angular.module('appApp.controllers')
           "#{$scope.FIPS_to_state[d.id / 100 | 0]}-#{d.id % 100}"
         district.on("mouseover", () ->
           return tooltip.style("visibility", "visible").text(d3.select(this).text())
-        ).on("mousemove", () -> 
+        ).on("mousemove", () ->
           return tooltip.style("top", (event.pageY-27)+"px").style("left", (event.pageX+"px"))
-        ).on("mouseout", () -> 
+        ).on("mouseout", () ->
           return tooltip.style("visibility", "hidden")
         ).on("click", () ->
           if !$scope.district_reps.length and $scope.zoomed
@@ -106,8 +106,8 @@ angular.module('appApp.controllers')
         .style("opacity", 1e-6)
         .style("z-index", "15")
 
-      $scope.makeMapGradients()      
-      queue().defer(d3.json, "views/us.json").defer(d3.json, "views/us-congress-113.json").await ready
+      $scope.makeMapGradients()
+      queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
     $scope.makeMapGradients = () ->
       d3.select("#map_holder").select("svg")
@@ -162,7 +162,7 @@ angular.module('appApp.controllers')
       $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
 
     $scope.showDistrictDialog = () ->
-      $('#map_dialog').html($compile("<sub-view template='partial/district_reps'></sub-view>")($scope)) 
+      $('#map_dialog').html($compile("<sub-view template='partials/district_reps'></sub-view>")($scope))
       d3.select('#map_dialog')
         .transition()
         .duration(750)
@@ -186,7 +186,7 @@ angular.module('appApp.controllers')
     $scope.drawMap()
     $scope.defaultFocus()
 
-    $scope.$watch('state_district', (newVals, oldVals) -> 
+    $scope.$watch('state_district', (newVals, oldVals) ->
       if $scope.state_district.state
         $scope.setDistrictData(newVals, oldVals)
         $scope.highlightDistrict()
@@ -198,4 +198,3 @@ angular.module('appApp.controllers')
     , true)
 
   ]
-  
