@@ -147,7 +147,7 @@ module.exports = function (grunt) {
     stylus: {
       compile: {
         files: {
-          '<%= yeoman.tmp %>/styles/main.css': '<%= yeoman.app %>/styles/main.styl',
+          '<%= yeoman.tmp %>/styles/app.css': '<%= yeoman.app %>/styles/app.styl',
           '<%= yeoman.tmp %>/styles/bootstrap.css': ['<%= yeoman.app %>/bower_components/bootstrap-stylus/stylus/bootstrap.styl','<%= yeoman.app %>/bower_components/bootstrap-stylus/stylus/responsive.styl']
         }
       }
