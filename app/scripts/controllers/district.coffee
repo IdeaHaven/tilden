@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller 'DistrictCtrl', ['$scope', '$window', '$compile', 'ApiGet', ($scope, $window, $compile, ApiGet) ->
+  .controller 'DistrictCtrl', ['$scope', '$window', '$location', '$routeParams', '$compile', 'ApiGet', ($scope, $window, $location, $routeParams, $compile, ApiGet) ->
     $scope.supportGeo = $window.navigator
     $scope.position = null
     $scope.selected_zip = null
@@ -56,9 +56,9 @@ angular.module('appApp.controllers')
 
     $scope.highlightDistrict = () ->
       d3.select('.districts').selectAll('path').classed('selected', false)
-      $scope.district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
-      $scope.district_element.attr('class', 'selected')
-      $scope.district_element.call($scope.zoomIn)
+      district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
+      district_element.attr('class', 'selected')
+      district_element.call($scope.zoomIn)
 
     $scope.drawMap = () ->
       ready = (error, us, congress) ->
@@ -68,14 +68,20 @@ angular.module('appApp.controllers')
           "#{$scope.FIPS_to_state[d.id / 100 | 0]}-#{d.id % 100}"
         district.on("mouseover", () ->
           return tooltip.style("visibility", "visible").text(d3.select(this).text())
-        ).on("mousemove", () -> 
+        ).on("mousemove", () ->
           return tooltip.style("top", (event.pageY-27)+"px").style("left", (event.pageX+"px"))
-        ).on("mouseout", () -> 
+        ).on("mouseout", () ->
           return tooltip.style("visibility", "hidden")
         ).on("click", () ->
-          district_id = d3.select(this).text()
-          $scope.state_district = {state: district_id.slice(0, 2), district: district_id.slice(3, 6)}
-          $scope.$apply()
+          if !$scope.district_reps.length and $scope.zoomed
+            $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
+            d3.select('#map_dialog').transition().duration(750).style("opacity", 1e-6)
+            $scope.state_district = {state: null, district: null}
+            $scope.district_reps = []
+          else
+            district_id = d3.select(this).text()
+            $scope.state_district = {state: district_id.slice(0, 2), district: district_id.slice(3, 6)}
+            $scope.$apply()
         )
         $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
           (a.id / 1000 | 0) is (b.id / 1000 | 0)
@@ -96,13 +102,45 @@ angular.module('appApp.controllers')
         .attr("class", "map_tooltip")
         .style("z-index", "10")
         .style("visibility", "hidden")
-      dialog = d3.select("#map_holder")
-        .append("div")
+      dialog = d3.select("#map_dialog")
         .style("opacity", 1e-6)
         .style("z-index", "15")
-        .attr("id", "map_dialog")
 
-      queue().defer(d3.json, "views/us.json").defer(d3.json, "views/us-congress-113.json").await ready
+      $scope.makeMapGradients()
+      queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
+
+    $scope.makeMapGradients = () ->
+      d3.select("#map_holder").select("svg")
+        .append("radialGradient")
+          .attr("id", "selected_gradient")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "100%")
+        .selectAll("stop")
+          .data([
+            {offset: "0%", color: "#d2ff52"},
+            {offset: "100%", color: "#91e842"}
+          ])
+        .enter().append("stop")
+          .attr("offset", (d)-> return d.offset)
+          .attr("stop-color", (d)->  return d.color)
+
+      d3.select("#map_holder").select("svg")
+        .append("radialGradient")
+          .attr("id", "hover_gradient")
+          .attr("x1", "0%")
+          .attr("y1", "0%")
+          .attr("x2", "100%")
+          .attr("y2", "100%")
+        .selectAll("stop")
+          .data([
+            {offset: "0%", color: "#f1e767"},
+            {offset: "100%", color: "#FCA625"}
+          ])
+        .enter().append("stop")
+          .attr("offset", (d)-> return d.offset)
+          .attr("stop-color", (d)->  return d.color)
 
     $scope.zoomIn = (d) ->
       element = d.node()
@@ -124,24 +162,39 @@ angular.module('appApp.controllers')
       $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
 
     $scope.showDistrictDialog = () ->
-      $('#map_dialog').html($compile("<sub-view template='partial/district_reps'></sub-view>")($scope)) 
+      $('#map_dialog').html($compile("<sub-view template='partials/district_reps'></sub-view>")($scope))
       d3.select('#map_dialog')
         .transition()
         .duration(750)
         .style("opacity", 1)
 
-    $scope.drawMap()
+    $scope.defaultFocus = () ->
+      # TODO: refactor this to not use an API call but only scope variables if possible.
+      if $routeParams.bioguide_id.length > 0
+        console.log $routeParams.bioguide_id
+        ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
+          if not error
+            if not data[0].district
+              for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
+                if data[0].state is state
+                  data[0].district = "0"
+              if not data[0].district then data[0].district = "1"
+            $scope.state_district = {state: data[0].state, district: data[0].district}
+          else console.log "Error, Senator/Rep not found."
+      else console.log "No parameter"
 
-    $scope.$watch('state_district', (newVals, oldVals) -> 
+    $scope.drawMap()
+    $scope.defaultFocus()
+
+    $scope.$watch('state_district', (newVals, oldVals) ->
       if $scope.state_district.state
         $scope.setDistrictData(newVals, oldVals)
         $scope.highlightDistrict()
     , true)
 
     $scope.$watch('district_reps', (newVals, oldVals) ->
-      if $scope.district_reps.length
+      if $scope.district_reps.length and $scope.state_district.state
         $scope.showDistrictDialog()
     , true)
 
   ]
-  

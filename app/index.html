@@ -9,14 +9,14 @@
     <title>Influence</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="http://assets.annotateit.org/annotator/v1.2.5/annotator.min.css">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <!-- build:css({.tmp,app}) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/bootstrap.css">
-        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-        <!-- endbuild -->
+      <!-- build:css({.tmp,app}) styles/main.css -->
+      <link rel="stylesheet" href="styles/app.css">
+      <link rel="stylesheet" href="styles/bootstrap.css">
+      <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+      <link rel="stylesheet" href="http://assets.annotateit.org/annotator/v1.2.5/annotator.min.css">
+      <!-- endbuild -->
   </head>
   <body ng-app="appApp" class="index-page" ng-controller="AppCtrl">
     <!--[if lt IE 7]>
@@ -29,6 +29,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <sub-view template="partials/add_this"></sub-view>
     <div class="container" ng-view=""></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -41,37 +42,35 @@
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
     <script src="http://assets.annotateit.org/annotator/v1.2.5/annotator-full.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <!-- build:js scripts/plugins.js -->
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>
     <script src="bower_components/topojson/topojson.js"></script>
-    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular/angular-resource.min.js"></script>
+    <script src="bower_components/angular/angular-cookies.min.js"></script>
+    <script src="bower_components/angular/angular-sanitize.min.js"></script>
+    <script src="bower_components/json3/vendor/lodash.js"></script>
+    <!-- endbuild -->
 
-        <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-
-        <!-- endbuild -->
-
-        <!-- build:js scripts/modules.js -->
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <!-- endbuild -->
-        <script src="bower_components/json3/vendor/lodash.js"></script>
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/individual.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/bill.js"></script>
-        <script src="scripts/services/Api_get.js"></script>
-        <script src="scripts/services/Member_data.js"></script>
-        <script src="scripts/directives/sub-view.js"></script>
-        <script src="scripts/controllers/district.js"></script>
-        <script src="scripts/controllers/app.js"></script>
-        <script src="scripts/filters/percent.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/individual.js"></script>
+    <script src="scripts/controllers/bill.js"></script>
+    <script src="scripts/controllers/words.js"></script>
+    <script src="scripts/services/Api_get.js"></script>
+    <script src="scripts/services/Member_data.js"></script>
+    <script src="scripts/directives/sub-view.js"></script>
+    <script src="scripts/controllers/district.js"></script>
+    <script src="scripts/controllers/app.js"></script>
+    <script src="scripts/filters/percent.js"></script>
+    <script src="scripts/controllers/compare.js"></script>
+    <script src="scripts/directives/d3Donut.js"></script>
+    <!-- endbuild -->
 
   </body>
 </html>

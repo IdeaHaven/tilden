@@ -48,15 +48,15 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/{,*/}*.html',
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/styles/{,*/}*.css',
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ],
-        tasks: ['karma']
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/{,**/}*.html',
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/styles/{,**/}*.css',
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/scripts/{,**/}*.js',
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/images/{,**/}*.{png,jpg,jpeg,gif,webp,svg}'
+        ]
+        // tasks: ['karma']
       },
       dev: {
-        files: ['<%= yeoman.app %>/{,*/}*.{html,ico,txt,png,jpg,jpeg,gif,webp,svg}'],
+        files: ['<%= yeoman.app %>/{,**/}*.{html,ico,txt,png,jpg,jpeg,gif,webp,svg,json}'],
         tasks: ['copy:dev']
       }
     },
@@ -147,7 +147,7 @@ module.exports = function (grunt) {
     stylus: {
       compile: {
         files: {
-          '<%= yeoman.tmp %>/styles/main.css': '<%= yeoman.app %>/styles/main.styl',
+          '<%= yeoman.tmp %>/styles/app.css': '<%= yeoman.app %>/styles/app.styl',
           '<%= yeoman.tmp %>/styles/bootstrap.css': ['<%= yeoman.app %>/bower_components/bootstrap-stylus/stylus/bootstrap.styl','<%= yeoman.app %>/bower_components/bootstrap-stylus/stylus/responsive.styl']
         }
       }
@@ -249,7 +249,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{png,svg,gif,webp}',
-            'styles/fonts/*'
+            'styles/fonts/*',
+            'data/*'
           ]
         }, {
           expand: true,
@@ -272,7 +273,8 @@ module.exports = function (grunt) {
             'bower_components/**/*',
             'views/**/*',
             'images/{,*/}*.{png,svg,gif,webp}',
-            'styles/fonts/*'
+            'styles/fonts/*',
+            'data/*'
           ]
         }]
       },
@@ -287,7 +289,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'views/**/*',
             'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*'
+            'styles/fonts/*',
+            'data/*'
           ]
         }]
       }
