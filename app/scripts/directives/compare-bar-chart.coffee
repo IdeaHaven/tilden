@@ -16,11 +16,11 @@ angular.module('appApp.directives')
       window.onresize = (()-> scope.$apply())
 
       scope.drawBarChart = () ->
-        console.log scope.currency, typeof scope.currency
         scope.$watch '[data1, data2]', (newVals, oldVals)->
           d3.select(element[0]).selectAll('*').remove()
-          if not newVals
+          if !newVals[0] or !newVals[1]
             return
+
           width = $('.bar-holder').width() || 800
           this_data = [-scope.data1, scope.data2]
           x0 = Math.max(-d3.min(this_data), d3.max(this_data))  
@@ -63,20 +63,20 @@ angular.module('appApp.directives')
               .attr("fill", "Black")
               .attr("y", 20)
               .attr("x", (d, i) ->
-                if i is 1 then x(0) - 90
+                if i is 0 then x(0) - 90
                 else x(0) + 90
               ).attr("text-anchor", (d, i) ->
-                if i is 0 then "start"
-                else "end"
+                if i is 0 then "end"
+                else "start"
               ).text( (d)-> 
-                if scope.currency then $filter('currency')(Math.abs(d))
-                else d
+                if scope.currency is "true" then $filter('currency')(Math.abs(d))
+                else Math.abs(d)
               )
             
           svg.append("text")
-              .attr("fill", "Black")
-              .attr("y", 20)
-              .attr("x", x(0))
-              .attr("text-anchor", "middle")
-              .text(scope.label)
+            .attr("fill", "Black")
+            .attr("y", 20)
+            .attr("x", x(0))
+            .attr("text-anchor", "middle")
+            .text(scope.label)
   ]
