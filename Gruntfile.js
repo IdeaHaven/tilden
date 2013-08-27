@@ -48,15 +48,15 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/{,*/}*.html',
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/styles/{,*/}*.css',
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/{,**/}*.html',
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/styles/{,**/}*.css',
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/scripts/{,**/}*.js',
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/images/{,**/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
         // tasks: ['karma']
       },
       dev: {
-        files: ['<%= yeoman.app %>/{,*/}*.{html,ico,txt,png,jpg,jpeg,gif,webp,svg}'],
+        files: ['<%= yeoman.app %>/{,**/}*.{html,ico,txt,png,jpg,jpeg,gif,webp,svg,json}'],
         tasks: ['copy:dev']
       }
     },
