@@ -36,6 +36,14 @@ angular.module('appApp.controllers')
       else
         console.warn "Error setting reps_list and overview data: ", error
 
+#####################
+# Define Non-API Methods
+#####################
+
+    # this is used to update a selected rep based on the input boxes
+    $scope.onSelect = ($item, $model, $label, rep)->
+      $scope.selected[rep] = $item
+
 ######################
 # Initial Method Calls
 ######################

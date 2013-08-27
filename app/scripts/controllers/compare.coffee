@@ -98,7 +98,9 @@ angular.module('appApp.controllers')
     $scope.cb.influence.industries = (error, data, bioguide_id) ->
       unless error
         $scope.reps[bioguide_id].influence.industries = data.json
+        $scope.analysis.industries($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id)
       else console.log 'error', error
+
 
     $scope.get.nyt.bills = (bioguide_id1, bioguide_id2, congress, chamber)->
       ApiGet.nyt "members/#{bioguide_id1}/bills/#{bioguide_id2}/#{congress}/#{chamber}", $scope.cb.nyt.bills, this
@@ -116,10 +118,52 @@ angular.module('appApp.controllers')
     $scope.onSelect = ($item, $model, $label, rep)->
       $scope.selected[rep] = $item
 
+    $scope.analysis = {}
+
+#####################
+# Data Analysis
+#####################
+
+    $scope.analysis.industries = (bioguide_id1, bioguide_id2 )->
+      both = []
+      _.each($scope.reps[bioguide_id1].influence.industries, (val)->
+        _.each($scope.reps[bioguide_id2].influence.industries, (val1)->
+          if val.id is val1.id
+            obj1 = {}
+            obj2 = {}
+            obj1[val.name] = val.amount
+            obj2[val1.name] = val1.amount
+            both.push([obj1,obj2])
+        )
+      )
+      $scope.compareIndustries = both
+
+
 #####################
 # Define D3 Data
 #####################
 
+    $scope.tempScale = 1750000
+    $scope.tempContrib =
+      "employee_amount": "1504133.00",
+      "total_amount": "1504133.00",
+      "total_count": "3074",
+      "name": "University of California",
+      "direct_count": "0",
+      "employee_count": "3074",
+      "id": "0e85264c0c0e4dfb9a4b38cfc181f030",
+      "direct_amount": "0"
+    $scope.tempCompany2 =
+      "employee_amount": "814645.00",
+      "total_amount": "814645.00",
+      "total_count": "1241",
+      "name": "Microsoft Corp",
+      "direct_count": "0",
+      "employee_count": "1241",
+      "id": "f1244474fad44ad9a3a57859b4a709b1",
+      "direct_amount": "0"
+    $scope.d3DonutClick = (item)->
+      console.log 'D3 clicked', item
     $scope.d3_data = {amounts: [200,200,200,200,200]}
 
 #####################
