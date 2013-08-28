@@ -1,0 +1,75 @@
+// HTML code:
+// <div id="circularG">
+//   <div id="circularG_1" class="circularG"></div>
+//   <div id="circularG_2" class="circularG"></div>
+//   <div id="circularG_3" class="circularG"></div>
+//   <div id="circularG_4" class="circularG"></div>
+//   <div id="circularG_5" class="circularG"></div>
+//   <div id="circularG_6" class="circularG"></div>
+//   <div id="circularG_7" class="circularG"></div>
+//   <div id="circularG_8" class="circularG"></div>
+// </div>
+
+@import 'nib'
+
+#circularG
+  position relative
+  width 150px
+  height 150px
+
+.circularG
+  position: absolute;
+  background-color: #000000;
+  width: 34px;
+  height: 34px;
+  border-radius: 23px;
+  animation-name: bounce_circularG;
+  animation-duration: 1.04s;
+  animation-iteration-count: infinite;
+  animation-direction: linear;
+
+#circularG_1
+  left: 0
+  top: 59px
+  animation-delay: 0.39s
+
+#circularG_2
+  left: 16px
+  top: 16px
+  animation-delay: 0.52s
+
+#circularG_3
+  top: 0;
+  left: 59px;
+  animation-delay: 0.65s;
+
+#circularG_4
+  right: 16px;
+  top: 16px;
+  animation-delay: 0.78s;
+
+#circularG_5
+  right: 0;
+  top: 59px;
+  animation-delay: 0.91s;
+
+#circularG_6
+  right: 16px;
+  bottom: 16px;
+  animation-delay: 1.04s;
+
+#circularG_7
+  left: 59px;
+  bottom: 0;
+  animation-delay: 1.17s;
+
+#circularG_8
+  left:16px;
+  bottom: 16px;
+  animation-delay: 1.3s;
+
+@keyframes bounce_circularG
+  0%
+    transform: scale(1)
+  100%
+    transform: scale(.3)
