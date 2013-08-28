@@ -20,7 +20,7 @@ angular.module('appApp.directives')
           d3.select(element[0]).selectAll('*').remove()
           if !newVals[0] or !newVals[1]
             return
-
+          d3.select(element[0]).text('')
           width = $('.bar-holder').width() || 800
           this_data = [-scope.data1, scope.data2]
           x0 = Math.max(-d3.min(this_data), d3.max(this_data))  
