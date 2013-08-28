@@ -13,7 +13,7 @@ angular.module('appApp.controllers')
     $scope.selected =
       rep1: {bioguide_id: "K000381", name: "Rep. Derek Kilmer"}
       rep2: {bioguide_id: "P000197", name: "Rep. Nancy Pelosi"}
-      zip: 94102
+      zip: null
       bill: null
       commiitee: null
       district: null
