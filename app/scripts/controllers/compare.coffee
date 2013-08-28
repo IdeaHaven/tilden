@@ -7,9 +7,9 @@ angular.module('appApp.controllers')
 ######################
 
     # these were defined in AppCtrl and $scope will delegate to $rootScope
-      # $rootScope.reps
-      # $rootScope.selected
-      # $rootScope.reps_list
+      # $scope.reps
+      # $scope.selected
+      # $scope.reps_list
 
     # init local variables
     $scope.comparison =
