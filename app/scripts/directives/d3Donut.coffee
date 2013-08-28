@@ -12,10 +12,14 @@ angular.module('appApp.directives')
     link: (scope, element, attrs)->
 
       scope.change = ->
-        scope.percent = (scope.contributor.total_amount / scope.scale)
+        if scope.contributor
+          scope.percent = (scope.contributor.total_amount / scope.scale)
+          # get favicon url from contributor name
+          ApiGet.own "favicon?company=\"#{scope.contributor.name}\"", scope.draw_favicon, this
+          scope.drawD3()
 
       # on window resize, redraw d3 canvas
-      scope.$watch( (-> angular.element(window)[0].innerWidth), (-> scope.drawD3(); scope.draw_favicon()) )
+      scope.$watch( (-> angular.element(window)[0].innerWidth), (-> scope.change()) )
       window.onresize = (-> scope.$apply())
       # make the canvas once
       canvas = d3.select(element[0]).append("svg")
@@ -30,8 +34,6 @@ angular.module('appApp.directives')
             .attr("width", scope.radius)
             .attr("height", scope.radius)
             .attr("transform", "translate(#{scope.radius/2},#{scope.radius/2})")
-      # get favicon url from contributor name
-      ApiGet.own "favicon?company=\"#{scope.contributor.name}\"", scope.draw_favicon, this
 
       # draw d3 here on the canvas defined above
       scope.drawD3 = ->
@@ -88,9 +90,6 @@ angular.module('appApp.directives')
             .call(arcTween, scope.percent * τ)
 
       # watch for attribute changes and call the changed function
-      scope.$watch 'contributor', scope.change()
-      scope.$watch 'scope', scope.change()
-
-      # initial run
-      scope.drawD3()
+      scope.$watch 'contributor', (-> scope.change())
+      scope.$watch 'scale', (-> scope.change())
   ]
