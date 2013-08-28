@@ -58,15 +58,15 @@
 
 </div>
 
-<!-- 
-  <h2 class="center grid-14">Top Industries</h2>
+<!--   <h2 class="center grid-14">Top Industries</h2>
    <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p> 
-   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p>
+   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p> -->
 
   <h4> Industries Contributing to Both Legislators</h4>
-  <div ng-repeat="(key, value) in compareIndustries"><compare-bar-chart data1="value[0]" data2="value[1]" label="key" currency="true"></compare-bar-chart> </div><br/>
 
+  <div ng-repeat="(key, value) in compareIndustries"><compare-bar-chart data1="value[0]" data2="value[1]" label="key" lwidth=170 currency="true"></compare-bar-chart> </div><br/>
 
+<!--
   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[2].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[2].amount | currency}}</p>
 
   <h2 class="center grid-14">Report Card</h2>
@@ -84,6 +84,4 @@
 <p>agree percentage {{comparison.votes.agree_percent}}</p>
 <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
 <p>common bills {{comparison.bills.common_bills}}</p>
-
-
- -->
+-->
