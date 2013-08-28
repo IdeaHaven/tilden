@@ -5,6 +5,12 @@ angular.module('appApp.services')
     
     get_littleSis: (bioguide_id, callback)->
       ApiGet.littleSis "entities/bioguide_id/#{bioguide_id}", callback, bioguide_id, this
+
+    get_littleSisDonors: (bioguide_id, callback)->
+      ApiGet.littleSisDonors "13287/related.json?cat_ids=5", callback, bioguide_id, this
+
+    get_littleSisSpouse: (bioguide_id, callback)->
+      ApiGet.littleSisDonors "13287/related.json?cat_ids=4", callback, bioguide_id, this
     
   ]
     

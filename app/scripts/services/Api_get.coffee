@@ -76,4 +76,18 @@ angular.module('appApp.services')
           callback.apply(context, args)
       .error (data, status, headers, config)->
         callback "Error pulling #{path} from LittleSis", null
+    littleSisDonors: (path, callback, context)->
+      args = Array.prototype.slice.call(arguments, 2)
+      context = args.shift()
+      #apiurl = "http://api.littlesis.org/entity/13287/related.json?cat_ids=5&num=5&_key=f7415b282639a97967b87a0fa561a92960409a3e"
+      $http
+        method: "GET"
+        url: "http://api.littlesis.org/entity/#{path}&_key=f7415b282639a97967b87a0fa561a92960409a3e"
+      .success (data, status, headers, config)->
+        if data
+          args.unshift data.Response.Data.RelatedEntities.Entity
+          args.unshift null
+          callback.apply(context, args)
+      .error (data, status, headers, config)->
+        callback "Error pulling #{path} from LittleSis", null
   ]

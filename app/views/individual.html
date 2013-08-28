@@ -5,30 +5,20 @@
   <div class="span2">
     <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/K000381.jpg" width="20%"/>
   </div>
-  <div class="span4">
-    <h3>LittleSis Lists</h3>
-    <ul class='text-left'>
-      <li ng-repeat="name in selected_rep.littleSis_data['Lists']['List']">{{name.name}}</li>
-    </ul>
-    <h3>Spouse</h3>
-    <ul class='text-left'>
-      <li ng-repeat="name in selected_rep.littleSis_data['results']['Response']['Data']['Lists']['List']">{{name.name}}</li>
-    </ul>
-  </div>
 </div>
 <div class="row">
   <div class="span8 text-left">
     <ul class="nav nav-pills">
       <li><a ng-init="showRepInfo = false" ng-click="showRepInfo = !showRepInfo">Rep Info</a></li>
       <li><a ng-init="showContactInfo = false" ng-click="showContactInfo = !showContactInfo">Contact Info</a></li>
-      <li><a ng-init="showActivityInfo = false" ng-click="showActivityInfo = !showActivityInfo">Activity Info</a></li>
+      <li><a ng-init="showDonorInfo = false" ng-click="showDonorInfo = !showDonorInfo">Donor Info</a></li>
     </ul>
     <div ng-show="showRepInfo">
       <dl class="dl-horizontal">
         <dt>Term</dt>
-        <dd>{{ reps["K000381"]["overview"]['term_start'] }} to {{ reps["K000381"]["overview"]['term_end'] }}</dd>
+        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['term_start'] }} to {{ reps[selected.rep1.bioguide_id]["overview"]['term_end'] }}</dd>
         <dt>Party</dt>
-        <dd>{{ reps["K000381"]["overview"]['party_name'] }}</dd>
+        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['party_name'] }}</dd>
         <dt>Bio</dt>
         <dd>{{ selected_rep.bio.metadata.bio }}</dd>
       </dl>
@@ -36,25 +26,23 @@
     <div ng-show="showContactInfo">
       <dl class="dl-horizontal">
         <dt>Phone</dt>
-        <dd>{{ reps["K000381"]["overview"]['phone'] }}</dd>
+        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['phone'] }}</dd>
         <dt>Website</dt>
-        <dd><a href="#{reps[\'K000381\'].overview.website}">{{ reps["K000381"]["overview"]['website'] }}</a> </dd>
+        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['website'] }}</dd>
         <dt>Office</dt>
-        <dd>{{ reps["K000381"]["overview"]['office'] }}</dd>
+        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['office'] }}</dd>
         <dt>Contact Form</dt>
-        <dd>{{ reps["K000381"]["overview"]['contact_form'] }}</dd>
+        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['contact_form'] }}</dd>
         <dt>Twitter</dt>
-        <dd>{{ reps["K000381"]["overview"]['twitter_id'] }}</dd>
+        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['twitter_id'] }}</dd>
         <dt>Facebook</dt>
-        <dd>{{ reps["K000381"]["overview"]['facebook_id'] }}</dd>
+        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['facebook_id'] }}</dd>
       </dl>
     </div>
-    <div ng-show="showActivityInfo">
+    <div ng-show="showDonorInfo">
       <dl class="dl-horizontal">
-        <dt>Votes with party</dt>
-        <dd>{{ selected_rep.nyt_data['results']['roles']['votes_with_party_pct']}}</dd>
-        <dt>Missed votes</dt>
-        <dd>{{ selected_rep.nyt_data['results']['roles']['missed_votes_pct']}}</dd>
+        <dt>Spendy Donors {{selecte.rep1.littleSis_data}}</dt>
+        <dd ng-repeat="name in match">{{name.name}} gave {{name.amount}}</dd>
       </dl>
     </div>
   </div>
