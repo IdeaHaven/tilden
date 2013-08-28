@@ -30,11 +30,9 @@
       </d3-donut>
     </div>
   </div>
-  <div>
 <!--     <p>{{reps[selected.rep1.bioguide_id].influence.type.Individuals[0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.type.Individuals[1] | currency}} || No of individuals: {{reps[selected.rep2.bioguide_id].influence.type.Individuals[0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.type.Individuals[1] | currency}}</p> -->
-
+  <div>
     <h4>Individual Donor Contributions</h4>
-
     <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.Individuals[0]" data2="reps[selected.rep2.bioguide_id].influence.type.Individuals[0]" label="'Total Funders'" currency="false"></compare-bar-chart>
 
     <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.Individuals[1]" data2="reps[selected.rep2.bioguide_id].influence.type.Individuals[1]" label="'Contributions'" currency="true"></compare-bar-chart>
