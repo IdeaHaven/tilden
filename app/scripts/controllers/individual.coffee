@@ -15,6 +15,9 @@ angular.module('appApp.controllers')
 
     # init local variables
 
+######################
+# Define API Methods
+######################
     #loading checks
     $scope.loaded_trandparencydata_id = false
     $scope.loaded_bio = false
@@ -44,7 +47,7 @@ angular.module('appApp.controllers')
 
     $scope.callback_nyt = (error, data)->
       if not error
-        $scope.selected_rep.nyt_data = data
+        $scope.selected.rep1.nyt_data = data
         $scope.reps[$scope.selected.rep1.bioguide_id].overview.nyt_data = data
       else console.log "Error: ", error
 
@@ -60,7 +63,6 @@ angular.module('appApp.controllers')
     $scope.get_donors = (data) ->
       _.each data, (val) ->
         if val.Relationships.Relationship.amount
-          console.log(val)
           if val.Relationships.Relationship.amount >= 15000
             $scope.match.push
               name: val.name

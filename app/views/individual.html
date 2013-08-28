@@ -20,7 +20,7 @@
         <dt>Party</dt>
         <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['party_name'] }}</dd>
         <dt>Bio</dt>
-        <dd>{{ selected_rep.bio.metadata.bio }}</dd>
+        <dd>{{ selected.rep1.bio.metadata.bio }}</dd>
       </dl>
     </div>
     <div ng-show="showContactInfo">
@@ -41,8 +41,8 @@
     </div>
     <div ng-show="showDonorInfo">
       <dl class="dl-horizontal">
-        <dt>Spendy Donors {{selecte.rep1.littleSis_data}}</dt>
-        <dd ng-repeat="name in match">{{name.name}} gave {{name.amount}}</dd>
+        <dt>Spendy Donors</dt>
+        <dd ng-repeat="name in match">{{name.name}} gave {{name.amount | currency}}</dd>
       </dl>
     </div>
   </div>
