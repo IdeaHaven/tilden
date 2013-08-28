@@ -142,7 +142,10 @@ angular.module('appApp.controllers')
 #####################
 # Define D3 Data
 #####################
-    $scope.tempScale = 1750000
+    $scope.tempScale = 100000
+    $scope.dummyData =
+      "name": "Apple"
+      "total_amount" : "30000"
     $scope.d3DonutClick = (item)->
       console.log 'D3 clicked', item
     $scope.d3_data = {amounts: [200,200,200,200,200]}

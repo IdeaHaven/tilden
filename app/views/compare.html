@@ -7,13 +7,31 @@
 <div class="top-industries">
   <h2 class="center grid-14">Funding Sources</h2>
   <div class="contributors">
-    <p>{{reps[selected.rep1.bioguide_id].influence.contributors[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.contributors[0].total_amount | currency}} || {{reps[selected.rep2.bioguide_id].influence.contributors[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.contributors[0].total_amount | currency}}</p>
+    <div class="pull-left" style="border-right: solid white 1px">
+      <!-- <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2">
+      </d3-donut> -->
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2">
+      </d3-donut>
 
-    <p>{{reps[selected.rep1.bioguide_id].influence.contributors[1].name}} , Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.contributors[1].total_amount | currency}} || {{reps[selected.rep2.bioguide_id].influence.contributors[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.contributors[1].total_amount | currency}}</p>
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[1]" class="span2">
+      </d3-donut>
 
-    <p>{{reps[selected.rep1.bioguide_id].influence.contributors[2].name}} , Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.contributors[2].total_amount | currency}} || {{reps[selected.rep2.bioguide_id].influence.contributors[2].name}} , Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.contributors[2].total_amount | currency}}</p>
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" class="span2">
+      </d3-donut>
+    </div>
+    <div class="pull-right">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" class="span2">
+      </d3-donut>
 
-    <p>No of individuals: {{reps[selected.rep1.bioguide_id].influence.type.Individuals[0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.type.Individuals[1] | currency}} || No of individuals: {{reps[selected.rep2.bioguide_id].influence.type.Individuals[0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.type.Individuals[1] | currency}}</p>
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[1]" class="span2">
+      </d3-donut>
+
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[2]" class="span2">
+      </d3-donut>
+    </div>
+  </div>
+  <div>
+    <p>{{reps[selected.rep1.bioguide_id].influence.type.Individuals[0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.type.Individuals[1] | currency}} || No of individuals: {{reps[selected.rep2.bioguide_id].influence.type.Individuals[0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.type.Individuals[1] | currency}}</p>
 
     <p>No of PACs: {{reps[selected.rep1.bioguide_id].influence.type.PACs[0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.type.PACs[1] | currency}} || No of PACs: {{reps[selected.rep2.bioguide_id].influence.type.PACs[0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.type.PACs[1] | currency}}</p>
 
@@ -21,30 +39,28 @@
 
     <p>Out-of-State: {{reps[selected.rep1.bioguide_id].influence.local["Out-of-State"][0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.local["Out-of-State"][1] | currency}} || No of In-State: {{reps[selected.rep2.bioguide_id].influence.local["Out-of-State"][0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.local["Out-of-State"][1] | currency}}</p>
   </div>
-
-  <h2 class="center grid-14">Top Industries</h2>
-  <!-- <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p> -->
+</div>
+<div class="industries">
+  <h2 class="center">Top Industries</h2>
   <span ng-repeat="industry in compareIndustries">
     <span ng-repeat="(key,val) in industry">
      ||{{key}} => {{val}}||
     </span>
   </span>
+</div>
+<h2 class="center grid-14">Report Card</h2>
+<p> Bills sponsored by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.bills_sponsored}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles[0].bills_sponsored}}</p>
 
-  <h2 class="center grid-14">Report Card</h2>
-  <p> Bills sponsored by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.bills_sponsored}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles[0].bills_sponsored}}</p>
+<p> Bills co-sponsored by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.bills_cosponsored}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles[0].bills_cosponsored}}</p>
 
-  <p> Bills co-sponsored by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.bills_cosponsored}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles[0].bills_cosponsored}}</p>
+<p> Missed vote percentage by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.missed_votes_pct}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles.missed_votes_pct}}</p>
 
-  <p> Missed vote percentage by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.missed_votes_pct}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles.missed_votes_pct}}</p>
+<p> votes with party percentage by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.votes_with_party_pct}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles.votes_with_party_pct}}</p>
 
-  <p> votes with party percentage by {{reps[selected.rep1.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep1.bioguide_id].nyt_overview.roles.votes_with_party_pct}} || by {{reps[selected.rep2.bioguide_id].nyt_overview.first_name}} {{reps[selected.rep2.bioguide_id].nyt_overview.roles.votes_with_party_pct}}</p>
+<p>common votes {{comparison.votes.common_votes}}</p>
+<p>disagree votes {{comparison.votes.disagree_votes}}</p>
+<p>agree percentage {{comparison.votes.agree_percent}}</p>
+<p>disagree percentage {{comparison.votes.disagree_percent}}</p>
+<p>common bills {{comparison.bills.common_bills}}</p>
 
-  <p>common votes {{comparison.votes.common_votes}}</p>
-  <p>disagree votes {{comparison.votes.disagree_votes}}</p>
-  <p>agree percentage {{comparison.votes.agree_percent}}</p>
-  <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
-  <p>common bills {{comparison.bills.common_bills}}</p>
 
-{{reps[selected.rep1.bioguide_id].influence.contributors[0]}}
-<d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2"></d3-donut>
-<!--   -->
