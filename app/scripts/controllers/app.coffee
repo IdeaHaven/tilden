@@ -16,6 +16,9 @@ angular.module('appApp.controllers')
       zip: 94102
       bill: null
       commiitee: null
+      district: null
+      state: null
+      position: null
 
 ######################
 # Define API Methods
