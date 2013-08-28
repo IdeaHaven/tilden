@@ -3,7 +3,7 @@
 # contributor is an object with the following properties: total_amount, name
 
 angular.module('appApp.directives')
-  .directive 'd3Donut', ['ApiGet', (ApiGet)->
+  .directive 'd3Donut', ['ApiGet', '$filter', (ApiGet, $filter)->
     restrict: 'E'
     scope:
       scale: '='
@@ -57,7 +57,7 @@ angular.module('appApp.directives')
           .classed("d3Donut-company", true)
           .attr("width", scope.radius)
           .attr("transform", "translate(#{scope.radius},#{scope.radius * 2 + 25})")
-          .text(scope.contributor.total_amount)
+          .text($filter('currency')(scope.contributor.total_amount))
         # create the paths for each donute section
         arc = d3.svg.arc()
           .innerRadius(scope.radius - 5)
