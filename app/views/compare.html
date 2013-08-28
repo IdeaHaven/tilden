@@ -10,23 +10,23 @@
     <div class="pull-left" style="border-right: solid white 1px">
       <!-- <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2">
       </d3-donut> -->
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" currency="true" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[1]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[1]" currency="true" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" currency="true" class="span2">
       </d3-donut>
     </div>
     <div class="pull-right">
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" currency="true" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[1]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[1]" currency="true" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[2]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[2]" currency="true" class="span2">
       </d3-donut>
     </div>
   </div>
@@ -55,7 +55,7 @@
     <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][1]" label="'Contributions'" currency="true"></compare-bar-chart>
 
    <!--  <p>Out-of-State: {{reps[selected.rep1.bioguide_id].influence.local["Out-of-State"][0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.local["Out-of-State"][1] | currency}} || No of In-State: {{reps[selected.rep2.bioguide_id].influence.local["Out-of-State"][0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.local["Out-of-State"][1] | currency}}</p> -->
-    
+
     <h4>Out-of-State Contributions</h4>
 
     <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['Out-of-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['Out-of-State'][0]" label="'Total Funders'" currency="false"></compare-bar-chart>
