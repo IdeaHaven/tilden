@@ -6,10 +6,9 @@
 </div>
 <div class="top-industries">
   <h2 class="center grid-14">Funding Sources</h2>
-  <div class="contributors">
+  <div class="contributors row">
     <div class="pull-left" style="border-right: solid white 1px">
-      <!-- <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2">
-      </d3-donut> -->
+      </d3-donut>
       <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2">
       </d3-donut>
 
@@ -30,39 +29,33 @@
       </d3-donut>
     </div>
   </div>
-  <div>
-<!--     <p>{{reps[selected.rep1.bioguide_id].influence.type.Individuals[0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.type.Individuals[1] | currency}} || No of individuals: {{reps[selected.rep2.bioguide_id].influence.type.Individuals[0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.type.Individuals[1] | currency}}</p> -->
+</div>
+<div>
 
-    <h4>Individual Donor Contributions</h4>
+  <h4>Individual Donor Contributions</h4>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.Individuals[0]" data2="reps[selected.rep2.bioguide_id].influence.type.Individuals[0]" label="'Total Funders'" currency="false"></compare-bar-chart>
+  <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.Individuals[0]" data2="reps[selected.rep2.bioguide_id].influence.type.Individuals[0]" label="'Total Funders'" currency="false"></compare-bar-chart>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.Individuals[1]" data2="reps[selected.rep2.bioguide_id].influence.type.Individuals[1]" label="'Contributions'" currency="true"></compare-bar-chart>
+  <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.Individuals[1]" data2="reps[selected.rep2.bioguide_id].influence.type.Individuals[1]" label="'Contributions'" currency="true"></compare-bar-chart>
 
-<!--     <p>No of PACs: {{reps[selected.rep1.bioguide_id].influence.type.PACs[0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.type.PACs[1] | currency}} || No of PACs: {{reps[selected.rep2.bioguide_id].influence.type.PACs[0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.type.PACs[1] | currency}}</p> -->
+  <h4>PAC Contributions</h4>
 
-    <h4>PAC Contributions</h4>
+  <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.PACs[0]" data2="reps[selected.rep2.bioguide_id].influence.type.PACs[0]" label="'Total PACs'" currency="false"></compare-bar-chart>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.PACs[0]" data2="reps[selected.rep2.bioguide_id].influence.type.PACs[0]" label="'Total PACs'" currency="false"></compare-bar-chart>
+  <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.PACs[1]" data2="reps[selected.rep2.bioguide_id].influence.type.PACs[1]" label="'Contributions'" currency="true"></compare-bar-chart>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.type.PACs[1]" data2="reps[selected.rep2.bioguide_id].influence.type.PACs[1]" label="'Contributions'" currency="true"></compare-bar-chart>
+  <h4>In-State Contributions</h4>
 
-<!--     <p>In-state: {{reps[selected.rep1.bioguide_id].influence.local["In-State"][0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.local["In-State"][1] | currency}} || No of In-State: {{reps[selected.rep2.bioguide_id].influence.local["In-State"][0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.local["In-State"][1] | currency}}</p> -->
-    <h4>In-State Contributions</h4>
+  <compare-bar-chart class="center grid-14" data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][0]" label="'Total Funders'" currency="false"></compare-bar-chart>
 
-    <compare-bar-chart class="center grid-14" data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][0]" label="'Total Funders'" currency="false"></compare-bar-chart>
+  <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][1]" label="'Contributions'" currency="true"></compare-bar-chart>
+  
+  <h4>Out-of-State Contributions</h4>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][1]" label="'Contributions'" currency="true"></compare-bar-chart>
+  <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['Out-of-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['Out-of-State'][0]" label="'Total Funders'" currency="false"></compare-bar-chart>
 
-   <!--  <p>Out-of-State: {{reps[selected.rep1.bioguide_id].influence.local["Out-of-State"][0]}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.local["Out-of-State"][1] | currency}} || No of In-State: {{reps[selected.rep2.bioguide_id].influence.local["Out-of-State"][0]}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.local["Out-of-State"][1] | currency}}</p> -->
-    
-    <h4>Out-of-State Contributions</h4>
+  <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['Out-of-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['Out-of-State'][1]" label="'Contributions'" currency="true"></compare-bar-chart>
 
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['Out-of-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['Out-of-State'][0]" label="'Total Funders'" currency="false"></compare-bar-chart>
-
-    <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['Out-of-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['Out-of-State'][1]" label="'Contributions'" currency="true"></compare-bar-chart>
-
-  </div>
 </div>
 
 <!-- 
