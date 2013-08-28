@@ -125,7 +125,7 @@ angular.module('appApp.controllers')
 #####################
 
     $scope.analysis.industries = (bioguide_id1, bioguide_id2 )->
-      both = {}
+      both = []
       _.each($scope.reps[bioguide_id1].influence.industries, (val)->
         _.each($scope.reps[bioguide_id2].influence.industries, (val1)->
           if val.id is val1.id
