@@ -15,7 +15,8 @@ angular.module('appApp.directives')
         if scope.contributor
           scope.percent = (scope.contributor.total_amount / scope.scale)
           # get favicon url from contributor name
-          ApiGet.own "favicon?company=\"#{scope.contributor.name}\"", scope.draw_favicon, this
+          company = scope.contributor.name.replace(/&/i, "and")
+          ApiGet.own "favicon?company=\"#{company}\"", scope.draw_favicon, this
           scope.drawD3()
 
       # on window resize, redraw d3 canvas
