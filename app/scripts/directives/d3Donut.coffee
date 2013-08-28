@@ -9,6 +9,7 @@ angular.module('appApp.directives')
       scale: '='
       onClick: '&'
       contributor: '='
+      currency: '@'
     link: (scope, element, attrs)->
 
       scope.change = ->
