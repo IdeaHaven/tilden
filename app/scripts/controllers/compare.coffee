@@ -125,17 +125,11 @@ angular.module('appApp.controllers')
 #####################
 
     $scope.analysis.industries = (bioguide_id1, bioguide_id2 )->
-      both = []
+      both = {}
       _.each($scope.reps[bioguide_id1].influence.industries, (val)->
         _.each($scope.reps[bioguide_id2].influence.industries, (val1)->
           if val.id is val1.id
-            # values = [val.amount, val1.amount]
-            # both[val.name] = values
-            obj1 = {}
-            obj2 = {}
-            obj1[val.name] = val.amount
-            obj2[val1.name] = val1.amount
-            both.push(obj1,obj2)
+            both[val.name] = [val.amount, val1.amount]
         )
       )
       $scope.compareIndustries = both
@@ -144,10 +138,7 @@ angular.module('appApp.controllers')
 #####################
 # Define D3 Data
 #####################
-    $scope.tempScale = 100000
-    $scope.dummyData =
-      "name": "Apple"
-      "total_amount" : "30000"
+    $scope.tempScale = 175000
     $scope.d3DonutClick = (item)->
       console.log 'D3 clicked', item
     $scope.d3_data = {amounts: [200,200,200,200,200]}

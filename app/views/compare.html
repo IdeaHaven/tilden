@@ -4,28 +4,31 @@
   <sub-view template="partials/select_rep1_name"></sub-view>
   <sub-view template="partials/select_rep2_name"></sub-view>
 </div>
+<div class="center">
+  <img class="img-rounded" ng-src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep1.bioguide_id}}.jpg"/>
+  <img class="img-rounded" ng-src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep2.bioguide_id}}.jpg"/>
+</div>
 <div class="top-industries">
   <h2 class="center grid-14">Funding Sources</h2>
   <div class="contributors row">
-    <div class="pull-left" style="border-right: solid white 1px">
-      </d3-donut>
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" class="span2">
-      </d3-donut>
-
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[1]" class="span2">
+    <div class="pull-left rep1" style="border-right: solid white 1px">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" currency="true" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[1]" currency="true" class="span2">
+      </d3-donut>
+
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" currency="true" class="span2">
       </d3-donut>
     </div>
-    <div class="pull-right">
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" class="span2">
+    <div class="pull-right rep2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" currency="true" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[1]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[1]" currency="true" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[2]" class="span2">
+      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[2]" currency="true" class="span2">
       </d3-donut>
     </div>
   </div>
@@ -49,7 +52,7 @@
   <compare-bar-chart class="center grid-14" data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][0]" label="'Total Funders'" currency="false"></compare-bar-chart>
 
   <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['In-State'][1]" data2="reps[selected.rep2.bioguide_id].influence.local['In-State'][1]" label="'Contributions'" currency="true"></compare-bar-chart>
-  
+
   <h4>Out-of-State Contributions</h4>
 
   <compare-bar-chart data1="reps[selected.rep1.bioguide_id].influence.local['Out-of-State'][0]" data2="reps[selected.rep2.bioguide_id].influence.local['Out-of-State'][0]" label="'Total Funders'" currency="false"></compare-bar-chart>
@@ -58,15 +61,15 @@
 
 </div>
 
-<!-- 
-  <h2 class="center grid-14">Top Industries</h2>
-   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p> 
-   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p>
+<!--   <h2 class="center grid-14">Top Industries</h2>
+   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[0].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[0].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[0].amount | currency}}</p>
+   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[1].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[1].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[1].amount | currency}}</p> -->
 
   <h4> Industries Contributing to Both Legislators</h4>
-  <div ng-repeat="(key, value) in compareIndustries"><compare-bar-chart data1="value[0]" data2="value[1]" label="key" currency="true"></compare-bar-chart> </div><br/>
 
+  <div ng-repeat="(key, value) in compareIndustries"><compare-bar-chart data1="value[0]" data2="value[1]" label="key" lwidth=170 currency="true"></compare-bar-chart> </div><br/>
 
+<!--
   <p>Industry: {{reps[selected.rep1.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep1.bioguide_id].influence.industries[2].amount | currency}} || Industry: {{reps[selected.rep2.bioguide_id].influence.industries[2].name}}, Total Amount contributed {{reps[selected.rep2.bioguide_id].influence.industries[2].amount | currency}}</p>
 
   <h2 class="center grid-14">Report Card</h2>
@@ -84,6 +87,5 @@
 <p>agree percentage {{comparison.votes.agree_percent}}</p>
 <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
 <p>common bills {{comparison.bills.common_bills}}</p>
-
-
- -->
+-->
+<sub-view template="partials/footer"></sub-view>
