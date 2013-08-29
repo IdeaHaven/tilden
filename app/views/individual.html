@@ -42,7 +42,19 @@
     <div ng-show="showDonorInfo">
       <dl class="dl-horizontal">
         <dt>Spendy Donors</dt>
-        <dd ng-repeat="name in match">{{name.name}} gave {{name.amount | currency}}</dd>
+        <dd>
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <td>Donor</td>
+                <td>Amount</td>
+            </thead>
+            <tr ng-repeat="name in (match | orderBy:'amount':true) | limitTo:10">
+              <td><span popover="{{name.summary}}" popover-placement="right">{{name.name}}</span></td>
+              <td>{{name.amount | currency}}</td>
+            </tr>
+          </table>
+        </dd>
       </dl>
     </div>
   </div>

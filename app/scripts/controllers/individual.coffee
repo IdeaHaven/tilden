@@ -48,13 +48,13 @@ angular.module('appApp.controllers')
     $scope.callback_nyt = (error, data)->
       if not error
         $scope.selected.rep1.nyt_data = data
-        $scope.reps[$scope.selected.rep1.bioguide_id].overview.nyt_data = data
+        $scope.reps[$scope.selected.rep1.bioguide_id].nyt_data = data
       else console.log "Error: ", error
 
     $scope.callback_littleSisDonors = (error, data)->
       if not error
         $scope.selected.rep1.littleSis_data = data
-        $scope.reps[$scope.selected.rep1.bioguide_id].overview.littleSis_data = data
+        $scope.reps[$scope.selected.rep1.bioguide_id].littleSis_data = data
         $scope.get_donors($scope.selected.rep1.littleSis_data)
       else console.log "Error: ", error
 
