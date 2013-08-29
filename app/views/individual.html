@@ -1,10 +1,14 @@
 <sub-view template="partials/header"></sub-view>
 <sub-view template="partials/select_rep1_name"></sub-view>
 <div class="row-fluid">
-  <div class="span8">
   <div class="span2">
     <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep1.bioguide_id}}.jpg"/>
   </div>
+</div>
+<div>
+  <h3>{{selected.rep1.name}}</h3>
+  <h5>{{reps[selected.rep1.bioguide_id].state_name}}</h5>
+  <h5>{{selected.rep1.nyt_data.results.roles[0].committees[0].name}}</h5>
 </div>
 <div class="row">
   <div class="span8 text-left">
@@ -12,6 +16,7 @@
       <li><a ng-init="showRepInfo = false" ng-click="showRepInfo = !showRepInfo">Rep Info</a></li>
       <li><a ng-init="showContactInfo = false" ng-click="showContactInfo = !showContactInfo">Contact Info</a></li>
       <li><a ng-init="showDonorInfo = false" ng-click="showDonorInfo = !showDonorInfo">Donor Info</a></li>
+      <li><a ng-init="showCommitteeInfo = false" ng-click="showCommitteeInfo = !showCommitteeInfo">Committee Info</a></li>
     </ul>
     <div ng-show="showRepInfo">
       <dl class="dl-horizontal">
@@ -37,6 +42,12 @@
         <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['twitter_id'] }}</dd>
         <dt>Facebook</dt>
         <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['facebook_id'] }}</dd>
+      </dl>
+    </div>
+    <div ng-show="showCommitteeInfo">
+      <dl class="dl-horizontal">
+        <dt>Committees</dt>
+        <dd ng-repeat="committee in selected.rep1.nyt_data.results.roles[0].committees">{{ committee.name }}</dd>
       </dl>
     </div>
     <div ng-show="showDonorInfo">

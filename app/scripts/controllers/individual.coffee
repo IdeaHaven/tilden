@@ -55,6 +55,7 @@ angular.module('appApp.controllers')
       if not error
         $scope.selected.rep1.littleSis_id = data.Entities.Entity.id
         Member_data.get_littleSisDonors($scope.selected.rep1.littleSis_id, $scope.callback_littleSisDonors)
+        Member_data.get_littleSisSpouse($scope.selected.rep1.littleSis_id, $scope.callback_littleSis_spouse)
       else console.log "Error: ", $error
 
     $scope.callback_littleSisDonors = (error, data)->
@@ -63,6 +64,10 @@ angular.module('appApp.controllers')
         $scope.reps[$scope.selected.rep1.bioguide_id].littleSis_data = data
         $scope.get_donors($scope.selected.rep1.littleSis_data)
       else console.log "Error: ", error
+
+    $scope.callback_littleSis_spouse = (error, data)->
+      if not error
+        $scope.selected.rep1.littleSis_spouse = data
 
     $scope.match = []
 

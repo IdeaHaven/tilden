@@ -10,6 +10,6 @@ angular.module('appApp.services')
       ApiGet.littleSisDonors "#{littleSis_id}/related.json?cat_ids=5", callback, this
 
     get_littleSisSpouse: (littleSis_id, callback)->
-      ApiGet.littleSisDonors "13287/related.json?cat_ids=4", callback, bioguide_id, this
+      ApiGet.littleSisDonors "#{littleSis_id}/related.json?cat_ids=4", callback, this
 
   ]
