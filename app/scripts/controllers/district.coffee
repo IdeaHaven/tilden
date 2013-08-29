@@ -9,7 +9,8 @@ angular.module('appApp.controllers')
     $scope.state_district = {state: null, district: null}
     $scope.district_reps = []
     $scope.map_width = 0
-    $scope.FIPS_to_state = {1: ['AL', 'Alabama'], 2:['AK', 'Alaska'], 4:['AZ','Arizona'], 5:['AR', 'Arkansas'], 6:['CA', 'California'], 8:['CO', 'Colorado'], 9:['CT', 'Connecticut'], 10:['DE', 'Delaware'], 11:['DC', 'Washington, DC'], 12:['FL', 'Florida'], 13:['GA','Georgia'], 15:['HI', 'Hawaii'], 16:['ID', 'Idaho'], 17:['IL', 'Illinois'], 18:['IN', 'Indiana'], 19:['IA', 'Iowa'], 20:['KS', 'Kansas'], 21:['KY', 'Kentucky'], 22:['LA', 'Louisiana'], 23:['ME', 'Maine'], 24:['MD', 'Maryland'], 25:['MA', 'Massachusetts'], 26:['MI', 'Michigan'], 27:['MN', 'Minnesota'], 28:['MS', 'Mississippi'], 29:['MO', 'Missouri'], 30:['MT', 'Montana'], 31:['NE', 'Nebraska'], 32:['NV', 'Nevada'], 33:['NH', 'New Hampshire'], 34:['NJ', 'New Jersey'], 35:['NM', 'New Mexico'], 36:['NY', 'New York'], 37:['NC', 'North Carolina'], 38:['ND', 'North Dakota'], 39:['OH', 'Ohio'], 40:['OK', 'Oklahoma'], 41:['OR', 'Oregon'], 42:['PA', 'Pennsylvania'], 44:['RI', 'Rhode Island'], 45:['SC', 'South Carolina'], 46:['SD', 'South Dakota'], 47:['TN', 'Tennessee'], 48:['TX', 'Texas'], 49:['UT', 'Utah'], 50:['VT', 'Vermont'], 51:['VA', 'Virginia'], 53:['WA', 'Washington'], 54:['WV', 'West Virginia'], 55:['WI', 'Wisconsin'], 56:['WY', 'Wyoming'], 60:['AS', 'American Samoa'], 64:'FM', 66:'GU', 68:'MH', 69:'MP', 70:'PW', 72:'PR', 74:'UM', 78:'VI'}
+    $scope.FIPS_to_state = {1: ['AL', 'Alabama'], 2:['AK', 'Alaska'], 4:['AZ','Arizona'], 5:['AR', 'Arkansas'], 6:['CA', 'California'], 8:['CO', 'Colorado'], 9:['CT', 'Connecticut'], 10:['DE', 'Delaware'], 11:['DC', 'Washington, DC'], 12:['FL', 'Florida'], 13:['GA','Georgia'], 15:['HI', 'Hawaii'], 16:['ID', 'Idaho'], 17:['IL', 'Illinois'], 18:['IN', 'Indiana'], 19:['IA', 'Iowa'], 20:['KS', 'Kansas'], 21:['KY', 'Kentucky'], 22:['LA', 'Louisiana'], 23:['ME', 'Maine'], 24:['MD', 'Maryland'], 25:['MA', 'Massachusetts'], 26:['MI', 'Michigan'], 27:['MN', 'Minnesota'], 28:['MS', 'Mississippi'], 29:['MO', 'Missouri'], 30:['MT', 'Montana'], 31:['NE', 'Nebraska'], 32:['NV', 'Nevada'], 33:['NH', 'New Hampshire'], 34:['NJ', 'New Jersey'], 35:['NM', 'New Mexico'], 36:['NY', 'New York'], 37:['NC', 'North Carolina'], 38:['ND', 'North Dakota'], 39:['OH', 'Ohio'], 40:['OK', 'Oklahoma'], 41:['OR', 'Oregon'], 42:['PA', 'Pennsylvania'], 44:['RI', 'Rhode Island'], 45:['SC', 'South Carolina'], 46:['SD', 'South Dakota'], 47:['TN', 'Tennessee'], 48:['TX', 'Texas'], 49:['UT', 'Utah'], 50:['VT', 'Vermont'], 51:['VA', 'Virginia'], 53:['WA', 'Washington'], 54:['WV', 'West Virginia'], 55:['WI', 'Wisconsin'], 56:['WY', 'Wyoming']}
+    $scope.state_to_FIPS = {'AL': '1', 'AK': '2', 'AZ': '4', 'AR': '5', 'CA': '6', 'CO': '8', 'CT': '9', 'DE': '10', 'DC': '11', 'FL': '12', 'GA': '13', 'HI': '15', 'ID': '16', 'IL': '17', 'IN': '18', 'IA': '19', 'KS': '20', 'KY': '21', 'LA': '22', 'ME': '20', 'MD': '24', 'MA': '25', 'MI': '26', 'MN': '27', 'MS': '28', 'MO': '29', 'MT': '30', 'NE': '31', 'NV': '32', 'NH': '33', 'NJ': '34', 'NM': '35', 'NY': '36', 'NC': '37', 'ND': '38', 'OH': '39', 'OK': '40', 'OR': '41', 'PA': '42', 'RI': '44', 'SC': '45', 'SD': '46', 'TN': '47', 'TX': '48', 'UT': '49', 'VT': '50', 'VA': '51', 'WA': '53', 'WV': '54', 'WI': '55', 'WY': '56' }
 
     $scope.getLocation = () ->
       $window.navigator.geolocation.getCurrentPosition((position)->
@@ -57,10 +58,20 @@ angular.module('appApp.controllers')
           , this
 
     $scope.highlightDistrict = () ->
+      if not $scope.state_district.district 
+        for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
+          if $scope.state_district.state is state
+            $scope.state_district.district = "0"
+        if not $scope.state_district.district then $scope.state_district.district = "1"
+      $scope.state_district = {state: $scope.state_district.state, district: $scope.state_district.district}
       d3.select('.districts').selectAll('path').classed('selected', false)
       district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
       district_element.attr('class', 'selected')
-      if $scope.map_width is 960 then district_element.call($scope.zoomIn)
+      if $scope.map_width is 960 
+        district_element.call($scope.zoomIn)
+      else
+        $("#map_holder").html('')
+        $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
 
     $scope.drawMap = () ->
       ready = (error, us, congress) ->
@@ -191,6 +202,7 @@ angular.module('appApp.controllers')
     $scope.drawMapByState = (state_FIPS) ->
       state_districts = []
       ready = (error, us, congress) ->
+        $("map_holder").html('')
         for obj in topojson.feature(congress, congress.objects.districts).features
           if obj.id and JSON.stringify(obj.id).slice(0, -2) is state_FIPS
             state_districts.push(obj)
@@ -240,7 +252,7 @@ angular.module('appApp.controllers')
 
     $scope.drawMap()
     $scope.defaultFocus()
-    # $scope.drawMapByState("49")
+    # $scope.drawMapByState()
 
     $scope.$watch('state_district', (newVals, oldVals) ->
       if $scope.state_district.state
