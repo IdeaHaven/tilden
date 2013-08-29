@@ -69,9 +69,9 @@ angular.module('appApp.controllers')
       district_element.attr('class', 'selected')
       if $scope.map_width is 960 
         district_element.call($scope.zoomIn)
-      else
-        $("#map_holder").html('')
-        $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
+      else unless $scope.usMap.text().slice(0, 2) is $scope.state_district.state
+          $("#map_holder").html('')
+          $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
 
     $scope.drawMap = () ->
       ready = (error, us, congress) ->
@@ -113,6 +113,7 @@ angular.module('appApp.controllers')
       $scope.usMap = svg.append("g").attr("id", "map_with_districts")
       tooltip = $scope.makeTooltip()
       dialog = d3.select("#map_dialog")
+        .attr("class", "full-display")
         .style("opacity", 1e-6)
         .style("z-index", "15")
       $scope.makeMapGradients()
@@ -202,11 +203,9 @@ angular.module('appApp.controllers')
     $scope.drawMapByState = (state_FIPS) ->
       state_districts = []
       ready = (error, us, congress) ->
-        $("map_holder").html('')
         for obj in topojson.feature(congress, congress.objects.districts).features
           if obj.id and JSON.stringify(obj.id).slice(0, -2) is state_FIPS
             state_districts.push(obj)
-        #find min top/left, find width/height
         district = $scope.usMap.append("g").attr("class", "districts").attr("clip-path", "url(#clip-land)").selectAll("path").data(state_districts).enter().append("path").attr("d", path).text (d) ->
           if $scope.FIPS_to_state[d.id / 100 | 0] then "#{$scope.FIPS_to_state[d.id / 100 | 0][0]}-#{d.id % 100}"
         district_boundaries = $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
@@ -245,10 +244,19 @@ angular.module('appApp.controllers')
       path = d3.geo.path()
       svg = d3.select("#map_holder").append("svg").attr("width", $scope.map_width).attr("height", height)
       $scope.usMap = svg.append("g").attr("id", "map_with_districts")
-      dialog = d3.select("#map_dialog").style("opacity", 1e-6).style("z-index", "15")
+      dialog = d3.select("#map_dialog")
+        .attr("class", "mobile-display")
+        .style("opacity", 1e-6)
+        .style("z-index", "15")
       tooltip = $scope.makeTooltip()
       $scope.makeMapGradients()
       queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
+
+    $scope.changeMapSize = (windowSize) ->
+      if windowSize <= 600 and $scope.map_width is 960
+        console.log "Switch to byState"
+      if windowSize >  600 and $scope.map_width is 220
+        console.log "Switch to full map"
 
     $scope.drawMap()
     $scope.defaultFocus()
@@ -264,5 +272,8 @@ angular.module('appApp.controllers')
       if $scope.district_reps.length and $scope.state_district.state
         $scope.showDistrictDialog()
     , true)
+
+    $scope.$watch( (()-> angular.element(window)[0].innerWidth), ((newValue, oldValue)-> $scope.changeMapSize(newValue)) )
+    window.onresize = (()-> $scope.$apply())
 
   ]
