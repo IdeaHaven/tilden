@@ -7,8 +7,8 @@
 </div>
 <div>
   <h3>{{selected.rep1.name}}</h3>
-  <h5>{{reps[selected.rep1.bioguide_id].state_name}}</h5>
-  <h5>{{selected.rep1.nyt_data.results.roles[0].committees[0].name}}</h5>
+  <h5>{{rep.overview.state_name}}</h5>
+  <h5>{{rep.nyt.overview.results.roles[0].committees[0].name}}</h5>
 </div>
 <div class="row">
   <div class="span8 text-left">
@@ -21,33 +21,33 @@
     <div ng-show="showRepInfo">
       <dl class="dl-horizontal">
         <dt>Term</dt>
-        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['term_start'] }} to {{ reps[selected.rep1.bioguide_id]["overview"]['term_end'] }}</dd>
+        <dd>{{ rep["overview"]['term_start'] }} to {{ rep["overview"]['term_end'] }}</dd>
         <dt>Party</dt>
-        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['party_name'] }}</dd>
+        <dd>{{ rep["overview"]['party_name'] }}</dd>
         <dt>Bio</dt>
-        <dd>{{ selected.rep1.bio.metadata.bio }}</dd>
+        <dd>{{ rep.influence.bio.metadata.bio }}</dd>
       </dl>
     </div>
     <div ng-show="showContactInfo">
       <dl class="dl-horizontal">
         <dt>Phone</dt>
-        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['phone'] }}</dd>
+        <dd>{{ rep["overview"]['phone'] }}</dd>
         <dt>Website</dt>
-        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['website'] }}</dd>
+        <dd>{{ rep["overview"]['website'] }}</dd>
         <dt>Office</dt>
-        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['office'] }}</dd>
+        <dd>{{ rep["overview"]['office'] }}</dd>
         <dt>Contact Form</dt>
-        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['contact_form'] }}</dd>
+        <dd>{{ rep["overview"]['contact_form'] }}</dd>
         <dt>Twitter</dt>
-        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['twitter_id'] }}</dd>
+        <dd>{{ rep["overview"]['twitter_id'] }}</dd>
         <dt>Facebook</dt>
-        <dd>{{ reps[selected.rep1.bioguide_id]["overview"]['facebook_id'] }}</dd>
+        <dd>{{ rep["overview"]['facebook_id'] }}</dd>
       </dl>
     </div>
     <div ng-show="showCommitteeInfo">
       <dl class="dl-horizontal">
         <dt>Committees</dt>
-        <dd ng-repeat="committee in selected.rep1.nyt_data.results.roles[0].committees">{{ committee.name }}</dd>
+        <dd ng-repeat="committee in rep.nyt.overview.results.roles[0].committees">{{ committee.name }}</dd>
       </dl>
     </div>
     <div ng-show="showDonorInfo">
@@ -55,7 +55,7 @@
         <dt>Individual Donors</dt>
         <dd width="300px">
           <table class="table">
-            <tr ng-repeat="name in (match | orderBy:'amount':true) | limitTo:10">
+            <tr ng-repeat="name in rep.littleSis.donors">
               <td><span popover="{{name.summary}}" popover-placement="right">{{name.name}}</span></td>
               <td>{{name.amount | currency}}</td>
             </tr>
