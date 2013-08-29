@@ -32,15 +32,16 @@ angular.module('appApp.controllers')
       else console.log "Error: ", error
 
     $scope.setDistrictData = (newVals, oldVals) ->
+      #TODO: See about reimplementing the behavior below or caching another way.
       # Old and new values are passed in to see if there has been a change in state.
-      if newVals.state is oldVals.state
-        $scope.district_reps.pop()
-        ApiGet.congress "legislators?state=#{$scope.state_district.state}&district=#{$scope.state_district.district}", (error, data) ->
-          if not error
-            $scope.district_reps.push(data[0])
-          else console.log "Error: ", error
-          , this
-      else
+      # if newVals.state is oldVals.state
+      #   $scope.district_reps.pop()
+      #   ApiGet.congress "legislators?state=#{$scope.state_district.state}&district=#{$scope.state_district.district}", (error, data) ->
+      #     if not error
+      #       $scope.district_reps.push(data[0])
+      #     else console.log "Error: ", error
+      #     , this
+      # else
         $scope.district_reps = []
         ApiGet.congress "legislators?state=#{$scope.state_district.state}&title=Sen", (error, data) ->
           if not error

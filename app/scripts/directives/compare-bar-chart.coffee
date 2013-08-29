@@ -7,6 +7,7 @@ angular.module('appApp.directives')
       data1: '='
       data2: '='
       label: '='
+      lwidth: '@'
       currency: '@'
       onClick: '&'
 
@@ -22,6 +23,7 @@ angular.module('appApp.directives')
         d3.select(element[0]).selectAll('*').remove()
         if !scope.data1 or !scope.data2
           return
+        lwidth = scope.lwidth || 100
         width = $(window).width() - 40
         this_data = [-scope.data1, scope.data2]
         x0 = Math.max(-d3.min(this_data), d3.max(this_data))  
@@ -42,8 +44,8 @@ angular.module('appApp.directives')
           .attr('class', (d, i) ->
             return 'bar' + (i+1)
           ).attr("x", (d, i) ->
-            if i is 0 then x(0) - 50
-            else x(0) + 50
+            if i is 0 then x(0) - (lwidth/2)
+            else x(0) + (lwidth/2)
           ).attr("y", 0)
           .attr("width", 10)
           .attr("height", 30)
@@ -51,11 +53,11 @@ angular.module('appApp.directives')
             .duration(1000)
             .attr("width", (d, i) -> 
               if i is 0
-                Math.abs(parseInt(x(d)) - parseInt(x(0) - 50))
-              else Math.abs(parseInt(x(d)) - parseInt(x(0) + 50))
+                Math.abs(parseInt(x(d)) - parseInt(x(0) - (lwidth/2)))
+              else Math.abs(parseInt(x(d)) - parseInt(x(0) + (lwidth/2)))
             ).attr("x", (d, i) -> 
-              if i is 0 then  x(Math.min(parseInt(x(0) - 50), d))
-              else x(0) + 50)
+              if i is 0 then  x(Math.min(parseInt(x(0) - (lwidth/2)), d))
+              else x(0) + (lwidth/2))
 
         svg.selectAll('text')
           .data(this_data)
@@ -64,8 +66,8 @@ angular.module('appApp.directives')
             .attr("fill", "Black")
             .attr("y", 20)
             .attr("x", (d, i) ->
-              if i is 0 then x(0) - 90
-              else x(0) + 90
+              if i is 0 then x(0) - (lwidth/2) - 10
+              else x(0) + (lwidth/2) + 10
             ).attr("text-anchor", (d, i) ->
               if i is 0 then "end"
               else "start"
