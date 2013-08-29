@@ -3,6 +3,7 @@
 <input class="zip_field" ng-model="selected_zip"></input>
 <button ng-click="findDistrictByZip()">Find District by Zip Code</button>
 {{warning}}
+<select ng-model="state_district.state" ng-options="value[0] as value[1] for (key, value) in FIPS_to_state"></select>
 <div id="map_holder"> </div>
 <div id="map_dialog"></div>
 <sub-view template="partials/footer"></sub-view>
