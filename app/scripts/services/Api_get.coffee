@@ -62,7 +62,7 @@ angular.module('appApp.services')
     littleSis: (path, callback, context)->
       args = Array.prototype.slice.call(arguments, 2)
       context = args.shift()
-      apiurl = "http://api.littlesis.org/entity/13284/lists.json?_key=f7415b282639a97967b87a0fa561a92960409a3e"
+      apiurl = "http://api.littlesis.org/#{path}.json?_key=f7415b282639a97967b87a0fa561a92960409a3e"
       $http
         method: "GET"
         url: "http://query.yahooapis.com/v1/public/yql"
