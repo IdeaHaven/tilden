@@ -1,18 +1,18 @@
 <header id="header" class="clearfix">
 
-<nav class="navbar">
+<div class="navbar" ng-controller="NavBarCtrl">
   <div class="navbar-inner">
     <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+      <button class="btn btn-navbar" ng-click="isCollapsed = !isCollapsed">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </a>
+      </button>
 
       <a href="#" class="brand" style="margin-left:25px; margin-right:50px;">Tilden</a>
 
 
-      <div class="nav-collapse">
+      <div class="nav-collapse" collaspe="isCollasped">
         <ul class="nav">
           <li><a href="#">Home</a></li>
           <li class="text-left"><a href="/#/district_map/">District Map</a></li>
@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-</nav>
+</div>
 
 <hr class="center"/>
 </header>
