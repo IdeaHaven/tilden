@@ -33,9 +33,9 @@ angular.module('appApp.directives')
         if scope.favicon
           canvas.append("image")
             .attr("xlink:href", scope.favicon)
-            .attr("width", scope.radius)
-            .attr("height", scope.radius)
-            .attr("transform", "translate(#{scope.radius/2},#{scope.radius/2})")
+            .attr("width", scope.radius*2/3)
+            .attr("height", scope.radius*2/3)
+            .attr("transform", "translate(#{scope.radius/3*2},#{scope.radius/3*2})")
 
       # draw d3 here on the canvas defined above
       scope.drawD3 = ->
@@ -62,7 +62,7 @@ angular.module('appApp.directives')
         # create the paths for each donute section
         arc = d3.svg.arc()
           .innerRadius(scope.radius - 5)
-          .outerRadius(scope.radius - 15)
+          .outerRadius(scope.radius - 35)
           .startAngle(0)
         # define the tweening function for arc pieces
         arcTween = (transition, newAngle)->

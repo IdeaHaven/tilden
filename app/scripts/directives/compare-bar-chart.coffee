@@ -34,7 +34,7 @@ angular.module('appApp.directives')
           .attr('height', 30) # arbitrary
 
         x = d3.scale.linear()
-          .domain([-x0, x0])
+          .domain([-(x0+ (lwidth/2)), (x0+ (lwidth/2))])
           .range([0 , width])
           .nice()
 
@@ -53,11 +53,16 @@ angular.module('appApp.directives')
             .duration(1000)
             .attr("width", (d, i) -> 
               if i is 0
-                Math.abs(parseInt(x(d)) - parseInt(x(0) - (lwidth/2)))
-              else Math.abs(parseInt(x(d)) - parseInt(x(0) + (lwidth/2)))
+                return x(0) - x(d)
+              else 
+                return x(d) - x(0)
             ).attr("x", (d, i) -> 
-              if i is 0 then  x(Math.min(parseInt(x(0) - (lwidth/2)), d))
-              else x(0) + (lwidth/2))
+              if i is 0 
+                return x(d) - (lwidth/2)
+              else 
+                return x(0) + (lwidth/2)
+
+            )
 
         svg.selectAll('text')
           .data(this_data)

@@ -4,10 +4,14 @@
   <sub-view template="partials/select_rep1_name"></sub-view>
   <sub-view template="partials/select_rep2_name"></sub-view>
 </div>
+<div class="center">
+  <img class="img-rounded" ng-src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep1.bioguide_id}}.jpg"/>
+  <img class="img-rounded" ng-src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep2.bioguide_id}}.jpg"/>
+</div>
 <div class="top-industries">
   <h2 class="center grid-14">Funding Sources</h2>
   <div class="contributors row">
-    <div class="pull-left" style="border-right: solid white 1px">
+    <div class="pull-left rep1" style="border-right: solid white 1px">
       <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" currency="true" class="span2">
       </d3-donut>
 
@@ -17,7 +21,7 @@
       <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" currency="true" class="span2">
       </d3-donut>
     </div>
-    <div class="pull-right">
+    <div class="pull-right rep2">
       <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" currency="true" class="span2">
       </d3-donut>
 
@@ -84,3 +88,4 @@
 <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
 <p>common bills {{comparison.bills.common_bills}}</p>
 -->
+<sub-view template="partials/footer"></sub-view>
