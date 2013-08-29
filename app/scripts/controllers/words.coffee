@@ -34,7 +34,7 @@ angular.module('appApp.controllers')
           format: "json"
       ).success((data, status) ->
         unsortedWords = $scope.stringToIntForWordCount(data.query.results.json.json)
-        $scope.words = _.sortBy(unsortedWords, ((val)->val.count*-1)).splice(0,14)
+        $scope.words = _.sortBy(unsortedWords, ((val)->val.count*-1)).splice(0,15)
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
 
