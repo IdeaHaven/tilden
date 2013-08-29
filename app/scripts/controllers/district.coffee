@@ -9,7 +9,7 @@ angular.module('appApp.controllers')
     $scope.state_district = {state: null, district: null}
     $scope.district_reps = []
     $scope.map_width = 0
-    $scope.FIPS_to_state = {1:'AL', 2:'AK', 4:'AZ', 5:'AR', 6:'CA', 8:'CO', 9:'CT', 10:'DE', 11:'DC', 12:'FL', 13:'GA', 15:'HI', 16:'ID', 17:'IL', 18:'IN', 19:'IA', 20:'KS', 21:'KY', 22:'LA', 23:'ME', 24:'MD', 25:'MA', 26:'MI', 27:'MN', 28:'MS', 29:'MO', 30:'MT', 31:'NE', 32:'NV', 33:'NH', 34:'NJ', 35:'NM', 36:'NY', 37:'NC', 38:'ND', 39:'OH', 40:'OK', 41:'OR', 42:'PA', 44:'RI', 45:'SC', 46:'SD', 47:'TN', 48:'TX', 49:'UT', 50:'VT', 51:'VA', 53:'WA', 54:'WV', 55:'WI', 56:'WY', 60:'AS', 64:'FM', 66:'GU', 68:'MH', 69:'MP', 70:'PW', 72:'PR', 74:'UM', 78:'VI'}
+    $scope.FIPS_to_state = {1: ['AL', 'Alabama'], 2:['AK', 'Alaska'], 4:['AZ','Arizona'], 5:['AR', 'Arkansas'], 6:['CA', 'California'], 8:['CO', 'Colorado'], 9:['CT', 'Connecticut'], 10:['DE', 'Delaware'], 11:['DC', 'Washington, DC'], 12:['FL', 'Florida'], 13:['GA','Georgia'], 15:['HI', 'Hawaii'], 16:['ID', 'Idaho'], 17:['IL', 'Illinois'], 18:['IN', 'Indiana'], 19:['IA', 'Iowa'], 20:['KS', 'Kansas'], 21:['KY', 'Kentucky'], 22:['LA', 'Louisiana'], 23:['ME', 'Maine'], 24:['MD', 'Maryland'], 25:['MA', 'Massachusetts'], 26:['MI', 'Michigan'], 27:['MN', 'Minnesota'], 28:['MS', 'Mississippi'], 29:['MO', 'Missouri'], 30:['MT', 'Montana'], 31:['NE', 'Nebraska'], 32:['NV', 'Nevada'], 33:['NH', 'New Hampshire'], 34:['NJ', 'New Jersey'], 35:['NM', 'New Mexico'], 36:['NY', 'New York'], 37:['NC', 'North Carolina'], 38:['ND', 'North Dakota'], 39:['OH', 'Ohio'], 40:['OK', 'Oklahoma'], 41:['OR', 'Oregon'], 42:['PA', 'Pennsylvania'], 44:['RI', 'Rhode Island'], 45:['SC', 'South Carolina'], 46:['SD', 'South Dakota'], 47:['TN', 'Tennessee'], 48:['TX', 'Texas'], 49:['UT', 'Utah'], 50:['VT', 'Vermont'], 51:['VA', 'Virginia'], 53:['WA', 'Washington'], 54:['WV', 'West Virginia'], 55:['WI', 'Wisconsin'], 56:['WY', 'Wyoming'], 60:['AS', 'American Samoa'], 64:'FM', 66:'GU', 68:'MH', 69:'MP', 70:'PW', 72:'PR', 74:'UM', 78:'VI'}
 
     $scope.getLocation = () ->
       $window.navigator.geolocation.getCurrentPosition((position)->
@@ -67,7 +67,7 @@ angular.module('appApp.controllers')
         $scope.usMap.append("defs").append("path").attr("id", "land").datum(topojson.feature(us, us.objects.land)).attr "d", path
         $scope.usMap.append("clipPath").attr("id", "clip-land").append("use").attr "xlink:href", "#land"
         district = $scope.usMap.append("g").attr("class", "districts").attr("clip-path", "url(#clip-land)").selectAll("path").data(topojson.feature(congress, congress.objects.districts).features).enter().append("path").attr("d", path).text (d) ->
-          "#{$scope.FIPS_to_state[d.id / 100 | 0]}-#{d.id % 100}"
+          if $scope.FIPS_to_state[d.id / 100 | 0] then "#{$scope.FIPS_to_state[d.id / 100 | 0][0]}-#{d.id % 100}"
         district.on("mouseover", () ->
           return tooltip.style("visibility", "visible").text(d3.select(this).text())
         ).on("mousemove", () ->
@@ -149,7 +149,6 @@ angular.module('appApp.controllers')
           .attr("stop-color", (d)->  return d.color)
 
     $scope.zoomIn = (d) ->
-      console.log "Called zoomIn"
       element = d.node()
       bbox = element.getBBox()
       x = bbox.x + bbox.width/2
@@ -197,7 +196,7 @@ angular.module('appApp.controllers')
             state_districts.push(obj)
         #find min top/left, find width/height
         district = $scope.usMap.append("g").attr("class", "districts").attr("clip-path", "url(#clip-land)").selectAll("path").data(state_districts).enter().append("path").attr("d", path).text (d) ->
-          "#{$scope.FIPS_to_state[d.id / 100 | 0]}-#{d.id % 100}"
+          if $scope.FIPS_to_state[d.id / 100 | 0] then "#{$scope.FIPS_to_state[d.id / 100 | 0][0]}-#{d.id % 100}"
         district_boundaries = $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
           (a.id / 1000 | 0) is (b.id / 1000 | 0) and (a.id and JSON.stringify(a.id).slice(0, -2) is state_FIPS)
         )).attr "d", path
@@ -228,15 +227,6 @@ angular.module('appApp.controllers')
         # scale = 100/Math.sqrt(Math.pow(bbox.width, 2) + Math.pow(bbox.height,2))
         scale = 1
         $scope.usMap.attr("transform", "translate(" + 220 / 2 + "," + 220 / 2 + ")scale(" + scale + ")translate(" + -o_x + "," + -o_y + ")").style "stroke-width", 1.5
-
-
-      #    element = d.node()
-      # bbox = element.getBBox()
-      # x = bbox.x + bbox.width/2
-      # y = bbox.y + bbox.height/2
-      # if y < 106 and (bbox.height > 53 or bbox.width > 53) then y += (106 - y)
-      # scale = 200/Math.sqrt(Math.pow(bbox.width, 2) + Math.pow(bbox.height,2))
-      # $scope.usMap.transition().duration(750).attr("transform", "translate(" + 960 / 2 + "," + 600 / 2 + ")scale(" + scale + ")translate(" + -x + "," + -y + ")").style "stroke-width", 1.5 / scale + "px"
 
       $scope.map_width = 220
       height = 220
