@@ -124,7 +124,8 @@ angular.module('appApp.controllers')
         $scope.get.littleSis.donors(data.Response.Data.Entities.Entity.id, bioguide_id)
 
     $scope.get.littleSis.donors = (littleSis_id, bioguide_id)->
-      ApiGet.littleSis "entity/#{littleSis_id}/related.json?cat_ids=5&", $scope.cb.littleSis.donors, this, bioguide_id
+      unless $scope.reps[bioguide_id].littleSis.donors
+        ApiGet.littleSis "entity/#{littleSis_id}/related.json?cat_ids=5&", $scope.cb.littleSis.donors, this, bioguide_id
 
     $scope.cb.littleSis.donors = (error, data, bioguide_id)->
       unless error
