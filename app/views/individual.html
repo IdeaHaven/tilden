@@ -3,9 +3,8 @@
 <div class="row-fluid">
   <div class="span8">
   <div class="span2">
-    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/K000381.jpg"/>
+    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep1.bioguide_id}}.jpg"/>
   </div>
-  <h3>littleSisID: {{selected.rep1.littleSis_id}}</h3>
 </div>
 <div class="row">
   <div class="span8 text-left">
@@ -42,14 +41,9 @@
     </div>
     <div ng-show="showDonorInfo">
       <dl class="dl-horizontal">
-        <dt>Spendy Donors</dt>
-        <dd>
-          <table class="table-condensed">
-            <thead>
-              <tr>
-                <td>Donor</td>
-                <td>Amount</td>
-            </thead>
+        <dt>Individual Donors</dt>
+        <dd width="300px">
+          <table class="table">
             <tr ng-repeat="name in (match | orderBy:'amount':true) | limitTo:10">
               <td><span popover="{{name.summary}}" popover-placement="right">{{name.name}}</span></td>
               <td>{{name.amount | currency}}</td>
