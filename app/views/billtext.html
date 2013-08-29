@@ -1,4 +1,4 @@
-<sub-view template="partials/header"></sub-view>
+<ng-include src="'/views/partials/header.html'"></ng-include>
 <div class="billDetail" ng-controller="BillCtrl">
   <select ng-model="bill" ng-options="bill.bill_id for bill in bills">
     <option style="display:none" value="">Search for a Bill...</option>
@@ -22,3 +22,5 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<sub-view template="partials/footer"></sub-view>
+
