@@ -51,6 +51,12 @@ angular.module('appApp.controllers')
         $scope.reps[$scope.selected.rep1.bioguide_id].nyt_data = data
       else console.log "Error: ", error
 
+    $scope.callback_littleSis_id = (error, data)->
+      if not error
+        $scope.selected.rep1.littleSis_id = data.Entities.Entity.id
+        Member_data.get_littleSisDonors($scope.selected.rep1.littleSis_id, $scope.callback_littleSisDonors)
+      else console.log "Error: ", $error
+
     $scope.callback_littleSisDonors = (error, data)->
       if not error
         $scope.selected.rep1.littleSis_data = data
@@ -78,8 +84,7 @@ angular.module('appApp.controllers')
                 amount: subVal.amount
 
     $scope.get_transparencydata_id()
-
+    Member_data.get_littleSis_id($scope.selected.rep1.bioguide_id, $scope.callback_littleSis_id)
     Member_data.get_nyt($scope.selected.rep1.bioguide_id, $scope.callback_nyt)
-    Member_data.get_littleSisDonors($scope.selected.rep1.bioguide_id, $scope.callback_littleSisDonors)
 
   ])
