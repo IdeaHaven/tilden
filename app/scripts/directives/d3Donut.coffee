@@ -9,27 +9,41 @@ angular.module('appApp.directives')
       scale: '='
       onClick: '&'
       contributor: '='
-      currency: '@'
+      number: '@'
+      label: '@'
+      type: '@'
+
     link: (scope, element, attrs)->
 
       scope.change = ->
         if scope.contributor
-          scope.percent = (scope.contributor.total_amount / scope.scale)
-          # get favicon url from contributor name
-          company = scope.contributor.name.replace(/&/i, "and")
-          ApiGet.own "favicon?company=\"#{company}\"", scope.draw_favicon, this
+          scope.percent = (scope.contributor[scope.number] / scope.scale)
+          if scope.type is 'organization'
+            # get favicon url from contributor name
+            company = scope.contributor[scope.label].replace(/&/i, "and")
+            ApiGet.own "favicon?company=\"#{company}\"", scope.draw_favicon, this
+          else
+            scope.draw_bio()
           scope.drawD3()
 
-      # on window resize, redraw d3 canvas
-      scope.$watch( (-> angular.element(window)[0].innerWidth), (-> scope.change()) )
-      window.onresize = (-> scope.$apply())
       # make the canvas once
       canvas = d3.select(element[0]).append("svg")
       τ = 2 * Math.PI # http://tauday.com/tau-manifesto
+      # on window resize, redraw d3 canvas
+      scope.$watch( (-> angular.element(window)[0].innerWidth), (-> scope.change()) )
+      window.onresize = (-> scope.$apply())
+      scope.draw_bio = ->
+        canvas.append("text")
+          .style("text-anchor", "middle")
+          .classed("d3Donut-#{scope.type}", true)
+          .attr("width", scope.radius)
+          .attr("transform", "translate(#{scope.radius},#{scope.radius})")
+          .text(scope.contributor[scope.label])
+
       scope.draw_favicon = (err, data)->
         # check if api callback and set data
         if data then scope.favicon = data.favicon.url
-        # replace company text with favicon if available
+        # replace type text with favicon if available
         if scope.favicon
           canvas.append("image")
             .attr("xlink:href", scope.favicon)
@@ -45,20 +59,20 @@ angular.module('appApp.directives')
         scope.radius = (d3.select(element[0])[0][0].offsetWidth) / 2
         # pass click event through to controller
         canvas.on 'click', ->
-          scope.onClick({item: scope.company})
+          scope.onClick({item: scope.contributor})
         # put contributor name in circle until image is loaded from API
         canvas.append("text")
           .style("text-anchor", "middle")
-          .classed("d3Donut-company", true)
+          .classed("d3Donut-#{scope.type}", true)
           .attr("width", scope.radius)
           .attr("transform", "translate(#{scope.radius},#{scope.radius * 2 + 10})")
-          .text(scope.contributor.name)
+          .text(scope.contributor[scope.label])
         canvas.append("text")
           .style("text-anchor", "middle")
-          .classed("d3Donut-company", true)
+          .classed("d3Donut-#{scope.type}", true)
           .attr("width", scope.radius)
           .attr("transform", "translate(#{scope.radius},#{scope.radius * 2 + 25})")
-          .text($filter('currency')(scope.contributor.total_amount))
+          .text($filter('currency')(scope.contributor[scope.number]))
         # create the paths for each donute section
         arc = d3.svg.arc()
           .innerRadius(scope.radius - 5)

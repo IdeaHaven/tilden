@@ -22,7 +22,6 @@ angular.module('appApp.controllers')
         $timeout($scope.getWordFrequency, 2000)
     $scope.$watch "state", ->
       $scope.getRepList()
-    
 
     $scope.getRepWords = ->
       url = "http://capitolwords.org/api/1/phrases.json?entity_type=legislator&entity_value=#{$scope.rep.bioguide_id}&apikey=3cdfa27b289e4d4090fd1b176c45e6cf"
