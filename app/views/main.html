@@ -1,5 +1,5 @@
 <div id="wrap" class="container">
-  <sub-view template="partials/header"></sub-view>
+  <ng-include src="'/views/partials/header.html'"></ng-include>
   <section class="section">
   <div class="list-hex-grid list-inline-block clearfix">
     <div class="hex grid-3" tooltip-html-unsafe="{{htmlTooltip1}}">
@@ -127,3 +127,4 @@
   </section>
 
 </div>
+<sub-view template="partials/footer"></sub-view>

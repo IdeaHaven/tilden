@@ -1,4 +1,4 @@
-<sub-view template="partials/header"></sub-view>
+<ng-include src="'/views/partials/header.html'"></ng-include>
 <sub-view template="partials/select_rep1_name"></sub-view>
 <div class="row-fluid">
   <div class="span2">
@@ -48,3 +48,4 @@
       <dd>{{ selected_rep.nyt_data['results']['roles']['missed_votes_pct']}}</dd>
     </dl>
   </div>
+<sub-view template="partials/footer"></sub-view>
