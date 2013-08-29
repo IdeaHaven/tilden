@@ -18,6 +18,7 @@
       <!-- endbuild -->
   </head>
   <body ng-app="appApp" class="index-page" ng-controller="AppCtrl">
+
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -29,7 +30,7 @@
 
     <!-- Add your site or application content here -->
     <sub-view template="partials/add_this"></sub-view>
-    <div ng-view=""></div>
+    <div ng-view="" id="body_container"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -70,6 +71,5 @@
     <script src="scripts/directives/compare-bar-chart.js"></script>
     <script src="scripts/directives/words-bar-chart.js"></script>
     <!-- endbuild -->
-
   </body>
 </html>
