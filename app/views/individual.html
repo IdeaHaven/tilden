@@ -6,8 +6,8 @@
   </div>
 </div>
 <div>
-  <h3>{{selected.rep1.name}}</h3>
-  <h5>{{rep.overview.state_name}}</h5>
+  <h2>{{selected.rep1.name}}</h2>
+  <h3>{{rep.overview.state_name}}</h3>
 </div>
 <div class="row-fluid">
   <div class="span8 text-left">
@@ -19,7 +19,7 @@
     </ul>
     <div class="repInfo">
       <dl class="dl-horizontal">
-        <dt>Term</dt>
+        <dt>Present Term</dt>
         <dd>{{ rep['overview']['term_start'] | date }} to {{ rep['overview']['term_end'] | date }}</dd>
         <dt>Party</dt>
         <dd>{{ rep['overview']['party_name'] }}</dd>
@@ -53,7 +53,7 @@
     </div>
     <div class="donorInfo">
       <dl class="dl-horizontal">
-        <dt>Individual Donors</dt>
+        <dt>Individual Donors<br/><span class="moreInfo">Mouse over names<br/>for more info.</span></dt>
         <dd width="300px">
           <table class="table">
             <tr ng-repeat="name in rep.littleSis.donors">
