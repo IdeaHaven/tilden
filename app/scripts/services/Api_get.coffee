@@ -67,7 +67,7 @@ angular.module('appApp.services')
         url: "http://api.littlesis.org/#{path}_key=f7415b282639a97967b87a0fa561a92960409a3e"
       .success (data, status, headers, config)->
         if data
-          args.unshift data.query.results
+          args.unshift data
           args.unshift null
           callback.apply(context, args)
       .error (data, status, headers, config)->
