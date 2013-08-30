@@ -24,7 +24,7 @@
         <dt>Party</dt>
         <dd>{{ rep['overview']['party_name'] }}</dd>
         <dt>Bio</dt>
-        <dd>{{ rep.influence.bio.metadata.bio }}</dd>
+        <dd>{{ rep.influence.bio.metadata.bio }}</dd><dd ng-show"!rep.influence.bio.metadata.bio">Member bio unavailable.</dd>
       </dl>
     </div>
     <div ng-show="showContactInfo">
@@ -46,7 +46,7 @@
     <div ng-show="showCommitteeInfo">
       <dl class="dl-horizontal">
         <dt>Committees</dt>
-        <dd ng-repeat="committee in rep.nyt.overview.results.roles[0].committees">{{ committee.name }}</dd>
+        <dd ng-repeat="committee in rep.nyt.overview.results.roles[0].committees">{{ committee.name }}</dd><dd ng-show="!rep.nyt.overview.results.roles[0].committees[0]">This member does not serve on any committees.</dd>
       </dl>
     </div>
     <div ng-show="showDonorInfo">
