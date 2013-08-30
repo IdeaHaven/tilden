@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller 'DistrictCtrl', ['$scope', '$window', '$location', '$routeParams', '$compile', 'ApiGet', ($scope, $window, $location, $routeParams, $compile, ApiGet) ->
+  .controller 'DistrictCtrl', ['$scope', '$window', '$location', '$routeParams', '$compile', '$timeout', 'ApiGet', ($scope, $window, $location, $routeParams, $compile, $timeout, ApiGet) ->
     $scope.supportGeo = $window.navigator
     $scope.position = null
     $scope.selected_zip = null
@@ -16,7 +16,6 @@ angular.module('appApp.controllers')
       $window.navigator.geolocation.getCurrentPosition((position)->
         $scope.$apply(()->
           $scope.position = position
-          $scope.selected.position = position
           $scope.findDistrictByLongLat()
         , (error) -> console.log error)
       )
@@ -25,16 +24,13 @@ angular.module('appApp.controllers')
       ApiGet.congress "districts/locate?latitude=#{$scope.position.coords.latitude}&longitude=#{$scope.position.coords.longitude}", $scope.setDistrict, this
 
     $scope.findDistrictByZip = () ->
-      ApiGet.congress "districts/locate?zip=#{$scope.selected_zip}", $scope.setDistrict, this, $scope.selected_zip
+      ApiGet.congress "districts/locate?zip=#{$scope.selected_zip}", $scope.setDistrict, this
 
-    $scope.setDistrict = (error, data, zip) ->
+    $scope.setDistrict = (error, data) ->
       if not error
         unless data.length
           return $scope.warning = "No district was found for #{$scope.selected_zip}."
         $scope.state_district = {state: data[0].state, district: data[0].district}
-        $scope.selected.zip = zip
-        $scope.selected.state = data[0].state
-        $scope.selected.district = data[0].district
       else console.log "Error: ", error
 
     $scope.setDistrictData = (newVals, oldVals) ->
@@ -52,14 +48,15 @@ angular.module('appApp.controllers')
         ApiGet.congress "legislators?state=#{$scope.state_district.state}&title=Sen", (error, data) ->
           if not error
             for sen in data
-              $scope.district_reps.push(sen)
+              if sen.title then $scope.district_reps.push(sen)
           else console.log "Error: ", error
           , this
         ApiGet.congress "legislators?state=#{$scope.state_district.state}&district=#{$scope.state_district.district}", (error, data) ->
           if not error
-            $scope.district_reps.push(data[0])
+            if data[0].title then $scope.district_reps.push(data[0])
           else console.log "Error: ", error
           , this
+
 
     $scope.highlightDistrict = () ->
       if not $scope.state_district.district 
@@ -98,8 +95,6 @@ angular.module('appApp.controllers')
           else
             district_id = d3.select(this).text()
             $scope.state_district = {state: district_id.slice(0, 2), district: district_id.slice(3, 6)}
-            $scope.selected.state = district_id.slice(0, 2)
-            $scope.selected.district = district_id.slice(3, 6)
             $scope.$apply()
         )
         $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
@@ -197,14 +192,12 @@ angular.module('appApp.controllers')
       if $routeParams.bioguide_id.length > 0
         ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
           if not error
-            if not data[0].district
+            if not data[0].district 
               for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
                 if data[0].state is state
                   data[0].district = "0"
               if not data[0].district then data[0].district = "1"
             $scope.state_district = {state: data[0].state, district: data[0].district}
-            $scope.selected.state = data[0].state
-            $scope.selected.district = data[0].district
           else console.log "Error, Senator/Rep not found."
       else console.log "No parameter"
 
@@ -279,10 +272,17 @@ angular.module('appApp.controllers')
     $scope.defaultFocus()
 
     $scope.$watch('state_district', (newVals, oldVals) ->
-      if $scope.state_district.state
+      if $scope.state_district.state and !$scope.state_district.district
+        if not $scope.state_district.district 
+          for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
+            if $scope.state_district.state is state
+              $scope.state_district.district = "0"
+          if not $scope.state_district.district then $scope.state_district.district = "1"
+      if $scope.state_district.state and $scope.state_district.district
         $scope.setDistrictData(newVals, oldVals)
         $scope.highlightDistrict()
     , true)
+
 
     $scope.$watch('district_reps', (newVals, oldVals) ->
       if $scope.district_reps.length and $scope.state_district.state
