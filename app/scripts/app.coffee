@@ -21,6 +21,8 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/compare',
         templateUrl: 'views/compare.html'
         controller: 'CompareCtrl'
+      .when '/about',
+        templateUrl: 'views/about.html'
       .otherwise
         redirectTo: '/'
   ]

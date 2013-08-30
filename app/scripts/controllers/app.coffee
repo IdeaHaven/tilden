@@ -11,11 +11,14 @@ angular.module('appApp.controllers')
     $scope.reps = {}
     $scope.reps_list = []
     $scope.selected =
-      rep1: {bioguide_id: "M000303", name: "Rep. John McCain"}
+      rep1: {bioguide_id: "B000589", name: "Rep. John Boehner"}
       rep2: {bioguide_id: "P000197", name: "Rep. Nancy Pelosi"}
-      zip: 94102
+      zip: null
       bill: null
       commiitee: null
+      district: null
+      state: null
+      position: null
 
 ######################
 # Define API Methods

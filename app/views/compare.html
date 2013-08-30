@@ -1,4 +1,4 @@
-<sub-view template="partials/header"></sub-view>
+<ng-include src="'/views/partials/header.html'"></ng-include>
 <div class="center">
     <h4>Compare Two Legislators!</h4>
   <sub-view template="partials/select_rep1_name"></sub-view>
@@ -9,26 +9,52 @@
   <img class="img-rounded" ng-src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep2.bioguide_id}}.jpg"/>
 </div>
 <div class="top-industries">
-  <h2 class="center grid-14">Funding Sources</h2>
+  <h2 class="center grid-14">Organizational Sources</h2>
+  <h4>Scaled at $100,000</h4>
   <div class="contributors row">
     <div class="pull-left rep1" style="border-right: solid white 1px">
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" currency="true" class="span2">
+      <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" number="total_amount" label="name" type="organization" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[1]" currency="true" class="span2">
+      <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[1]" number="total_amount" label="name" type="organization" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" currency="true" class="span2">
+      <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" number="total_amount" label="name" type="organization" class="span2">
       </d3-donut>
     </div>
     <div class="pull-right rep2">
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" currency="true" class="span2">
+      <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" number="total_amount" label="name" type="organization" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[1]" currency="true" class="span2">
+      <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[1]" number="total_amount" label="name" type="organization" class="span2">
       </d3-donut>
 
-      <d3-donut scale="tempScale" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[2]" currency="true" class="span2">
+      <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[2]" number="total_amount" label="name" type="organization" class="span2">
+      </d3-donut>
+    </div>
+  </div>
+</div>
+<div class="top-individuals">
+  <h2 class="center grid-14">Individual Sources</h2>
+  <div class="contributors row">
+    <div class="pull-left rep1" style="border-right: solid white 1px">
+      <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].littleSis.donors[0]" number="amount" label="name" type="individual" class="span2">
+      </d3-donut>
+
+      <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].littleSis.donors[1]" number="amount" label="name" type="individual" class="span2">
+      </d3-donut>
+
+      <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].littleSis.donors[2]" number="amount" label="name" type="individual" class="span2">
+      </d3-donut>
+    </div>
+    <div class="pull-right rep2">
+      <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].littleSis.donors[0]" number="amount" label="name" type="individual" class="span2">
+      </d3-donut>
+
+      <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].littleSis.donors[1]" number="amount" label="name" type="individual" class="span2">
+      </d3-donut>
+
+      <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].littleSis.donors[2]" number="amount" label="name" type="individual" class="span2">
       </d3-donut>
     </div>
   </div>
