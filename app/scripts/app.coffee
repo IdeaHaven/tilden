@@ -23,6 +23,8 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
         controller: 'CompareCtrl'
       .when '/about',
         templateUrl: 'views/about.html'
+      .when '/attribution',
+        templateUrl: 'views/attribution.html'
       .otherwise
         redirectTo: '/'
   ]
