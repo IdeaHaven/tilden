@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller 'DistrictCtrl', ['$scope', '$window', '$location', '$routeParams', '$compile', '$timeout', 'ApiGet', ($scope, $window, $location, $routeParams, $compile, $timeout, ApiGet) ->
+  .controller 'DistrictCtrl', ['$scope', '$window', '$location', '$routeParams', '$compile', 'ApiGet', ($scope, $window, $location, $routeParams, $compile, ApiGet) ->
     $scope.supportGeo = $window.navigator
     $scope.position = null
     $scope.selected_zip = null
@@ -56,15 +56,10 @@ angular.module('appApp.controllers')
             if data[0].title then $scope.district_reps.push(data[0])
           else console.log "Error: ", error
           , this
+        $scope.highlightDistrict()
 
 
     $scope.highlightDistrict = () ->
-      if not $scope.state_district.district 
-        for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
-          if $scope.state_district.state is state
-            $scope.state_district.district = "0"
-        if not $scope.state_district.district then $scope.state_district.district = "1"
-      $scope.state_district = {state: $scope.state_district.state, district: $scope.state_district.district}
       d3.select('.districts').selectAll('path').classed('selected', false)
       district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
       district_element.attr('class', 'selected')
@@ -269,18 +264,21 @@ angular.module('appApp.controllers')
         $("#map_holder").html('')
         $scope.drawMap()
 
+    $scope.setDistrictThroughSelect = (state) ->
+      console.log "Called for state: ", state
+      setDist = false
+      for one_district_state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
+        if state is one_district_state
+          setDist = true
+          $scope.state_district = {state: state, district: "0"}
+      if !setDist
+        $scope.state_district = {state: state, district: "1"}
+
     $scope.defaultFocus()
 
     $scope.$watch('state_district', (newVals, oldVals) ->
-      if $scope.state_district.state and !$scope.state_district.district
-        if not $scope.state_district.district 
-          for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
-            if $scope.state_district.state is state
-              $scope.state_district.district = "0"
-          if not $scope.state_district.district then $scope.state_district.district = "1"
       if $scope.state_district.state and $scope.state_district.district
         $scope.setDistrictData(newVals, oldVals)
-        $scope.highlightDistrict()
     , true)
 
 
