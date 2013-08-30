@@ -1,9 +1,22 @@
 <ng-include src="'/views/partials/header.html'"></ng-include>
+<!--
 <button ng-click="getLocation()">Find District by Current Location</button>
 <input class="zip_field" ng-model="selected_zip"></input>
 <button ng-click="findDistrictByZip()">Find District by Zip Code</button>
-{{warning}}
-<select ng-model="state_district.state" ng-options="value[0] as value[1] for (key, value) in FIPS_to_state"></select>
-<div id="map_holder"> </div>
-<div id="map_dialog"></div>
-<sub-view template="partials/footer"></sub-view>
+-->
+<div class="container">
+	<div class="input-prepend row-fluid span4">
+		<button class="btn" type="button" ng-click="getLocation()">
+			<i class="icon-location-arrow icon-large"></i>
+			Geolocate
+		</button>
+		<input ng-model="selected_zip" id="prependedInputButton" type="text" placeholder="Find By Zip"></input>
+	</div>	
+	<span>{{warning}}</span>
+	<div class="row-fluid span5">
+		<select ng-model="fake" ng-change="setDistrictThroughSelect(fake)" ng-options="value[0] as value[1] for (key, value) in FIPS_to_state"></select>
+	</div>
+	<div id="map_holder"> </div>
+	<div id="map_dialog"></div>
+	<sub-view template="partials/footer"></sub-view>
+</div>
