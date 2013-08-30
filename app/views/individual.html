@@ -1,51 +1,66 @@
-<sub-view template="partials/header"></sub-view>
+<ng-include src="'/views/partials/header.html'"></ng-include>
 <sub-view template="partials/select_rep1_name"></sub-view>
 <div class="row-fluid">
   <div class="span2">
-    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/K000381.jpg" width="100%"/>
+    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep1.bioguide_id}}.jpg"/>
   </div>
-  <div>{{ reps["K000381"]["overview"]['first_name'] }} {{ reps["K000381"]["overview"]['last_name'] }}</div>
-  <div>{{ reps["K000381"]["overview"]['chamber'] }} Member representing {{ reps["K000381"]["overview"]['state_name'] }}</div>
-  <div>LittleSis Data: </div>
-<ul class="nav nav-pills">
-  <li><a ng-init="showRepInfo = false" ng-click="showRepInfo = !showRepInfo">Rep Info</a></li>
-  <li><a ng-init="showContactInfo = false" ng-click="showContactInfo = !showContactInfo">Contact Info</a></li>
-  <li><a ng-init="showActivityInfo = false" ng-click="showActivityInfo = !showActivityInfo">Activity Info</a></li>
-</ul>
-  <div ng-show="showRepInfo">
-    <dl class="dl-horizontal">
-      <dt>Term</dt>
-      <dd>{{ reps["K000381"]["overview"]['term_start'] }} to {{ reps["K000381"]["overview"]['term_end'] }}</dd>
-      <dt>Party</dt>
-      <dd>{{ reps["K000381"]["overview"]['party_name'] }}</dd>
-      <dt>Bio</dt>
-      <dd>{{ selected_rep.bio.metadata.bio }}</dd>
-    </dl>
+</div>
+<div>
+  <h3>{{selected.rep1.name}}</h3>
+  <h5>{{rep.overview.state_name}}</h5>
+</div>
+<div class="row">
+  <div class="span8 text-left">
+    <ul class="nav nav-pills">
+      <li><a ng-init="showRepInfo = false" ng-click="showRepInfo = !showRepInfo">Rep Info</a></li>
+      <li><a ng-init="showContactInfo = false" ng-click="showContactInfo = !showContactInfo">Contact Info</a></li>
+      <li><a ng-init="showDonorInfo = false" ng-click="showDonorInfo = !showDonorInfo">Donor Info</a></li>
+      <li><a ng-init="showCommitteeInfo = false" ng-click="showCommitteeInfo = !showCommitteeInfo">Committee Info</a></li>
+    </ul>
+    <div ng-show="showRepInfo">
+      <dl class="dl-horizontal">
+        <dt>Term</dt>
+        <dd>{{ rep['overview']['term_start'] | date }} to {{ rep['overview']['term_end'] | date }}</dd>
+        <dt>Party</dt>
+        <dd>{{ rep['overview']['party_name'] }}</dd>
+        <dt>Bio</dt>
+        <dd>{{ rep.influence.bio.metadata.bio }}</dd>
+      </dl>
+    </div>
+    <div ng-show="showContactInfo">
+      <dl class="dl-horizontal">
+        <dt>Phone</dt>
+        <dd>{{ rep['overview']['phone'] }}</dd>
+        <dt>Website</dt>
+        <dd><a http="{{ rep['overview']['website'] }}">{{ rep['overview']['website'] }}</a></dd>
+        <dt>Office</dt>
+        <dd>{{ rep['overview']['office'] }}</dd>
+        <dt>Contact Form</dt>
+        <dd><a href="{{ rep['overview']['contact_form'] }}">{{ rep['overview']['contact_form'] }}</a></dd>
+        <dt>Twitter</dt>
+        <dd><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a></dd>
+        <dt>Facebook</dt>
+        <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd>
+      </dl>
+    </div>
+    <div ng-show="showCommitteeInfo">
+      <dl class="dl-horizontal">
+        <dt>Committees</dt>
+        <dd ng-repeat="committee in rep.nyt.overview.results.roles[0].committees">{{ committee.name }}</dd>
+      </dl>
+    </div>
+    <div ng-show="showDonorInfo">
+      <dl class="dl-horizontal">
+        <dt>Individual Donors</dt>
+        <dd width="300px">
+          <table class="table">
+            <tr ng-repeat="name in rep.littleSis.donors">
+              <td><span popover="{{name.summary}}" popover-placement="right">{{name.name}}</span></td>
+              <td>{{name.amount | currency}}</td>
+            </tr>
+          </table>
+        </dd>
+      </dl>
+    </div>
   </div>
-  <div ng-show="showContactInfo">
-    <dl class="dl-horizontal">
-      <dt>Phone</dt>
-      <dd>{{ reps["K000381"]["overview"]['phone'] }}</dd>
-      <dt>Website</dt>
-      <dd><a href="#{reps[\'K000381\'].overview.website}">{{ reps["K000381"]["overview"]['website'] }}</a> </dd>
-      <dt>Office</dt>
-      <dd>{{ reps["K000381"]["overview"]['office'] }}</dd>
-      <dt>Contact Form</dt>
-      <dd>{{ reps["K000381"]["overview"]['contact_form'] }}</dd>
-      <dt>Twitter</dt>
-      <dd>{{ reps["K000381"]["overview"]['twitter_id'] }}</dd>
-      <dt>Facebook</dt>
-      <dd>{{ reps["K000381"]["overview"]['facebook_id'] }}</dd>
-      <dt>YouTube Channel</dt>
-      <dd>{{ reps["K000381"]["overview"]['youtube_id'] }}</dd>
-    </dl>
-  </div>
-  <div ng-show="showActivityInfo">
-    <dl class="dl-horizontal">
-      <dt>Votes with party</dt>
-      <dd>{{ selected_rep.nyt_data['results']['roles']['votes_with_party_pct']}}</dd>
-      <dt>Missed votes</dt>
-      <dd>{{ selected_rep.nyt_data['results']['roles']['missed_votes_pct']}}</dd>
-    </dl>
-  </div>
-<sub-view template="partials/footer"></sub-view>
+</div>

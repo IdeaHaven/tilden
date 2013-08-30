@@ -7,9 +7,9 @@ angular.module('appApp.controllers')
 ######################
 
     # these were defined in AppCtrl and $scope will delegate to $rootScope
-      # $rootScope.reps
-      # $rootScope.selected
-      # $rootScope.reps_list
+      # $scope.reps
+      # $scope.selected
+      # $scope.reps_list
 
     # init local variables
     $scope.comparison =
@@ -20,9 +20,11 @@ angular.module('appApp.controllers')
     $scope.get =
       nyt: {}
       influence: {}
+      littleSis: {}
     $scope.cb =
       nyt: {}
       influence: {}
+      littleSis: {}
 
 ######################
 # Define API Methods
@@ -110,6 +112,43 @@ angular.module('appApp.controllers')
         $scope.comparison.bills = data.results
       else console.log 'Error pull nyt bills comparison: ', error
 
+    $scope.get.littleSis.id = (bioguide_id)->
+      ApiGet.littleSis "entities/bioguide_id/#{bioguide_id}.json?", $scope.cb.littleSis.id, this, bioguide_id
+
+    $scope.cb.littleSis.id = (error, data, bioguide_id)->
+      unless error
+        $scope.reps[bioguide_id].littleSis = $scope.reps[bioguide_id].littleSis or {}
+        $scope.reps[bioguide_id].littleSis.id = data.Response.Data.Entities.Entity.id
+        $scope.reps[bioguide_id].littleSis.overview = data.Response.Data.Entities.Entity
+        #call dependents here
+        $scope.get.littleSis.donors(data.Response.Data.Entities.Entity.id, bioguide_id)
+
+    $scope.get.littleSis.donors = (littleSis_id, bioguide_id)->
+      unless $scope.reps[bioguide_id].littleSis.donors
+        ApiGet.littleSis "entity/#{littleSis_id}/related.json?cat_ids=5&", $scope.cb.littleSis.donors, this, bioguide_id
+
+    $scope.cb.littleSis.donors = (error, data, bioguide_id)->
+      unless error
+        match = []
+        _.each data.Response.Data.RelatedEntities.Entity, (val) ->
+          if val.Relationships.Relationship.amount
+            if val.Relationships.Relationship.amount >= 15000
+              match.push
+                name: val.name
+                summary: val.summary
+                amount: val.Relationships.Relationship.amount
+
+          else if val.Relationships.Relationship[0]
+            _.each val.Relationships.Relationship, (subVal) ->
+              if subVal.amount >= 15000
+                match.push
+                  name: val.name
+                  summary: val.summary
+                  amount: subVal.amount
+        sorted = _.sortBy(match, ((val)-> val.amount*-1)).splice(0,10)
+        $scope.reps[bioguide_id].littleSis.donors = sorted
+
+
 #####################
 # Define Non-API Methods
 #####################
@@ -118,30 +157,30 @@ angular.module('appApp.controllers')
     $scope.onSelect = ($item, $model, $label, rep)->
       $scope.selected[rep] = $item
 
-    $scope.analysis = {}
+#####################
+# Define Data Analysis
+#####################
 
-#####################
-# Data Analysis for Industries
-#####################
+    $scope.analysis = {}
 
     $scope.analysis.industries = (bioguide_id1, bioguide_id2 )->
       both = {}
-      _.each($scope.reps[bioguide_id1].influence.industries, (val)->
-        _.each($scope.reps[bioguide_id2].influence.industries, (val1)->
+      _.each $scope.reps[bioguide_id1].influence.industries, (val)->
+        _.each $scope.reps[bioguide_id2].influence.industries, (val1)->
           if val.id is val1.id
             both[val.name] = [val.amount, val1.amount]
-        )
-      )
+
       $scope.compareIndustries = both
 
 
 #####################
 # Define D3 Data
 #####################
-    $scope.tempScale = 175000
+
+    $scope.scale_company = 175000
+    $scope.scale_individual = 80000
     $scope.d3DonutClick = (item)->
       console.log 'D3 clicked', item
-    $scope.d3_data = {amounts: [200,200,200,200,200]}
 
 #####################
 # Define Watchers
@@ -164,6 +203,7 @@ angular.module('appApp.controllers')
         $scope.get.nyt.votes($scope.selected.rep1.bioguide_id, $scope.selected.rep2.bioguide_id, $scope.comparison.congress, $scope.comparison.chamber)
       , 1000)
       $scope.get.influence.id($scope.selected[rep].bioguide_id)
+      $scope.get.littleSis.id(bioguide_id)
 
 #####################
 # Set Reps by Route Params and Init

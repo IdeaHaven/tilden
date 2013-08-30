@@ -51,7 +51,7 @@ module.exports = function (grunt) {
           '{<%= yeoman.tmp %>,<%= yeoman.app %>}/{,**/}*.html',
           '{<%= yeoman.tmp %>,<%= yeoman.app %>}/styles/{,**/}*.css',
           '{<%= yeoman.tmp %>,<%= yeoman.app %>}/scripts/{,**/}*.js',
-          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/images/{,**/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '{<%= yeoman.tmp %>,<%= yeoman.app %>}/images/{,**/}*.{png,jpg,jpeg,gif,webp,svg,json}'
         ]
         // tasks: ['karma']
       },
@@ -248,7 +248,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'bower_components/**/*',
-            'images/{,*/}*.{png,svg,gif,webp}',
+            'images/{,*/}*.{png,svg,gif,webp,jpg}',
             'styles/fonts/*',
             'data/*'
           ]
@@ -272,7 +272,7 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'views/**/*',
-            'images/{,*/}*.{png,svg,gif,webp}',
+            'images/{,*/}*.{png,svg,gif,webp,jpg}',
             'styles/fonts/*',
             'data/*'
           ]
@@ -288,7 +288,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt,html}',
             '.htaccess',
             'views/**/*',
-            'images/{,*/}*.{gif,webp}',
+            'images/{,*/}*.{gif,webp,jpg}',
             'styles/fonts/*',
             'data/*'
           ]
