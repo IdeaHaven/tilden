@@ -1,24 +1,26 @@
 <ng-include src="'/views/partials/header.html'"></ng-include>
-<table class="words">
-  <tr>
-    <td><h2>What is your legislator saying?</h2></td>
-    <td class="spacer"></td>
-    <td><h2>How often do legislators say...</h2></td>
-  </tr>
-  <tr>
-    <td>
-      <select ng-model="state" ng-options="state for state in states"></select>
-      <select ng-model="rep" ng-options="rep.full_name for rep in reps | orderBy:'last_name'"></select>
-    </td>
-    <td class="spacer"></td>
-    <td class="alignTop"><input ng-model="wordQuery"></input></td>
-  </tr>
-  <tr>
-    <td>
-      <words-bar-chart data="words" id="topWords"></words-bar-chart>
-    </td>
-    <td class="spacer"></td>
-    <td class="wordFrequency alignTop"><strong>{{wordFrequency}}</strong> times since 1996</td>
-  </tr>
-</table>
+<div class="container">
+  <table class="words">
+    <tr>
+      <td><h2>What is your legislator saying?</h2></td>
+      <td class="spacer"></td>
+      <td><h2>How often do legislators say...</h2></td>
+    </tr>
+    <tr>
+      <td>
+        <select ng-model="state" ng-options="state for state in states"></select>
+        <select ng-model="rep" ng-options="rep.full_name for rep in reps | orderBy:'last_name'"></select>
+      </td>
+      <td class="spacer"></td>
+      <td class="alignTop"><input ng-model="wordQuery"></input></td>
+    </tr>
+    <tr>
+      <td>
+        <words-bar-chart data="words" id="topWords"></words-bar-chart>
+      </td>
+      <td class="spacer"></td>
+      <td class="wordFrequency alignTop"><strong>{{wordFrequency}}</strong> times since 1996</td>
+    </tr>
+  </table>
+</div>
 <sub-view template="partials/footer"></sub-view>
