@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('IndividualCtrl', ['$scope', 'ApiGet', 'Member_data', ($scope, ApiGet, Member_data) ->
+  .controller('IndividualCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
 
 
 ######################
