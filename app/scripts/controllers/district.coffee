@@ -14,6 +14,7 @@ angular.module('appApp.controllers')
       $window.navigator.geolocation.getCurrentPosition((position)->
         $scope.$apply(()->
           $scope.position = position
+          $scope.selected.position = position
           $scope.findDistrictByLongLat()
         , (error) -> console.log error)
       )
@@ -22,13 +23,16 @@ angular.module('appApp.controllers')
       ApiGet.congress "districts/locate?latitude=#{$scope.position.coords.latitude}&longitude=#{$scope.position.coords.longitude}", $scope.setDistrict, this
 
     $scope.findDistrictByZip = () ->
-      ApiGet.congress "districts/locate?zip=#{$scope.selected_zip}", $scope.setDistrict, this
+      ApiGet.congress "districts/locate?zip=#{$scope.selected_zip}", $scope.setDistrict, this, $scope.selected_zip
 
-    $scope.setDistrict = (error, data) ->
+    $scope.setDistrict = (error, data, zip) ->
       if not error
         unless data.length
           return $scope.warning = "No district was found for #{$scope.selected_zip}."
         $scope.state_district = {state: data[0].state, district: data[0].district}
+        $scope.selected.zip = zip
+        $scope.selected.state = data[0].state
+        $scope.selected.district = data[0].district
       else console.log "Error: ", error
 
     $scope.setDistrictData = (newVals, oldVals) ->
@@ -82,6 +86,8 @@ angular.module('appApp.controllers')
           else
             district_id = d3.select(this).text()
             $scope.state_district = {state: district_id.slice(0, 2), district: district_id.slice(3, 6)}
+            $scope.selected.state = district_id.slice(0, 2)
+            $scope.selected.district = district_id.slice(3, 6)
             $scope.$apply()
         )
         $scope.usMap.append("path").attr("class", "district-boundaries").attr("clip-path", "url(#clip-land)").datum(topojson.mesh(congress, congress.objects.districts, (a, b) ->
@@ -175,12 +181,14 @@ angular.module('appApp.controllers')
         console.log $routeParams.bioguide_id
         ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
           if not error
-            if not data[0].district 
+            if not data[0].district
               for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
                 if data[0].state is state
                   data[0].district = "0"
               if not data[0].district then data[0].district = "1"
             $scope.state_district = {state: data[0].state, district: data[0].district}
+            $scope.selected.state = data[0].state
+            $scope.selected.district = data[0].district
           else console.log "Error, Senator/Rep not found."
       else console.log "No parameter"
 
