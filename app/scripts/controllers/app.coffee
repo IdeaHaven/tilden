@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller 'AppCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
+  .controller 'AppCtrl', ['$scope', 'ApiGet', '$location', ($scope, ApiGet, $location) ->
 ######################
 # Variable Setup
 ######################
@@ -42,6 +42,10 @@ angular.module('appApp.controllers')
 #####################
 # Define Non-API Methods
 #####################
+
+    # active class navbar
+    $scope.isActive = (viewLocation)->
+      viewLocation is $location.path().match(/^(\/\w*)\/?/)[1]
 
     # this is used to update a selected rep based on the input boxes
     $scope.onSelect = ($item, $model, $label, rep)->
