@@ -62,13 +62,9 @@ angular.module('appApp.services')
     littleSis: (path, callback, context)->
       args = Array.prototype.slice.call(arguments, 2)
       context = args.shift()
-      apiurl = "http://api.littlesis.org/entities/bioguide_id/F000062.json?_key=f7415b282639a97967b87a0fa561a92960409a3e"
       $http
         method: "GET"
-        url: "http://query.yahooapis.com/v1/public/yql"
-        params:
-          q: "select * from json where url=\"#{apiurl}\""
-          format: "json"
+        url: "http://api.littlesis.org/#{path}_key=f7415b282639a97967b87a0fa561a92960409a3e"
       .success (data, status, headers, config)->
         if data
           args.unshift data
