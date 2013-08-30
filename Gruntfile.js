@@ -148,7 +148,7 @@ module.exports = function (grunt) {
       compile: {
         files: {
           '<%= yeoman.tmp %>/styles/app.css': '<%= yeoman.app %>/styles/app.styl',
-          '<%= yeoman.tmp %>/styles/bootstrap.css': ['<%= yeoman.app %>/bower_components/bootstrap-stylus/stylus/bootstrap.styl','<%= yeoman.app %>/bower_components/bootstrap-stylus/stylus/responsive.styl']
+          '<%= yeoman.tmp %>/styles/bootstrap.css': ['<%= yeoman.app %>/styles/bootstrap/bootstrap.styl','<%= yeoman.app %>/styles/bootstrap/responsive.styl']
         }
       }
     },
