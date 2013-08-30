@@ -15,8 +15,6 @@
   user-select: none;
   position: absolute;
   text-align: left;
-  top: 160px;
-  left: 100px;
   width: 260px;
   height: 325px;
   padding: 10px;
@@ -27,6 +25,14 @@
   border-radius: 8px;
   pointer-events: none;
   overflow: scroll;
+
+#map_dialog.full-display
+  top: 160px;
+  left: 100px;
+
+#map_dialog.mobile-display
+  top: 160px;
+  left: 60px
 
 #map_holder path 
   stroke-linejoin round
