@@ -8,7 +8,6 @@
 <div>
   <h3>{{selected.rep1.name}}</h3>
   <h5>{{rep.overview.state_name}}</h5>
-  <h5>{{rep.nyt.overview.results.roles[0].committees[0].name}}</h5>
 </div>
 <div class="row">
   <div class="span8 text-left">
@@ -21,9 +20,9 @@
     <div ng-show="showRepInfo">
       <dl class="dl-horizontal">
         <dt>Term</dt>
-        <dd>{{ rep["overview"]['term_start'] }} to {{ rep["overview"]['term_end'] }}</dd>
+        <dd>{{ rep['overview']['term_start'] | date }} to {{ rep['overview']['term_end'] | date }}</dd>
         <dt>Party</dt>
-        <dd>{{ rep["overview"]['party_name'] }}</dd>
+        <dd>{{ rep['overview']['party_name'] }}</dd>
         <dt>Bio</dt>
         <dd>{{ rep.influence.bio.metadata.bio }}</dd>
       </dl>
@@ -31,17 +30,17 @@
     <div ng-show="showContactInfo">
       <dl class="dl-horizontal">
         <dt>Phone</dt>
-        <dd>{{ rep["overview"]['phone'] }}</dd>
+        <dd>{{ rep['overview']['phone'] }}</dd>
         <dt>Website</dt>
-        <dd>{{ rep["overview"]['website'] }}</dd>
+        <dd><a http="{{ rep['overview']['website'] }}">{{ rep['overview']['website'] }}</a></dd>
         <dt>Office</dt>
-        <dd>{{ rep["overview"]['office'] }}</dd>
+        <dd>{{ rep['overview']['office'] }}</dd>
         <dt>Contact Form</dt>
-        <dd>{{ rep["overview"]['contact_form'] }}</dd>
+        <dd><a href="{{ rep['overview']['contact_form'] }}">{{ rep['overview']['contact_form'] }}</a></dd>
         <dt>Twitter</dt>
-        <dd>{{ rep["overview"]['twitter_id'] }}</dd>
+        <dd><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a></dd>
         <dt>Facebook</dt>
-        <dd>{{ rep["overview"]['facebook_id'] }}</dd>
+        <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd>
       </dl>
     </div>
     <div ng-show="showCommitteeInfo">
