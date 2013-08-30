@@ -253,14 +253,25 @@ angular.module('appApp.controllers')
       queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
     $scope.changeMapSize = (windowSize) ->
-      if windowSize <= 600 and $scope.map_width is 960
-        console.log "Switch to byState"
-      if windowSize >  600 and $scope.map_width is 220
-        console.log "Switch to full map"
+      console.log "changeMapSize called"
+      if windowSize <= 600 and $scope.map_width is 0
+        unless $scope.state_district.state
+          $scope.drawMapByState("6")
+        else $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
+      else if windowSize > 600 and $scope.map_width is 0
+        $scope.drawMap()
+      else if windowSize <= 600 and $scope.map_width is 960
+        $("#map_holder").html('')
+        unless $scope.state_district.state
+          $scope.drawMapByState("6")
+        else $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
+      else if windowSize >  600 and $scope.map_width is 220
+        $("#map_holder").html('')
+        $scope.drawMap()
 
-    $scope.drawMap()
+
+
     $scope.defaultFocus()
-    # $scope.drawMapByState()
 
     $scope.$watch('state_district', (newVals, oldVals) ->
       if $scope.state_district.state
