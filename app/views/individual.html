@@ -29,18 +29,20 @@
     </div>
     <div class="contactInfo">
       <dl class="dl-horizontal">
-        <dt class="icon-phone"></dt>
-        <dd>{{ rep['overview']['phone'] }}</dd>
         <dt>Website</dt>
         <dd><a http="{{ rep['overview']['website'] }}">{{ rep['overview']['website'] }}</a></dd>
         <dt>Office</dt>
         <dd>{{ rep['overview']['office'] }}</dd>
+        <dt class="icon-phone"></dt>
+        <dd><a href="tel:{{ rep['overview']['phone'] }}">{{ rep['overview']['phone'] }}</a></dd>
+        <dt class="icon-print"></dt>
+        <dd><a href="fax:{{ rep['overview']['fax'] }}">{{ rep['overview']['fax'] }}</a></dd>
         <dt class="icon-envelope"></dt>
         <dd><a href="{{ rep['overview']['contact_form'] }}">{{ rep['overview']['contact_form'] }}</a></dd>
         <dt class="icon-twitter"></dt>
         <dd><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a></dd>
         <dt class="icon-facebook-sign"></dt>
-        <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd>
+        <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd><dd ng-show="!rep['overview']['facebook_id']">This member's Facebook page unavailable.</dd>
       </dl>
     </div>
     <div class="CommitteeInfo">
@@ -55,7 +57,7 @@
         <dd width="300px">
           <table class="table">
             <tr ng-repeat="name in rep.littleSis.donors">
-              <td><span popover="{{name.summary}}" popover-placement="right">{{name.name}}</span></td>
+              <td><span popover="{{name.summary}}" popover-placement="right" popover-trigger="mouseenter">{{name.name}}</span></td>
               <td>{{name.amount | currency}}</td>
             </tr>
           </table>
