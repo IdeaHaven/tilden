@@ -10,7 +10,7 @@ angular.module('appApp.controllers')
     $scope.district_reps = []
     $scope.map_width = 0
     $scope.FIPS_to_state = {1: ['AL', 'Alabama'], 2:['AK', 'Alaska'], 4:['AZ','Arizona'], 5:['AR', 'Arkansas'], 6:['CA', 'California'], 8:['CO', 'Colorado'], 9:['CT', 'Connecticut'], 10:['DE', 'Delaware'], 11:['DC', 'Washington, DC'], 12:['FL', 'Florida'], 13:['GA','Georgia'], 15:['HI', 'Hawaii'], 16:['ID', 'Idaho'], 17:['IL', 'Illinois'], 18:['IN', 'Indiana'], 19:['IA', 'Iowa'], 20:['KS', 'Kansas'], 21:['KY', 'Kentucky'], 22:['LA', 'Louisiana'], 23:['ME', 'Maine'], 24:['MD', 'Maryland'], 25:['MA', 'Massachusetts'], 26:['MI', 'Michigan'], 27:['MN', 'Minnesota'], 28:['MS', 'Mississippi'], 29:['MO', 'Missouri'], 30:['MT', 'Montana'], 31:['NE', 'Nebraska'], 32:['NV', 'Nevada'], 33:['NH', 'New Hampshire'], 34:['NJ', 'New Jersey'], 35:['NM', 'New Mexico'], 36:['NY', 'New York'], 37:['NC', 'North Carolina'], 38:['ND', 'North Dakota'], 39:['OH', 'Ohio'], 40:['OK', 'Oklahoma'], 41:['OR', 'Oregon'], 42:['PA', 'Pennsylvania'], 44:['RI', 'Rhode Island'], 45:['SC', 'South Carolina'], 46:['SD', 'South Dakota'], 47:['TN', 'Tennessee'], 48:['TX', 'Texas'], 49:['UT', 'Utah'], 50:['VT', 'Vermont'], 51:['VA', 'Virginia'], 53:['WA', 'Washington'], 54:['WV', 'West Virginia'], 55:['WI', 'Wisconsin'], 56:['WY', 'Wyoming']}
-    $scope.state_to_FIPS = {'AL': '1', 'AK': '2', 'AZ': '4', 'AR': '5', 'CA': '6', 'CO': '8', 'CT': '9', 'DE': '10', 'DC': '11', 'FL': '12', 'GA': '13', 'HI': '15', 'ID': '16', 'IL': '17', 'IN': '18', 'IA': '19', 'KS': '20', 'KY': '21', 'LA': '22', 'ME': '20', 'MD': '24', 'MA': '25', 'MI': '26', 'MN': '27', 'MS': '28', 'MO': '29', 'MT': '30', 'NE': '31', 'NV': '32', 'NH': '33', 'NJ': '34', 'NM': '35', 'NY': '36', 'NC': '37', 'ND': '38', 'OH': '39', 'OK': '40', 'OR': '41', 'PA': '42', 'RI': '44', 'SC': '45', 'SD': '46', 'TN': '47', 'TX': '48', 'UT': '49', 'VT': '50', 'VA': '51', 'WA': '53', 'WV': '54', 'WI': '55', 'WY': '56' }
+    $scope.state_to_FIPS = {'AL': '1', 'AK': '2', 'AZ': '4', 'AR': '5', 'CA': '6', 'CO': '8', 'CT': '9', 'DE': '10', 'DC': '11', 'FL': '12', 'GA': '13', 'HI': '15', 'ID': '16', 'IL': '17', 'IN': '18', 'IA': '19', 'KS': '20', 'KY': '21', 'LA': '22', 'ME': '23', 'MD': '24', 'MA': '25', 'MI': '26', 'MN': '27', 'MS': '28', 'MO': '29', 'MT': '30', 'NE': '31', 'NV': '32', 'NH': '33', 'NJ': '34', 'NM': '35', 'NY': '36', 'NC': '37', 'ND': '38', 'OH': '39', 'OK': '40', 'OR': '41', 'PA': '42', 'RI': '44', 'SC': '45', 'SD': '46', 'TN': '47', 'TX': '48', 'UT': '49', 'VT': '50', 'VA': '51', 'WA': '53', 'WV': '54', 'WI': '55', 'WY': '56' }
 
     $scope.getLocation = () ->
       $window.navigator.geolocation.getCurrentPosition((position)->
@@ -235,9 +235,9 @@ angular.module('appApp.controllers')
         bbox = d3.select("#map_with_districts").node().getBBox()
         o_x = bbox.x + bbox.width/2
         o_y = bbox.y + bbox.height/2
-        # scale = 100/Math.sqrt(Math.pow(bbox.width, 2) + Math.pow(bbox.height,2))
-        scale = 1
-        $scope.usMap.attr("transform", "translate(" + 220 / 2 + "," + 220 / 2 + ")scale(" + scale + ")translate(" + -o_x + "," + -o_y + ")").style "stroke-width", 1.5
+        scale = 250/Math.sqrt(Math.pow(bbox.width, 2) + Math.pow(bbox.height,2))
+        if $scope.state_district.state is "WY" then $scope.usMap.attr("transform", "translate(" + -70 + "," + 64 + ")scale(" + 1.3 + ")translate(" + -o_x + "," + -o_y + ")").style "stroke-width", 1.5
+        else $scope.usMap.attr("transform", "translate(" + 220 / 2 + "," + 220 / 2 + ")scale(" + scale + ")translate(" + -o_x + "," + -o_y + ")").style "stroke-width", 1.5
 
       $scope.map_width = 220
       height = 220
@@ -253,7 +253,6 @@ angular.module('appApp.controllers')
       queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
     $scope.changeMapSize = (windowSize) ->
-      console.log "changeMapSize called"
       if windowSize <= 600 and $scope.map_width is 0
         unless $scope.state_district.state
           $scope.drawMapByState("6")
@@ -268,8 +267,6 @@ angular.module('appApp.controllers')
       else if windowSize >  600 and $scope.map_width is 220
         $("#map_holder").html('')
         $scope.drawMap()
-
-
 
     $scope.defaultFocus()
 
