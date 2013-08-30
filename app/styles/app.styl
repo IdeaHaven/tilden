@@ -7,10 +7,10 @@
 @import "words.styl"
 @import "billtext.styl"
 @import "loading.styl"
-@import "words_bar_chart.styl"
 @import "about.styl"
 @import "hex.styl"
 @import "compare.styl"
+@import "attribution.styl"
 
 html body
   font-family 'Oxygen', "Helvetica Neue", Helvetica, Arial, sans-serif !important
@@ -22,15 +22,40 @@ html body
   color $grayDark
   text-align center
 
+//////////////////
+//
+//  Default Styles
+//
+//////////////////
+
+//Floats
 .left
   float left
-
 .right
   float right
+
+// Headers and paragraphs
+h2
+  text-align center
+p
+  text-align left
+
+//Colors
+.blue
+  color $blue
+.red
+  color $red
+.orange
+  color $orange
+.green
+  color $green
+
+/////// Add to some category ///////////
 
 .index-text
   font-size 20px
   margin 10px
+
 
 #nav
   margin-top 0px
