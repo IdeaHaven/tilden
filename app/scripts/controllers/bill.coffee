@@ -27,6 +27,7 @@ angular.module('appApp.controllers')
 
     getBillTextOnLoad = ->
       if $location.path() != "/bills" then getBillText(makeBillUrl($location.path().split("").slice(7).join("")))
+      getBillTitleOnLoad()
 
     getBillTitleOnLoad = ->
       bill_id = makeBillId()
