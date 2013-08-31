@@ -104,13 +104,12 @@ angular.module('appApp.controllers')
 
     $scope.setRepToRouteParams = () ->
       if $routeParams.bioguide_id.length > 0
-        ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
-          if not error
-            if data.length
-              this_name = "#{data[0].title}. #{data[0].first_name} #{data[0].last_name}"
-              $scope.selected.rep1 = {bioguide_id: data[0].bioguide_id, name: this_name}
-          else
-            console.log "Error, Senator/Rep not found."
+        if $scope.reps[$routeParams.bioguide_id]
+          $scope.selected.rep1 =
+            bioguide_id: bioguide_id
+            name: $scope.reps[bioguide_id].overview.fullname
+        else
+          console.log "Error, Senator/Rep not found."
           # set default focus
 
 ##############
