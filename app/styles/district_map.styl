@@ -7,7 +7,7 @@
   padding: 5px;
   font: 10px sans-serif;
   font-weight: bold;
-  background: #ddd;
+  background: $blue;
   border: solid 1px #000;
   pointer-events: none;
 
@@ -34,6 +34,9 @@
   top: 390px
   left: 10px
 
+.icon-location-arrow.icon-large
+  color $blue
+
 .container.map.mobile-display
   float left
   margin-left 10px
@@ -42,7 +45,7 @@
   stroke-linejoin round
 
 .districts 
-  fill #6B6B6B
+  fill $grayLight
 
 .districts :hover 
   fill: url(#hover_gradient)
@@ -53,12 +56,12 @@
 .district-boundaries 
   pointer-events none
   fill none
-  stroke #ddd
+  stroke $grayLighter
 
 .state-boundaries 
   pointer-events none
   fill none
-  stroke #fff
+  stroke $grayLighter
   stroke-width 1.5px
 
 .small_rep_image

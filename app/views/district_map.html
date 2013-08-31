@@ -10,7 +10,8 @@
 			<i class="icon-location-arrow icon-large"></i>
 			Geolocate
 		</button>
-		<input ng-model="selected_zip" id="prependedInputButton" type="text" placeholder="Find By Zip"></input>
+		<input ng-model="selected_zip" id="prependedInputButton" type="text" placeholder="Or Find By Zip" type="text" name="zip" value={{zip}} ng-pattern="/^\d{5}$/"></input>
+
 	</div>	
 	<span>{{warning}}</span>
 	<div class="row-fluid span5">
