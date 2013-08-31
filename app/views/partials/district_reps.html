@@ -4,10 +4,12 @@
 	<div class="small_rep_image pull-left">
 	    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/40x50/{{rep.bioguide_id}}.jpg" onError="this.onerror=null;this.src='/images/noimage.gif'"/>
 	</div>
-	<div class="small_rep_details">
-		<strong>Term:</strong><span>{{rep.term_start}} to {{rep.term_end}}</span><br/>
-		<strong>Phone:</strong><span>{{rep.phone}}</span><br/>
-		<strong>Website:</strong><span>{{rep.website}}</span><br/>
-		<strong>Twitter:</strong><span ng-hide="!rep.twitter_id.length">@{{rep.twitter_id}}</span>
-	</div>
+	<a href="/#/">
+		<div class="small_rep_details">
+			<strong>Term:</strong><span>{{rep.term_start}} to {{rep.term_end}}</span><br/>
+			<strong>Phone:</strong><span>{{rep.phone}}</span><br/>
+			<strong>Website:</strong><span>{{rep.website}}</span><br/>
+			<strong>Twitter:</strong><span ng-hide="!rep.twitter_id.length">@{{rep.twitter_id}}</span>
+		</div>
+	</a>
 </div>
