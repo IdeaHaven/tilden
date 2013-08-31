@@ -6,10 +6,10 @@
   </div>
 </div>
 <div>
-  <h3>{{selected.rep1.name}}</h3>
-  <h5>{{rep.overview.state_name}}</h5>
+  <h2>{{selected.rep1.name}}</h2>
+  <h3>{{rep.overview.state_name}}</h3>
 </div>
-<div class="row">
+<div class="row-fluid">
   <div class="span8 text-left">
     <ul class="nav nav-pills">
       <li><a ng-init="showRepInfo = false" ng-click="showRepInfo = !showRepInfo">Rep Info</a></li>
@@ -17,45 +17,47 @@
       <li><a ng-init="showDonorInfo = false" ng-click="showDonorInfo = !showDonorInfo">Donor Info</a></li>
       <li><a ng-init="showCommitteeInfo = false" ng-click="showCommitteeInfo = !showCommitteeInfo">Committee Info</a></li>
     </ul>
-    <div ng-show="showRepInfo">
+    <div class="repInfo">
       <dl class="dl-horizontal">
-        <dt>Term</dt>
+        <dt>Present Term</dt>
         <dd>{{ rep['overview']['term_start'] | date }} to {{ rep['overview']['term_end'] | date }}</dd>
         <dt>Party</dt>
         <dd>{{ rep['overview']['party_name'] }}</dd>
         <dt>Bio</dt>
-        <dd>{{ rep.influence.bio.metadata.bio }}</dd><dd ng-show"!rep.influence.bio.metadata.bio">Member bio unavailable.</dd>
+        <dd ng-bind-html-unsafe="rep.influence.bio.metadata.bio"></dd>
       </dl>
     </div>
-    <div ng-show="showContactInfo">
+    <div class="contactInfo">
       <dl class="dl-horizontal">
-        <dt>Phone</dt>
-        <dd>{{ rep['overview']['phone'] }}</dd>
         <dt>Website</dt>
         <dd><a http="{{ rep['overview']['website'] }}">{{ rep['overview']['website'] }}</a></dd>
         <dt>Office</dt>
         <dd>{{ rep['overview']['office'] }}</dd>
-        <dt>Contact Form</dt>
+        <dt class="icon-phone"></dt>
+        <dd><a href="tel:{{ rep['overview']['phone'] }}">{{ rep['overview']['phone'] }}</a></dd>
+        <dt class="icon-print"></dt>
+        <dd><a href="fax:{{ rep['overview']['fax'] }}">{{ rep['overview']['fax'] }}</a></dd>
+        <dt class="icon-envelope"></dt>
         <dd><a href="{{ rep['overview']['contact_form'] }}">{{ rep['overview']['contact_form'] }}</a></dd>
-        <dt>Twitter</dt>
+        <dt class="icon-twitter"></dt>
         <dd><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a></dd>
-        <dt>Facebook</dt>
-        <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd>
+        <dt class="icon-facebook-sign"></dt>
+        <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd><dd ng-show="!rep['overview']['facebook_id']">This member's Facebook page unavailable.</dd>
       </dl>
     </div>
-    <div ng-show="showCommitteeInfo">
+    <div class="CommitteeInfo">
       <dl class="dl-horizontal">
         <dt>Committees</dt>
         <dd ng-repeat="committee in rep.nyt.overview.results.roles[0].committees">{{ committee.name }}</dd><dd ng-show="!rep.nyt.overview.results.roles[0].committees[0]">This member does not serve on any committees.</dd>
       </dl>
     </div>
-    <div ng-show="showDonorInfo">
+    <div class="donorInfo">
       <dl class="dl-horizontal">
-        <dt>Individual Donors</dt>
+        <dt>Individual Donors<br/><span class="moreInfo">Mouse over names<br/>for more info.</span></dt>
         <dd width="300px">
           <table class="table">
             <tr ng-repeat="name in rep.littleSis.donors">
-              <td><span popover="{{name.summary}}" popover-placement="right">{{name.name}}</span></td>
+              <td><span popover="{{name.summary}}" popover-placement="right" popover-trigger="mouseenter">{{name.name}}</span></td>
               <td>{{name.amount | currency}}</td>
             </tr>
           </table>
