@@ -4,7 +4,7 @@
 <input class="zip_field" ng-model="selected_zip"></input>
 <button ng-click="findDistrictByZip()">Find District by Zip Code</button>
 -->
-<div class="container">
+<div class="container map">
 	<div class="input-prepend row-fluid span4">
 		<button class="btn" type="button" ng-click="getLocation()">
 			<i class="icon-location-arrow icon-large"></i>
@@ -18,5 +18,5 @@
 	</div>
 	<div id="map_holder"> </div>
 	<div id="map_dialog"></div>
-	<sub-view template="partials/footer"></sub-view>
 </div>
+<sub-view template="partials/footer"></sub-view>
