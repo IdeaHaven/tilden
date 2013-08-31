@@ -2,7 +2,7 @@
 <div class="billDetail container" ng-controller="BillCtrl">
   <div class="searchContainer">
     <form class="formBillQuery" ng-submit="billQuery()">
-      <input type="text" ng-model="bill_queried" placeholder="Search bills (ex: health care)"></input>
+      <input type="text" ng-model="bill_query" placeholder="Search bills (ex: health care)"></input>
       <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
     </form>
     <select ng-model="bill" ng-options="bill.bill_id for bill in bills">
