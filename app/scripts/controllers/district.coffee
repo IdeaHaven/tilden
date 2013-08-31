@@ -70,6 +70,8 @@ angular.module('appApp.controllers')
           $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
 
     $scope.drawMap = () ->
+      d3.select('.container')
+        .classed("mobile-display", false)
       ready = (error, us, congress) ->
         $scope.usMap.append("defs").append("path").attr("id", "land").datum(topojson.feature(us, us.objects.land)).attr "d", path
         $scope.usMap.append("clipPath").attr("id", "clip-land").append("use").attr "xlink:href", "#land"
@@ -197,6 +199,9 @@ angular.module('appApp.controllers')
       else console.log "No parameter"
 
     $scope.drawMapByState = (state_FIPS) ->
+      $('body').scrollTop(0)
+      d3.select('.container')
+        .classed("mobile-display", true)
       state_districts = []
       ready = (error, us, congress) ->
         for obj in topojson.feature(congress, congress.objects.districts).features
@@ -249,18 +254,18 @@ angular.module('appApp.controllers')
       queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
     $scope.changeMapSize = (windowSize) ->
-      if windowSize <= 600 and $scope.map_width is 0
+      if windowSize <= 400 and $scope.map_width is 0
         unless $scope.state_district.state
           $scope.drawMapByState("6")
         else $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
-      else if windowSize > 600 and $scope.map_width is 0
+      else if windowSize > 400 and $scope.map_width is 0
         $scope.drawMap()
-      else if windowSize <= 600 and $scope.map_width is 960
+      else if windowSize <= 400 and $scope.map_width is 960
         $("#map_holder").html('')
         unless $scope.state_district.state
           $scope.drawMapByState("6")
         else $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
-      else if windowSize >  600 and $scope.map_width is 220
+      else if windowSize >  400 and $scope.map_width is 220
         $("#map_holder").html('')
         $scope.drawMap()
 
