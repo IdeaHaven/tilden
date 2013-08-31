@@ -11,22 +11,27 @@
   border: solid 1px #000;
   pointer-events: none;
 
+.map
+  @a
+    text-decoration none
+  @a:hover
+    color $grayDark
+
 #map_dialog
-  user-select: none;
+  opacity: 0
   position: absolute;
   text-align: left;
   width: 270px;
-  height: 325px;
+  // height: 325px;
   padding: 10px;
   font: 10px sans-serif;
   color: #3D3D3D;
   background linear-gradient(bottom left, rgba(246,248,249,0.7) 0%,rgba(229,235,238,0.8) 50%,rgba(215,222,227,0.8) 51%,rgba(245,247,249,0.9) 100%)
   border: solid 1px #aaa;
   border-radius: 8px;
-  pointer-events: none;
 
 #map_dialog.full-display
-  top: 172px;
+  top: 200px;
   left: 100px;
 
 #map_dialog.mobile-display
@@ -40,24 +45,24 @@
   float left
   margin-left 10px
 
-#map_holder path 
+#map_holder path
   stroke-linejoin round
 
-.districts 
+.districts
   fill $grayLight
 
-.districts :hover 
+.districts :hover
   fill: url(#hover_gradient)
 
-.districts .selected 
+.districts .selected
   fill url(#selected_gradient)
 
-.district-boundaries 
+.district-boundaries
   pointer-events none
   fill none
   stroke $grayLighter
 
-.state-boundaries 
+.state-boundaries
   pointer-events none
   fill none
   stroke $grayLighter

@@ -25,6 +25,29 @@ angular.module('appApp.controllers')
     $scope.findDistrictByZip = () ->
       ApiGet.congress "districts/locate?zip=#{$scope.selected_zip}", $scope.setDistrict, this
 
+    $scope.classDistrictDialog = (css)->
+      d3.select("#map_dialog")
+        .classed("full-display", false)
+        .classed("mobile-display", false)
+
+      d3.select("#map_dialog")
+        .classed(css, true)
+
+    $scope.showDistrictDialog = (css)->
+      d3.select('#map_dialog')
+        .classed('hidden', false)
+        .transition()
+        .duration(750)
+        .style("opacity", 1)
+      if css then $scope.classDistrictDialog(css)
+
+    $scope.hideDistrictDialog = (css)->
+      d3.select('#map_dialog')
+        .classed('hidden', true)
+        .transition()
+        .duration(750)
+        .style("opacity", 1e-6)
+      if css then $scope.classDistrictDialog(css)
 
     $scope.setDistrict = (error, data) ->
       if not error
@@ -67,7 +90,7 @@ angular.module('appApp.controllers')
       d3.select('.districts').selectAll('path').classed('selected', false)
       district_element = d3.select(d3.select('.districts').selectAll('path').filter((d, i) -> return this.textContent == "#{$scope.state_district.state}-#{$scope.state_district.district}")[0][0])
       district_element.attr('class', 'selected')
-      if $scope.map_width is 960 
+      if $scope.map_width is 960
         district_element.call($scope.zoomIn)
       else unless $scope.usMap.text().slice(0, 2) is $scope.state_district.state
           $("#map_holder").html('')
@@ -90,7 +113,7 @@ angular.module('appApp.controllers')
         ).on("click", () ->
           if !$scope.district_reps.length and $scope.zoomed
             $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
-            d3.select('#map_dialog').transition().duration(750).style("opacity", 1e-6)
+            $scope.hideDistrictDialog()
             $scope.state_district = {state: null, district: null}
             $scope.district_reps = []
           else
@@ -114,11 +137,8 @@ angular.module('appApp.controllers')
       svg = d3.select("#map_holder").append("svg").attr("width", $scope.map_width).attr("height", height)
       $scope.usMap = svg.append("g").attr("id", "map_with_districts")
       tooltip = $scope.makeTooltip()
-      dialog = d3.select("#map_dialog")
-        .attr("class", "full-display")
-        .style("opacity", 1e-6)
-        .style("z-index", "15")
-      $scope.makeMapGradients()      
+      dialog = $scope.hideDistrictDialog('full-display')
+      $scope.makeMapGradients()
       queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
     $scope.makeTooltip = () ->
@@ -177,22 +197,16 @@ angular.module('appApp.controllers')
       $scope.warning = null
       $scope.state_district = {state: null, district: null}
       $scope.district_reps = []
-      d3.select('#map_dialog').transition().duration(750).style("opacity", 1e-6)
+      $scope.hideDistrictDialog()
       if $scope.map_width is 960 then $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
 
-    $scope.showDistrictDialog = () ->
-      $('#map_dialog').html($compile("<sub-view template='partials/district_reps'></sub-view>")($scope))
-      d3.select('#map_dialog')
-        .transition()
-        .duration(750)
-        .style("opacity", 1)
 
     $scope.defaultFocus = () ->
       # TODO: refactor this to not use an API call but only scope variables if possible.
       if $routeParams.bioguide_id.length > 0
         ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
           if not error
-            if not data[0].district 
+            if not data[0].district
               for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
                 if data[0].state is state
                   data[0].district = "0"
@@ -219,14 +233,14 @@ angular.module('appApp.controllers')
         )).attr "d", path
         district.on("mouseover", () ->
           return tooltip.style("visibility", "visible").text(d3.select(this).text())
-        ).on("mousemove", () -> 
+        ).on("mousemove", () ->
           return tooltip.style("top", (event.pageY-27)+"px").style("left", (event.pageX+"px"))
-        ).on("mouseout", () -> 
+        ).on("mouseout", () ->
           return tooltip.style("visibility", "hidden")
         ).on("click", () ->
           if !$scope.district_reps.length and $scope.zoomed
             $scope.usMap.transition().duration(750).attr("transform", "translate(0,0)scale(1)").style "stroke-width", 1 + "px"
-            d3.select('#map_dialog').transition().duration(750).style("opacity", 1e-6)
+            $scope.hideDistrictDialog()
             $scope.state_district = {state: null, district: null}
             $scope.district_reps = []
           else
@@ -250,10 +264,7 @@ angular.module('appApp.controllers')
       path = d3.geo.path()
       svg = d3.select("#map_holder").append("svg").attr("width", $scope.map_width).attr("height", height)
       $scope.usMap = svg.append("g").attr("id", "map_with_districts")
-      dialog = d3.select("#map_dialog")
-        .attr("class", "mobile-display")
-        .style("opacity", 1e-6)
-        .style("z-index", "15")
+      dialog = $scope.hideDistrictDialog('mobile-display')
       tooltip = $scope.makeTooltip()
       $scope.makeMapGradients()
       queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
