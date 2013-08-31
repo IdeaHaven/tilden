@@ -14,22 +14,16 @@
 @import "attribution.styl"
 @import "main.styl"
 
+///////////////////
+// Default Styles
+///////////////////
 
 html body
   font-family 'Oxygen', "Helvetica Neue", Helvetica, Arial, sans-serif !important
-  margin 0
-  padding 0
   background-image url('/images/tile.png')
   text-transform none
-  letter-spacing 0
   color $grayDark
   text-align center
-
-//////////////////
-//
-//  Default Styles
-//
-//////////////////
 
 //Floats
 .left
@@ -52,34 +46,32 @@ p
   color $orange
 .green
   color $green
+.grayDark
+  color $grayDark
 
-/////// Add to some category ///////////
+///////////////////
+// Sticky Footer
+///////////////////
 
-.skeleton
-  padding 20px
+$footer_height = 1.5rem
 
-.index-text
-  font-size 20px
-  margin 10px
+html, body
+  height 100%
+  padding 0
+  margin 0
 
-h2.pink
-  color $pink
+#push, #footer
+  height $footer_height
 
-#nav
-  margin-top 0px
-  margin-bottom 20px
-  text-align center
+#wrap
+  min-height 100%
+  margin 0 auto -1*$footer_height auto
 
-.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus
-  background-color $blue
-
-.dropdown-menu.pull-right
-  top: 30px
-
-#sticky-footer
+#footer
   position fixed
   font-size 0.6rem
-  height 1.3rem
+  line-height $footer_height
+  height $footer_height
   width 100%
   bottom 0
   padding 0
@@ -91,5 +83,29 @@ h2.pink
   span
     padding 0 10px
 
-#body_container
-  bottom 1.3rem
+//responsive fix
+@media (max-width 767px)
+  #footer
+    margin-left -20px
+    margin-right -20px
+    padding-left 20px
+    padding-right 20px
+
+///////////////////
+// Header Styles
+///////////////////
+.navbar-inner > .container
+  max-width 1040px
+
+.logo.header
+  border-radius: 100%
+  margin-right: 6px
+  margin-top:-6px
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus
+  background-color $blue
+  color $white
+  text-shadow: 0 1px 0 $black;
+
+.dropdown-menu.pull-right
+  top: 30px

@@ -1,4 +1,4 @@
-<ng-include src="'/views/partials/header.html'"></ng-include>
+
 <!-- <div class="skeleton"> -->
   <h1 class="blue">Compare Legislators</h1>
   <div class="center">
@@ -48,7 +48,7 @@
     <h3 class="green">Organizational Sources</h3>
     <h4 class="blue">Scaled at $100,000</h4>
     <div class="contributors row">
-      <div class="pull-left rep1" style="border-right: solid white 1px">
+      <div class="rep1">
         <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[0]" number="total_amount" label="name" type="organization" class="span2">
         </d3-donut>
 
@@ -58,7 +58,7 @@
         <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].influence.contributors[2]" number="total_amount" label="name" type="organization" class="span2">
         </d3-donut>
       </div>
-      <div class="pull-right d3Donut-foreground-right rep2">
+      <div class="rep2">
         <d3-donut scale="scale_company" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].influence.contributors[0]" number="total_amount" label="name" type="organization" class="span2">
         </d3-donut>
 
@@ -73,7 +73,7 @@
   <div class="top-individuals">
     <h3 class="blue">Individual Sources</h3>
     <div class="contributors row">
-      <div class="pull-left rep1" style="border-right: solid white 1px">
+      <div class="rep1">
         <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].littleSis.donors[0]" number="amount" label="name" type="individual" class="span2">
         </d3-donut>
 
@@ -83,7 +83,7 @@
         <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep1.bioguide_id].littleSis.donors[2]" number="amount" label="name" type="individual" class="span2">
         </d3-donut>
       </div>
-      <div class="pull-right rep2">
+      <div class="rep2">
         <d3-donut scale="scale_individual" on-click="d3DonutClick(item)" contributor="reps[selected.rep2.bioguide_id].littleSis.donors[0]" number="amount" label="name" type="individual" class="span2">
         </d3-donut>
 
@@ -158,4 +158,3 @@
   <p>common bills {{comparison.bills.common_bills}}</p>
   -->
 <!-- </div> -->
-<sub-view template="partials/footer"></sub-view>
