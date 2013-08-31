@@ -6,6 +6,7 @@ angular.module('appApp.controllers')
     $scope.bills = []
     $scope.bill_url = "http://gpo.gov/fdsys/pkg/BILLS-113hr3059ih/pdf/BILLS-113hr3059ih.pdf"
     $scope.title = ""
+    $scope.sponsor = ""
     $scope.$watch "bill", ->
       billCode = makeBillCode()
       $location.path("bills/#{billCode}")
@@ -34,6 +35,11 @@ angular.module('appApp.controllers')
         url: "http://congress.api.sunlightfoundation.com/bills?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&bill_id=#{bill_id}"
       ).success((data, status) ->
         console.log data
+        bioguide_id = data.results[0].sponsor_id
+        $scope.sponsor = $scope.reps[bioguide_id].overview.fullname
+        $scope.selected.rep1 =
+          bioguide_id: bioguide_id
+          name: $scope.reps[bioguide_id].overview.fullname
         if data.results[0].short_title
           $scope.title = data.results[0].short_title
         else if data.results[0].official_title.length < 140
