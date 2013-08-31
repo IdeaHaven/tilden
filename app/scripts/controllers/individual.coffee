@@ -18,6 +18,14 @@ angular.module('appApp.controllers')
 ######################
 # Define API Methods
 ######################
+    $scope.$watch "selected.rep1", (newVal, oldVal)->
+      $scope.selected_watcher_functions('rep1', newVal.bioguide_id)
+
+    $scope.selected_watcher_functions = (rep, bioguide_id)->
+      $scope.get_transparencydata_id($scope.selected.rep1.bioguide_id)
+      ApiGet.littleSis "entities/bioguide_id/#{$scope.selected.rep1.bioguide_id}.json?", $scope.callback_littleSis_id, this, $scope.selected.rep1.bioguide_id
+      ApiGet.nyt "members/#{$scope.selected.rep1.bioguide_id}", $scope.callback_nyt, this, $scope.selected.rep1.bioguide_id
+
 
     $scope.get_transparencydata_id = (bioguide_id)->
       $scope.reps[bioguide_id] = $scope.reps[bioguide_id] or {}
@@ -88,8 +96,5 @@ angular.module('appApp.controllers')
 ## Initial Calls
 ##############
 
-    $scope.get_transparencydata_id($scope.selected.rep1.bioguide_id)
-    ApiGet.littleSis "entities/bioguide_id/#{$scope.selected.rep1.bioguide_id}.json?", $scope.callback_littleSis_id, this, $scope.selected.rep1.bioguide_id
-    ApiGet.nyt "members/#{$scope.selected.rep1.bioguide_id}", $scope.callback_nyt, this, $scope.selected.rep1.bioguide_id
 
   ])
