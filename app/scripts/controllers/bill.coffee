@@ -5,6 +5,7 @@ angular.module('appApp.controllers')
     $scope.bill = {}
     $scope.bills = []
     $scope.bill_url = "http://gpo.gov/fdsys/pkg/BILLS-113hr3059ih/pdf/BILLS-113hr3059ih.pdf"
+    $scope.bill_query = null
     $scope.title = ""
     $scope.sponsor = ""
     $scope.$watch "bill", ->
@@ -35,7 +36,6 @@ angular.module('appApp.controllers')
         method: "GET"
         url: "http://congress.api.sunlightfoundation.com/bills?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&bill_id=#{bill_id}"
       ).success((data, status) ->
-        console.log data
         bioguide_id = data.results[0].sponsor_id
         $scope.sponsor = $scope.reps[bioguide_id].overview.fullname
         $scope.selected.rep1 =
@@ -50,11 +50,25 @@ angular.module('appApp.controllers')
       ).error (data, status) ->
         console.log "Error #{status}: #{data} (thrown by getBillTitleOnLoad)"
 
+    getQueryListOfBills = ->
+      query = $scope.bill_query.replace(/\s/g, '%20')
+      $http(
+        method: "GET"
+        url: "http://congress.api.sunlightfoundation.com/bills/search?query=%22#{query}%22&apikey=3cdfa27b289e4d4090fd1b176c45e6cf"
+      ).success((data, status) ->
+        console.log "billQuery data below:"
+        console.log data
+        $scope.bills = data.results
+      ).error (data, status) ->
+        console.log "Error #{status}: #{data}"
+
     getBillList = ->
       $http(
         method: "GET"
         url: "http://congress.api.sunlightfoundation.com/bills?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&per_page=100&page=1"
       ).success((data, status) ->
+        console.log "Initial 'getBillList' data below:"
+        console.log data
         $scope.bills = data.results
       ).error (data, status) ->
         console.log "Error #{status}: #{data}"
@@ -62,7 +76,14 @@ angular.module('appApp.controllers')
     getBillText = (url) ->
       $scope.bill_url = url
 
+    $scope.billQuery = ->
+      $scope.bills = []
+      getQueryListOfBills()
+      $scope.bill_query = null
+
+
     getBillList()
     getBillTitleOnLoad()
     getBillTextOnLoad()
+
   ])
