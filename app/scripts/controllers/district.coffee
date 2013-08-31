@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller 'DistrictCtrl', ['$scope', '$window', '$location', '$routeParams', '$compile', 'ApiGet', ($scope, $window, $location, $routeParams, $compile, ApiGet) ->
+  .controller 'DistrictCtrl', ['$scope', '$window', '$location', '$routeParams', '$compile', '$q', 'ApiGet', ($scope, $window, $location, $routeParams, $compile, $q, ApiGet) ->
     $scope.supportGeo = $window.navigator
     $scope.position = null
     $scope.selected_zip = null
@@ -113,8 +113,26 @@ angular.module('appApp.controllers')
         .style("opacity", 1e-6)
         .style("z-index", "15")
       $scope.makeMapGradients()
-      $scope.makeMapGradients()      
-      queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
+
+      promiseA = (() ->
+        deferred = $q.defer()
+        # deferred.notify('Starting queue...')
+        d3.json("data/us.json", (error, json) ->
+          deferred.resolve(json)
+        )
+        return deferred.promise
+      )()
+      promiseB = promiseA.then(((us) -> 
+        d3.json("data/us-congress-113.json", (error, json) ->
+          congress = json
+          ready(error, us, congress)
+        )
+        ),
+        (reason) -> console.log "Failed: " + reason,
+        (update) -> console.log "Got notification: ", update
+      )
+      # Below is an implementation of the above using mbostock's queue library
+      # queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
     $scope.makeTooltip = () ->
       return d3.select("#map_holder")
@@ -246,7 +264,23 @@ angular.module('appApp.controllers')
         .style("z-index", "15")
       tooltip = $scope.makeTooltip()
       $scope.makeMapGradients()
-      queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
+      promiseA = (() ->
+        deferred = $q.defer()
+        # deferred.notify('Starting queue...')
+        d3.json("data/us.json", (error, json) ->
+          deferred.resolve(json)
+        )
+        return deferred.promise
+      )()
+      promiseB = promiseA.then(((us) -> 
+        d3.json("data/us-congress-113.json", (error, json) ->
+          congress = json
+          ready(error, us, congress)
+        )
+        ),
+        (reason) -> console.log "Failed: " + reason,
+        (update) -> console.log "Got notification: ", update
+      )
 
     $scope.changeMapSize = (windowSize) ->
       if windowSize <= 600 and $scope.map_width is 0
@@ -265,7 +299,6 @@ angular.module('appApp.controllers')
         $scope.drawMap()
 
     $scope.setDistrictThroughSelect = (state) ->
-      console.log "Called for state: ", state
       setDist = false
       for one_district_state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
         if state is one_district_state
