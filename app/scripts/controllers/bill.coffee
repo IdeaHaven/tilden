@@ -5,12 +5,14 @@ angular.module('appApp.controllers')
     $scope.bill = {}
     $scope.bills = []
     $scope.bill_url = "http://gpo.gov/fdsys/pkg/BILLS-113hr3059ih/pdf/BILLS-113hr3059ih.pdf"
+    $scope.bill_query = null
     $scope.title = ""
     $scope.sponsor = ""
     $scope.$watch "bill", ->
       billCode = makeBillCode()
       $location.path("bills/#{billCode}")
       getBillText makeBillUrl(billCode)
+      getBillTitle()
 
 
     makeBillCode = ->
@@ -21,21 +23,20 @@ angular.module('appApp.controllers')
 
     makeBillId = ->
       billCode = $location.path().split("").splice(13,15)
-      bill = billCode.splice(3,12).join("").replace(/ih/, '').replace(/is/, '').replace(/ats/, '')
+      bill = billCode.splice(3,12).join("").replace(/ih/, '').replace(/is/, '').replace(/ats/, '').replace(/enr/, '').replace(/rfs/, '')
       congress = billCode.splice(0,3).join("")
       return "#{bill}-#{congress}"
 
     getBillTextOnLoad = ->
       if $location.path() != "/bills" then getBillText(makeBillUrl($location.path().split("").slice(7).join("")))
-      getBillTitleOnLoad()
+      getBillTitle()
 
-    getBillTitleOnLoad = ->
+    getBillTitle = ->
       bill_id = makeBillId()
       $http(
         method: "GET"
         url: "http://congress.api.sunlightfoundation.com/bills?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&bill_id=#{bill_id}"
       ).success((data, status) ->
-        console.log data
         bioguide_id = data.results[0].sponsor_id
         $scope.sponsor = $scope.reps[bioguide_id].overview.fullname
         $scope.selected.rep1 =
@@ -48,7 +49,17 @@ angular.module('appApp.controllers')
         else
           $scope.title = "#{data.results[0].bill_type.toUpperCase()} #{data.results[0].number}"
       ).error (data, status) ->
-        console.log "Error #{status}: #{data} (thrown by getBillTitleOnLoad)"
+        console.log "Error #{status}: #{data} (thrown by getBillTitle)"
+
+    getQueryListOfBills = ->
+      query = $scope.bill_query.replace(/\s/g, '%20')
+      $http(
+        method: "GET"
+        url: "http://congress.api.sunlightfoundation.com/bills/search?query=%22#{query}%22&apikey=3cdfa27b289e4d4090fd1b176c45e6cf"
+      ).success((data, status) ->
+        $scope.bills = data.results
+      ).error (data, status) ->
+        console.log "Error #{status}: #{data}"
 
     getBillList = ->
       $http(
@@ -62,7 +73,14 @@ angular.module('appApp.controllers')
     getBillText = (url) ->
       $scope.bill_url = url
 
+    $scope.billQuery = ->
+      $scope.bills = []
+      getQueryListOfBills()
+      $scope.bill_query = null
+
+
     getBillList()
-    getBillTitleOnLoad()
+    getBillTitle()
     getBillTextOnLoad()
+
   ])
