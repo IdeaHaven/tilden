@@ -196,6 +196,8 @@ angular.module('appApp.controllers')
               for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
                 if data[0].state is state
                   data[0].district = "0"
+               if data[0].state is "DC"
+                  data[0].district = "98"
               if not data[0].district then data[0].district = "1"
             $scope.state_district = {state: data[0].state, district: data[0].district}
           else console.log "Error, Senator/Rep not found."
@@ -273,12 +275,15 @@ angular.module('appApp.controllers')
         $scope.drawMap()
 
     $scope.setDistrictThroughSelect = (state) ->
-      console.log "Called for state: ", state
+      state = state.toUpperCase()
       setDist = false
       for one_district_state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
         if state is one_district_state
           setDist = true
           $scope.state_district = {state: state, district: "0"}
+        if state is "DC"
+          setDist = true
+          $scope.state_district = {state: state, district: "98"}
       if !setDist
         $scope.state_district = {state: state, district: "1"}
 
@@ -302,6 +307,11 @@ angular.module('appApp.controllers')
         $('.control-group').removeClass("error") # TODO: maybe make this less specific, agree
         $('.help-inline').html("")
         $('.controls input').attr("id", "")
+    )
+
+    $scope.$watch('state.selected', (newVals, oldVals) ->
+      if typeof newVals is 'object'
+        $scope.setDistrictThroughSelect(newVals.code)
     )
 
     $scope.$watch( (()-> angular.element(window)[0].innerWidth), ((newValue, oldValue)-> $scope.changeMapSize(newValue)) )
