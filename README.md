@@ -22,6 +22,7 @@ District Map
 Search for your legislator by clicking your state/district, enter your zip code or city, or geolocate using your computer's current location.
 
 ![alt-text](https://raw.github.com/IdeaHaven/influence/master/screenshots/districtmap1.png "District Map: Detail View")
+
 ![alt-text](https://raw.github.com/IdeaHaven/influence/master/screenshots/districtmap2.png "District Map: Search the US")
 
 Individual View
@@ -47,6 +48,7 @@ View the full text of bills in Congress. Search for bills by issue/word or selec
 
 About the Stack
 ===============
+Influence is an AngularJS app written in CoffeeScript. It uses a Node.js API server with ActionHero.js and a PostgreSQL database. Test coverage is provided by Travis-CI.
 
 Seed Generator
 --------------
