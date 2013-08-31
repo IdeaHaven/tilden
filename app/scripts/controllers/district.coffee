@@ -114,7 +114,6 @@ angular.module('appApp.controllers')
         .attr("class", "full-display")
         .style("opacity", 1e-6)
         .style("z-index", "15")
-      $scope.makeMapGradients()
       $scope.makeMapGradients()      
       queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
@@ -135,8 +134,8 @@ angular.module('appApp.controllers')
           .attr("y2", "100%")
         .selectAll("stop")
           .data([
-            {offset: "0%", color: "#d2ff52"},
-            {offset: "100%", color: "#91e842"}
+            {offset: "0%", color: "#B4D651"},
+            {offset: "100%", color: "#5FCC00"}
           ])
         .enter().append("stop")
           .attr("offset", (d)-> return d.offset)
@@ -151,8 +150,8 @@ angular.module('appApp.controllers')
           .attr("y2", "100%")
         .selectAll("stop")
           .data([
-            {offset: "0%", color: "#f1e767"},
-            {offset: "100%", color: "#FCA625"}
+            {offset: "0%", color: "#ff9"},
+            {offset: "100%", color: "#FF9900"}
           ])
         .enter().append("stop")
           .attr("offset", (d)-> return d.offset)
@@ -291,6 +290,8 @@ angular.module('appApp.controllers')
       if $scope.district_reps.length and $scope.state_district.state
         $scope.showDistrictDialog()
     , true)
+
+    $scope.$watch('selected_zip', $scope.findDistrictByZip)
 
     $scope.$watch( (()-> angular.element(window)[0].innerWidth), ((newValue, oldValue)-> $scope.changeMapSize(newValue)) )
     window.onresize = (()-> $scope.$apply())
