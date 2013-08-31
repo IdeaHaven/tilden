@@ -95,6 +95,9 @@ angular.module('appApp.controllers')
 ##############
 ## Initial Calls
 ##############
-
+    $scope.rep = $scope.reps[$scope.selected.rep1.bioguide_id]
+    $scope.get_transparencydata_id($scope.selected.rep1.bioguide_id)
+    ApiGet.littleSis "entities/bioguide_id/#{$scope.selected.rep1.bioguide_id}.json?", $scope.callback_littleSis_id, this, $scope.selected.rep1.bioguide_id
+    ApiGet.nyt "members/#{$scope.selected.rep1.bioguide_id}", $scope.callback_nyt, this, $scope.selected.rep1.bioguide_id
 
   ])
