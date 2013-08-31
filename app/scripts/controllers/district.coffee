@@ -5,7 +5,6 @@ angular.module('appApp.controllers')
     $scope.supportGeo = $window.navigator
     $scope.position = null
     $scope.selected_zip = null
-    $scope.warning = null
     $scope.state_district = {state: null, district: null}
     $scope.district_reps = []
     $scope.map_width = 0
@@ -26,10 +25,15 @@ angular.module('appApp.controllers')
     $scope.findDistrictByZip = () ->
       ApiGet.congress "districts/locate?zip=#{$scope.selected_zip}", $scope.setDistrict, this
 
+
     $scope.setDistrict = (error, data) ->
       if not error
         unless data.length
-          return $scope.warning = "No district was found for #{$scope.selected_zip}."
+          # change class of input field.
+          $('.control-group').addClass("error") # TODO: maybe make this less specific, agree
+          $('.help-inline').html("Sorry, No district was found at that zipcode. <a target='_blank' href='http://sunlightfoundation.com/blog/2012/01/19/dont-use-zipcodes/'><i class='icon-question-sign'></i></a>")
+          $('.controls input').attr("id", "customInputError")
+          # TODO: Maybe post a link to Sunlight Foundation's article about location by zipcode in this message.
         $scope.state_district = {state: data[0].state, district: data[0].district}
       else console.log "Error: ", error
 
@@ -291,7 +295,14 @@ angular.module('appApp.controllers')
         $scope.showDistrictDialog()
     , true)
 
-    $scope.$watch('selected_zip', $scope.findDistrictByZip)
+    $scope.$watch('selected_zip', (newVals, oldVals) ->
+      if newVals and newVals != oldVals
+        $scope.findDistrictByZip()
+      if !newVals
+        $('.control-group').removeClass("error") # TODO: maybe make this less specific, agree
+        $('.help-inline').html("")
+        $('.controls input').attr("id", "")
+    )
 
     $scope.$watch( (()-> angular.element(window)[0].innerWidth), ((newValue, oldValue)-> $scope.changeMapSize(newValue)) )
     window.onresize = (()-> $scope.$apply())

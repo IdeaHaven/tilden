@@ -5,15 +5,16 @@
 <button ng-click="findDistrictByZip()">Find District by Zip Code</button>
 -->
 <div class="container map">
-	<div class="input-prepend row-fluid span4">
-		<button class="btn" type="button" ng-click="getLocation()">
-			<i class="icon-location-arrow icon-large"></i>
-			Geolocate
-		</button>
-		<input ng-model="selected_zip" id="prependedInputButton" type="text" placeholder="Or Find By Zip" type="text" name="zip" value={{zip}} ng-pattern="/^\d{5}$/"></input>
-
-	</div>	
-	<span>{{warning}}</span>
+	<span class="help-inline error-text"></span>
+	<div class="control-group input-prepend row-fluid span4">
+		<div class="controls">
+			<button class="btn" type="button" ng-click="getLocation()">
+				<i class="icon-location-arrow icon-large"></i>
+					Geolocate
+			</button>
+			<input ng-model="selected_zip" id="prependedInputButton" type="text" placeholder="Or Find By Zip" type="text" name="zip" value={{zip}} ng-pattern="/^\d{5}$/"></input><br/><br/>
+		</div>
+	</div>
 	<div class="row-fluid span5">
 		<select ng-model="fake" ng-change="setDistrictThroughSelect(fake)" ng-options="value[0] as value[1] for (key, value) in FIPS_to_state"></select>
 	</div>
