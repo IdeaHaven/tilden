@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('IndividualCtrl', ['$scope', '$location', '$route', '$routeParams', 'ApiGet', ($scope, $location, $route, $routeParams, ApiGet) ->
+  .controller('IndividualCtrl', ['$scope', '$location', '$routeParams', 'ApiGet', ($scope, $location, $routeParams, ApiGet) ->
 
 
 ######################
@@ -114,13 +114,8 @@ angular.module('appApp.controllers')
 
     $scope.onSelect = ($item, $model, $label, rep)->
       if rep is 'rep2'
-        console.log "Modified onSelect"
         $scope.selected[rep] = $item
-        console.log $scope.selected.rep1, $scope.selected.rep2
-        # $scope.apply () ->
-          # $location.path = "/compare"
         $location.path("/compare")
-        # $route.reload()
       else $scope.selected[rep] = $item
 
 ##############
