@@ -1,26 +1,31 @@
 <ng-include src="'/views/partials/header.html'"></ng-include>
-<div class="billDetail" ng-controller="BillCtrl">
-  <select ng-model="bill" ng-options="bill.bill_id for bill in bills">
-    <option style="display:none" value="">Search for a Bill...</option>
-  </select>
-  <h1>{{title}}</h1>
-  <div id="billTextContainer">
-    <iframe src="http://docs.google.com/gview?url={{bill_url}}&embedded=true" style="width:80%; height:600px;" frameborder="0"></iframe>
+<div class="billDetail container" ng-controller="BillCtrl">
+  <div class="searchContainer">
+    <form class="formBillQuery" ng-submit="billQuery()">
+      <input type="text" ng-model="bill_queried" placeholder="Search bills (ex: health care)"></input>
+      <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+    </form>
+    <select ng-model="bill" ng-options="bill.bill_id for bill in bills">
+      <option style="display:none" value="">Select a bill...</option>
+    </select>
   </div>
-</div>
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'influenceapp';
-    var disqus_identifier = window.location.href;
+  <h1>{{title}}</h1>
+  <span class="sponsor">Sponsored by <a href="/#/individual">{{sponsor}}</a></span>
+  <iframe src="http://docs.google.com/gview?url={{bill_url}}&embedded=true" style="width:100%; height:600px; margin-bottom:10px;" frameborder="0"></iframe>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'influenceapp';
+      var disqus_identifier = window.location.href;
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
 <sub-view template="partials/footer"></sub-view>
 
