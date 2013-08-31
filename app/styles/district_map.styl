@@ -7,7 +7,7 @@
   padding: 5px;
   font: 10px sans-serif;
   font-weight: bold;
-  background: #ddd;
+  background: $blue;
   border: solid 1px #000;
   pointer-events: none;
 
@@ -24,15 +24,17 @@
   border: solid 1px #aaa;
   border-radius: 8px;
   pointer-events: none;
-  overflow: scroll;
 
 #map_dialog.full-display
-  top: 160px;
+  top: 172px;
   left: 100px;
 
 #map_dialog.mobile-display
   top: 390px
   left: 10px
+
+.icon-location-arrow.icon-large
+  color $blue
 
 .container.map.mobile-display
   float left
@@ -42,7 +44,7 @@
   stroke-linejoin round
 
 .districts 
-  fill #6B6B6B
+  fill $grayLight
 
 .districts :hover 
   fill: url(#hover_gradient)
@@ -53,12 +55,12 @@
 .district-boundaries 
   pointer-events none
   fill none
-  stroke #ddd
+  stroke $grayLighter
 
 .state-boundaries 
   pointer-events none
   fill none
-  stroke #fff
+  stroke $grayLighter
   stroke-width 1.5px
 
 .small_rep_image
@@ -73,3 +75,16 @@
 .small_rep_details strong
   display: inline-block;
   width: 43px;
+
+.highlight-invalid
+  color $red
+
+.error-text
+  color $red
+
+#customInputError
+  color: $red
+  border-color: $red
+  -webkit-box-shadow:0 0 6px #d59392
+  -moz-box-shadow:0 0 6px #d59392
+  box-shadow:0 0 6px #d59392
