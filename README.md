@@ -1,6 +1,6 @@
 Influence
 =========
-Influence is an open-source project to visualize campaign contributions and explore the impact of money on democracy. There are many web applications dealing with government transparency, but we felt they made a common mistake: because there is so much transparency data, these sites felt compelled to show it all. We wanted to show a smaller set of data that has been visualized in a compelling way, allowing people to more easily draw their own conclusions without injecting any partisan bias.
+Influence is an open-source project to visualize campaign contributions and explore the impact of money on democracy. Many websites offer government transparency data but we felt they made a common mistake: with so much data available, these sites felt compelled to show it all. It is hard to draw meaningful conclusions from a jumbled pile of numbers in bare spreadsheets. We wanted our app to show a smaller set of data visualized in a compelling way, allowing people to more easily draw their own conclusions without injecting any partisan bias.
 
 Our Team
 --------
