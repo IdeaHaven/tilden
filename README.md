@@ -76,6 +76,8 @@ Global Package Requirements
  * [Grunt-CLI](http://gruntjs.com/)
  * yo and angular-generator info the Yeoman Section above
 
-License
-=========
+License and Attribution
+=======================
 Influence is licensed under the [Affero General Public License](LICENSE), which is like the GPL but *requires* you provide access to the source code for any modified versions that are running publicly (among other things). The [intent](http://www.gnu.org/licenses/why-affero-gpl.html) is to make sure that anyone improving the software makes those improvements available to others, as we have to them.
+
+Influence uses API data from The Sunlight Foundation, *The New York Times*, Little Sis, and Influence Explorer. For full information about attribution, [visit the Tilden app online](http://www.tildenapp.com/#/attribution).
