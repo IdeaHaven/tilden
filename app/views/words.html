@@ -1,26 +1,31 @@
 <ng-include src="'/views/partials/header.html'"></ng-include>
 <div class="container">
-  <table class="words">
-    <tr>
-      <td><h2>What is your legislator saying?</h2></td>
-      <td class="spacer"></td>
-      <td><h2>How often do legislators say...</h2></td>
-    </tr>
-    <tr>
-      <td>
-        <select ng-model="state" ng-options="state for state in states"></select>
-        <select ng-model="rep" ng-options="rep.full_name for rep in reps | orderBy:'last_name'"></select>
-      </td>
-      <td class="spacer"></td>
-      <td class="alignTop"><input ng-model="wordQuery"></input></td>
-    </tr>
-    <tr>
-      <td>
-        <words-bar-chart data="words" id="topWords"></words-bar-chart>
-      </td>
-      <td class="spacer"></td>
-      <td class="wordFrequency alignTop"><strong>{{wordFrequency}}</strong> times since 1996</td>
-    </tr>
-  </table>
+  <div class="row-fluid words">
+    <div class="span6">
+      <div class="span12">
+        <h2 class="red">What is your legislator saying?</h2>
+        <p>Select a state, then a representative.</p>
+        <input type="text" ng-model="state.selected" typeahead="state as state.name for state in STATES | filter:$viewValue | limitTo:8" typeahead-on-select='onStateSelect($item, $model, $label)' placeholder="Example: California or CA"></input>
+        <select ng-model="rep" ng-options="rep as rep.full_name for rep in state_reps | orderBy:'last_name'" ng-change="onRepSelect(rep)"></select>
+        <p ng-hide="words_by_rep">No Data Avaialable</p>
+        <words-bar-chart data="words_by_rep"></words-bar-chart>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="row-fluid span12">
+        <h2 class="orange">How often do legislators say...</h2>
+        <p>Since 1996:</p>
+        <form class="formWordQuery" ng-submit="wordQuery()">
+          <input type="text" ng-model="word_queried" placeholder="Example: President"></input>
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+        <words-bar-chart data="words_queried | limitTo:10"></words-bar-chart>
+      </div>
+      <div class="row-fluid span12">
+        <h2 class="blue">More about this data:</h2>
+        <p>This data is scraped, parsed and indexed daily from the  Congressional Record by The Sunlight Foundation.  If you would like more information about the data or the tool please see our <a href="/#/attribution/">attribution</a> page. </p>
+      </div>
+    </div>
+  </div>
 </div>
 <sub-view template="partials/footer"></sub-view>
