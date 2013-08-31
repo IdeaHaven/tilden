@@ -1,14 +1,49 @@
 <ng-include src="'/views/partials/header.html'"></ng-include>
-<div class="skeleton">
-  <div class="center">
-    <h1 class="blue">Compare Legislators</h1>
-    <sub-view template="partials/select_rep1_name" class="red"></sub-view>
-    <sub-view template="partials/select_rep2_name" class="orange"></sub-view>
-  </div>
+<!-- <div class="skeleton"> -->
+  <h1 class="blue">Compare Legislators</h1>
   <div class="center">
     <img class="image1  image-rounded" ng-src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep1.bioguide_id}}.jpg"/>
     <img class="image2 image-rounded" ng-src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep2.bioguide_id}}.jpg"/>
   </div>
+  <div class="center">
+    <sub-view template="partials/select_rep1_name" class="red "></sub-view>
+    <sub-view template="partials/select_rep2_name" class="orange "></sub-view>
+  </div>
+  <div class="center">
+    <ul class="link1">
+      <a target="_blank" href="{{reps[selected.rep1.bioguide_id].overview.website}}" class="compare-icon1 icon-globe icon-2x" tooltip="Website - {{reps[selected.rep1.bioguide_id].overview.website}}" tooltip-placement="top"></a>
+      <a target="_blank" href="" class="compare-icon1 icon-phone icon-2x" tooltip="Phone - {{reps[selected.rep1.bioguide_id].overview.phone}}" tooltip-placement="top"></a>
+      <a target="_blank" href="" class="compare-icon1 icon-print icon-2x" tooltip="Fax - {{reps[selected.rep1.bioguide_id].overview.fax}}" tooltip-placement="top"></a>
+      <a target="_blank" href="{{reps[selected.rep1.bioguide_id].overview.contact_form}}" class="compare-icon1 icon-envelope icon-2x" tooltip="Contact form - {{reps[selected.rep1.bioguide_id].overview.contact_form}}" tooltip-placement="top"></a>
+      <a target="_blank" href="{{reps[selected.rep1.bioguide_id].overview.twitter_id}}" class="compare-icon1 icon-twitter icon-2x" tooltip="Twitter Page {{reps[selected.rep1.bioguide_id].overview.twitter_id}}" tooltip-placement="top"></a>
+      <a target="_blank" href="{{reps[selected.rep1.bioguide_id].overview.facebook_id}}" class="compare-icon1 icon-facebook icon-2x" tooltip="Facebook Page - {{reps[selected.rep1.bioguide_id].overview.facebook_id}}" tooltip-placement="top"></a>
+    </ul>
+    <div class="link2">
+      <a target="_blank" href="{{reps[selected.rep2.bioguide_id].overview.website}}" class="compare-icon2 icon-globe icon-2x" tooltip="Website - {{reps[selected.rep2.bioguide_id].overview.website}}" tooltip-placement="top"></a>
+      <a target="_blank" href="" class="compare-icon2 icon-phone icon-2x" tooltip="Phone - {{reps[selected.rep2.bioguide_id].overview.phone}}" tooltip-placement="top"></a>
+      <a target="_blank" href="" class="compare-icon2 icon-print icon-2x" tooltip="Fax - {{reps[selected.rep2.bioguide_id].overview.fax}}" tooltip-placement="top"></a>
+      <a target="_blank" href="Contact form - {{reps[selected.rep2.bioguide_id].overview.contact_form}}" class="compare-icon2 icon-envelope icon-2x" tooltip="Contact form - {{reps[selected.rep2.bioguide_id].overview.contact_form}}" tooltip-placement="top"></a>
+      <a target="_blank" href="" class="compare-icon2 icon-twitter icon-2x" tooltip="Twitter Page - {{reps[selected.rep2.bioguide_id].overview.twitter_id}}" tooltip-placement="top"></a>
+      <a target="_blank" href="" class="compare-icon2 icon-facebook icon-2x" tooltip="Facebook Page - {{reps[selected.rep2.bioguide_id].overview.facebook_id}}" tooltip-placement="top"></a>
+    </div>
+  </div>
+  <!-- <div class="">
+    <dl class="dl-horizontal">
+      <dt class="icon-globe" tooltip="Web site" tooltip-placement="right"></dt>
+      <dt class="icon-building" tooltip="Office address {{ rep['overview']['website'] }}" tooltip-placement="right"></dt>
+      <dd>{{ rep['overview']['office'] }}</dd>
+      <dt class="icon-phone" tooltip="Phone" tooltip-placement="right"></dt>
+      <dd><a href="tel:{{ rep['overview']['phone'] }}">{{ rep['overview']['phone'] }}</a></dd>
+      <dt class="icon-print" tooltip="Fax" tooltip-placement="right"></dt>
+      <dd><a href="fax:{{ rep['overview']['fax'] }}">{{ rep['overview']['fax'] }}</a></dd>
+      <dt class="icon-envelope" tooltip="Contact" tooltip-placement="right"></dt>
+      <dd><a href="{{ rep['overview']['contact_form'] }}">{{ rep['overview']['contact_form'] }}</a></dd>
+      <dt class="icon-twitter" tooltip="Twitter" tooltip-placement="right"></dt>
+      <dd><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a></dd><dd ng-show="!rep['overview']['twitter_id']"></dd>
+      <dt class="icon-facebook-sign" tooltip="Facebook" tooltip-placement="right"></dt>
+      <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd><dd ng-show="!rep['overview']['facebook_id']"></dd>
+    </dl>
+  </div> -->
   <div class="top-industries">
     <h3 class="green">Organizational Sources</h3>
     <h4 class="blue">Scaled at $100,000</h4>
@@ -122,5 +157,5 @@
   <p>disagree percentage {{comparison.votes.disagree_percent}}</p>
   <p>common bills {{comparison.bills.common_bills}}</p>
   -->
-</div>
+<!-- </div> -->
 <sub-view template="partials/footer"></sub-view>
