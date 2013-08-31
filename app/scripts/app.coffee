@@ -12,7 +12,7 @@ angular.module('appApp', ['appApp.services', 'appApp.controllers', 'appApp.direc
       .when '/words',
         templateUrl: 'views/words.html'
         controller: 'WordsCtrl'
-      .when '/individual',
+      .when '/individual/:bioguide_id',
         templateUrl: 'views/individual.html'
         controller: 'IndividualCtrl'
       .when '/district_map/:bioguide_id',
