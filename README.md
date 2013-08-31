@@ -1,6 +1,6 @@
 Influence
 =========
-Influence is an open-source project to visualize campaign contributions and explore the impact of money on democracy. There are many web applications dealing with government transparency, but we felt they made a common mistake: because there is so much transparency data, these sites felt compelled to show it all. We wanted to show a smaller set of data that has been visualized in a compelling way, allowing people to more easily draw their own conclusions without injecting any partisan bias.
+Influence is an open-source project to visualize campaign contributions and explore the impact of money on democracy. Many websites offer government transparency data but we felt they made a common mistake: with so much data available, these sites felt compelled to show it all. It is hard to draw meaningful conclusions from a jumbled pile of numbers in bare spreadsheets. We wanted our app to show a smaller set of data visualized in a compelling way, allowing people to more easily draw their own conclusions without injecting any partisan bias.
 
 Our Team
 --------
@@ -22,6 +22,7 @@ District Map
 Search for your legislator by clicking your state/district, enter your zip code or city, or geolocate using your computer's current location.
 
 ![alt-text](https://raw.github.com/IdeaHaven/influence/master/screenshots/districtmap1.png "District Map: Detail View")
+
 ![alt-text](https://raw.github.com/IdeaHaven/influence/master/screenshots/districtmap2.png "District Map: Search the US")
 
 Individual View
@@ -47,6 +48,7 @@ View the full text of bills in Congress. Search for bills by issue/word or selec
 
 About the Stack
 ===============
+Influence is an AngularJS app written in CoffeeScript. It uses a Node.js API server with ActionHero.js and a PostgreSQL database. Test coverage is provided by Travis-CI.
 
 Seed Generator
 --------------
@@ -74,6 +76,8 @@ Global Package Requirements
  * [Grunt-CLI](http://gruntjs.com/)
  * yo and angular-generator info the Yeoman Section above
 
-License
-=========
+License and Attribution
+=======================
 Influence is licensed under the [Affero General Public License](LICENSE), which is like the GPL but *requires* you provide access to the source code for any modified versions that are running publicly (among other things). The [intent](http://www.gnu.org/licenses/why-affero-gpl.html) is to make sure that anyone improving the software makes those improvements available to others, as we have to them.
+
+Influence uses API data from The Sunlight Foundation, *The New York Times*, Little Sis, and Influence Explorer. For full information about attribution, [visit the Tilden app online](http://www.tildenapp.com/#/attribution).
