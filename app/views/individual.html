@@ -6,7 +6,7 @@
   </div>
 </div>
 <div>
-  <h2>{{selected.rep1.name}}</h2>
+  <h2>{{rep.overview.fullname}}</h2>
   <h3>{{rep.overview.state_name}}</h3>
 </div>
 <div class="row-fluid">
@@ -29,19 +29,19 @@
     </div>
     <div class="contactInfo">
       <dl class="dl-horizontal">
-        <dt>Website</dt>
+        <dt class="icon-globe" tooltip="Web site" tooltip-placement="right"></dt>
         <dd><a http="{{ rep['overview']['website'] }}">{{ rep['overview']['website'] }}</a></dd>
-        <dt>Office</dt>
+        <dt class="icon-building" tooltip="Office address" tooltip-placement="right"></dt>
         <dd>{{ rep['overview']['office'] }}</dd>
-        <dt class="icon-phone"></dt>
+        <dt class="icon-phone" tooltip="Phone" tooltip-placement="right"></dt>
         <dd><a href="tel:{{ rep['overview']['phone'] }}">{{ rep['overview']['phone'] }}</a></dd>
-        <dt class="icon-print"></dt>
+        <dt class="icon-print" tooltip="Fax" tooltip-placement="right"></dt>
         <dd><a href="fax:{{ rep['overview']['fax'] }}">{{ rep['overview']['fax'] }}</a></dd>
-        <dt class="icon-envelope"></dt>
+        <dt class="icon-envelope" tooltip="Contact" tooltip-placement="right"></dt>
         <dd><a href="{{ rep['overview']['contact_form'] }}">{{ rep['overview']['contact_form'] }}</a></dd>
-        <dt class="icon-twitter"></dt>
-        <dd><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a></dd>
-        <dt class="icon-facebook-sign"></dt>
+        <dt class="icon-twitter" tooltip="Twitter" tooltip-placement="right"></dt>
+        <dd><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a></dd><dd ng-show="!rep['overview']['twitter_id']">This member's Twitter page unavailable.</dd>
+        <dt class="icon-facebook-sign" tooltip="Facebook" tooltip-placement="right"></dt>
         <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd><dd ng-show="!rep['overview']['facebook_id']">This member's Facebook page unavailable.</dd>
       </dl>
     </div>
@@ -54,6 +54,7 @@
     <div class="donorInfo">
       <dl class="dl-horizontal">
         <dt>Individual Donors<br/><span class="moreInfo">Mouse over names<br/>for more info.</span></dt>
+        <dd ng-show="!rep.littleSis.donors">This member's donors are unavailable.</dd>
         <dd width="300px">
           <table class="table">
             <tr ng-repeat="name in rep.littleSis.donors">
