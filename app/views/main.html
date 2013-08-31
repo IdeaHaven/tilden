@@ -1,6 +1,8 @@
-<div id="wrap">
-  <ng-include src="'/views/partials/header.html'"></ng-include>
-  <section class="section">
+<ng-include src="'/views/partials/header.html'"></ng-include>
+<div class="span12">
+  <h2 class="orange"><em>Explore money's influence on politics</em></h2>
+
+  <!-- The first image -->
   <div class="list-hex-grid list-inline-block clearfix">
     <div class="hex grid-3" tooltip-html-unsafe="{{htmlTooltip1}}">
       <a href="" style="background-image: url(http://wordoftruthradio.org/wp-content/uploads/2011/10/Christians_and_Politics_-_101_Blog_7.jpg);">
@@ -8,10 +10,13 @@
         <div class="hex-2"></div>
       </a>
     </div>
+
     <div class="hex grid-3 align-top" tooltip-html-unsafe="{{htmlTooltip2}}">
-      <a href="">
+      <a href="/#/compare/">
         <div class="inner" >
-          <h3>Who Funds D.C.</h3>
+          <h4>Compare</h4>
+          <hr class="grid-1 center">
+          <h3>Reps</h3>
         </div>
         <div class="hex-1"><span class="after"></span></div>
         <div class="hex-2"><span class="after"></span></div>
@@ -19,9 +24,9 @@
       </a>
     </div>
     <div class="hex grid-3 secondary align-top" tooltip-html-unsafe="{{htmlTooltip4}}">
-      <a href="">
+      <a href="/#/compare/">
         <div class="inner">
-          <h3>DONORS AND MONEY</h3>
+          <h3>Who Funds D.C.</h3>
         </div>
         <div class="hex-1"><span class="after"></span></div>
         <div class="hex-2"><span class="after"></span></div>
@@ -32,8 +37,9 @@
     <div class="hex grid-3 secondary align-top" tooltip-html-unsafe="{{htmlTooltip6}}">
       <a href="/#/words">
         <div class="inner">
+          <h3>what</h3>
           <h4>CONGRESS</h4>
-          <h3>WORDS</h3>
+          <h3>says</h3>
         </div>
         <div class="hex-1"><span class="after"></span></div>
         <div class="hex-2"><span class="after"></span></div>
@@ -47,13 +53,13 @@
     </a>
     </div>
     <div class="hex grid-3" tooltip-html-unsafe="{{htmlTooltip7}}">
-      <a href="" style="background-image: url('../images/map.png');">
+      <a href="/#/district_map/" style="background-image: url('../images/map.png');">
         <div class="hex-1"></div>
         <div class="hex-2"></div>
       </a>
     </div>
     <div class="hex grid-3 align-top" tooltip-html-unsafe="{{htmlTooltip8}}">
-      <a href="">
+      <a href="/#/bills/BILLS-113hr3059ih">
         <div class="inner" >
            <h3>Analyze Bills</h3>
         </div>
@@ -70,7 +76,7 @@
       </a>
     </div>
     <div class="hex grid-3 secondary align-top" tooltip-html-unsafe="{{htmlTooltip12}}">
-      <a href="">
+      <a href="/#/individual/">
         <div class="inner">
           <h4>Find Your</h4>
           <h4>Legislator</h4>
@@ -80,6 +86,7 @@
         <span class="after hex-orange"></span>
       </a>
     </div>
+    <!-- The last picture -->
     <div class="hex grid-3" tooltip-html-unsafe="{{htmlTooltip12}}">
       <a href="" style="background-image: url('http://www.wcupa.edu/constitution/images/wethepeople2.jpg');">
         <div class="hex-1"></div>
@@ -87,14 +94,28 @@
       </a>
     </div>
   </div>
-  </section>
-  <section class="section grid-14 center">
-    <hr class="grid-2 center"/>
-    <h2>A few stats</h2>
-    <ul class="list-inline-block list-float-none list-small fonts-display clearfix list-mobile-spacing">
-      <!-- add a list of things here -->
-    </ul>
-  </section>
-
+<div>
+<div class="span12">
+  <h2 class="orange">A few stats</h2>
+  <div class="row-fluid main">
+    <div class="span6">
+      <div class="span12">
+        <h3 class="blue">How often different drugs are mentioned:</h3>
+        <h5>Marijuana: 3990</h5>
+        <h5>Cocaine: 4634</h5>
+        <h5>Heroin: 3305</h5>
+        <h5>Nicotine: 1121</h5>
+        <h5>Alcoholic or Alcoholism: 1482</h5>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="span12">
+        <h3 class="blue">Boogeymen:</h3>
+        <h5>Koch Brothers: 38</h5>
+        <h5>George Soros: 182</h5>
+        <h5>Vast Right-Wing Conspiracy: 26</h5>
+        <h5>MoveOn.org: 251</h5>
+      </div>
+    </div>
 </div>
 <sub-view template="partials/footer"></sub-view>
