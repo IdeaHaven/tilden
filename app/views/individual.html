@@ -52,10 +52,14 @@
 
       <div class="row-fluid span12 text-left">
         <div class="CommitteeInfo">
-          <h2 class="red">Committee Positions</h2>
+          <h2 class="red">Leadership Positions</h2>
           <dl class="dl-horizontal">
+            <div ng-show="rep.overview.leadership_role.length">
+              <dt>Leadership Role</dt>
+              <dd>{{rep.overview.leadership_role}} of the {{rep.overview.chamber}}.</dd>
+            </div>
             <dt>Committees</dt>
-            <dd ng-repeat="committee in rep.nyt.overview.results.roles[0].committees">{{ committee.name }}</dd><dd ng-show="!rep.nyt.overview.results.roles[0].committees[0]">This member does not serve on any committees.</dd>
+            <dd ng-repeat="committee in rep.committees">{{ committee.name }}</dd><dd ng-show="!rep.committees.length">No committees listed for this member.</dd>
           </dl>
         </div>
       </div>
@@ -65,7 +69,7 @@
           <dl class="dl-horizontal">
             <h2 class="blue">Human Donors</h2>
             <dt>Individual Donations<br/><span class="moreInfo">Mouse over names<br/>for more info.</span></dt>
-            <dd ng-show="!rep.littleSis.donors">This member's donors are unavailable.</dd>
+            <dd ng-show="!rep.littleSis.donors">This member's donors aren't yet listed on the LittleSis project. <a href="http://littlesis.org/guide#adding">Help add to the database.</a></dd>
             <dd width="300px">
               <table class="table">
                 <tr ng-repeat="name in rep.littleSis.donors">
