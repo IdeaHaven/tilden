@@ -10,6 +10,7 @@ Influence was created at [Hack Reactor](http://www.hackreactor.com) by:
 * [Jake McGuire](https://github.com/eastbayjake)
 * [Ricky Sidhu](https://github.com/riksidhu)
 * [Josh Sprague](https://github.com/joshsprague)
+
 You can learn more about the team [here](http://www.tildenapp.com/#/about). (We're all for hire!)
 
 Using the App
@@ -20,8 +21,8 @@ District Map
 ------------
 Search for your legislator by clicking your state/district, enter your zip code or city, or geolocate using your computer's current location.
 
-![alt-text](https://github.com/IdeaHaven/influence/tree/master/screenshots/districtmap1.png "District Map: Detail View")
-![alt-text](https://github.com/IdeaHaven/influence/tree/master/screenshots/districtmap2.png "District Map: Search the US")
+![alt-text](https://raw.github.com/IdeaHaven/influence/master/screenshots/districtmap1.png "District Map: Detail View")
+![alt-text](https://raw.github.com/IdeaHaven/influence/master/screenshots/districtmap2.png "District Map: Search the US")
 
 Individual View
 ---------------
@@ -35,13 +36,13 @@ Word Explorer
 -------------
 Search for the top words used by an individual legislator, or see how often a word or phrase has been used in Congress since 1996.
 
-![alt-text](https://github.com/IdeaHaven/influence/tree/master/screenshots/words1.png "Word Explorer: See Speech Trends")
+![alt-text](https://raw.github.com/IdeaHaven/influence/master/screenshots/words1.png "Word Explorer: See Speech Trends")
 
 Bill Search
 -----------
 View the full text of bills in Congress. Search for bills by issue/word or select from a list of the most recent bills. Comment on your findings in the Disqus comments below each bill.
 
-![alt-text](https://github.com/IdeaHaven/influence/tree/master/screenshots/bills1.png "Bill Search: Find by issue")
+![alt-text](https://raw.github.com/IdeaHaven/influence/master/screenshots/bills1.png "Bill Search: Find by issue")
 
 
 About the Stack
