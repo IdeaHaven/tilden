@@ -1,39 +1,32 @@
-<ng-include src="'/views/partials/header.html'"></ng-include>
 <sub-view template="partials/select_rep1_name"></sub-view>
 <div class="container">
-  <div class="row-fluid individual span12">
+  <div class="row-fluid individual">
     <div class="span6">
 
       <div class="row-fluid span12 individual">
         <div class="span4">
           <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/200x250/{{selected.rep1.bioguide_id}}.jpg"/>
         </div>
-          <div class="span8">
-            <h2 class="blue">{{rep.overview.fullname}}</h2>
-            <h3 class="gray text-center">{{rep.overview.state_name}}</h3>
-          </div>
-      </div>
-      <div class="row-fluid span12 text-left">
-        <div class="contactInfo">
-          <h2 class="green">Contact Info</h2>
-          <dl class="dl-horizontal">
-            <dt class="icon-globe" tooltip="Web site" tooltip-placement="right"></dt>
-            <dd><a http="{{ rep['overview']['website'] }}">{{ rep['overview']['website'] }}</a></dd>
-            <dt class="icon-building" tooltip="Office address" tooltip-placement="right"></dt>
-            <dd>{{ rep['overview']['office'] }}</dd>
-            <dt class="icon-phone" tooltip="Phone" tooltip-placement="right"></dt>
-            <dd><a href="tel:{{ rep['overview']['phone'] }}">{{ rep['overview']['phone'] }}</a></dd>
-            <dt class="icon-print" tooltip="Fax" tooltip-placement="right"></dt>
-            <dd><a href="fax:{{ rep['overview']['fax'] }}">{{ rep['overview']['fax'] }}</a></dd>
-            <dt class="icon-envelope" tooltip="Contact" tooltip-placement="right"></dt>
-            <dd><a href="{{ rep['overview']['contact_form'] }}">{{ rep['overview']['contact_form'] }}</a></dd>
-            <dt class="icon-twitter" tooltip="Twitter" tooltip-placement="right"></dt>
-            <dd><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a></dd><dd ng-show="!rep['overview']['twitter_id']">This member's Twitter page unavailable.</dd>
-            <dt class="icon-facebook-sign" tooltip="Facebook" tooltip-placement="right"></dt>
-            <dd><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a></dd><dd ng-show="!rep['overview']['facebook_id']">This member's Facebook page unavailable.</dd>
-          </dl>
+        <div class="span8">
+          <h2 class="blue">{{rep.overview.fullname}}</h2>
+          <h3 class="gray text-center">{{rep.overview.state_name}}</h3>
+          <h4 ng-show="rep.overview.district" class="text-center">District {{rep.overview.district}}</h4>
         </div>
       </div>
+
+      <div class="row-fluid span12 text-left">
+          <h2 class="green">Contact Info</h2>
+          <p>
+            <span class="icon-globe contact" tooltip="Web site" tooltip-placement="left"></span><a href="{{ rep['overview']['website'] }}">{{ rep['overview']['website'] }}</a></br>
+            <span class="icon-building contact" tooltip="Office address" tooltip-placement="left"></span><span>{{ rep['overview']['office'] }}</span></br>
+            <span class="icon-phone contact" tooltip="Phone" tooltip-placement="left"></span><a href="tel:{{ rep['overview']['phone'] }}">{{ rep['overview']['phone'] }}</a></br>
+            <span class="icon-print contact" tooltip="Fax" tooltip-placement="left"></span><a href="fax:{{ rep['overview']['fax'] }}">{{ rep['overview']['fax'] }}</a></br>
+            <span class="icon-envelope contact" tooltip="Contact form" tooltip-placement="left"></span><a href="{{ rep['overview']['contact_form'] }}">{{ rep['overview']['contact_form'] }}</a><br/>
+            <span class="icon-twitter contact" tooltip="Twitter" tooltip-placement="left"></span><a href="https://twitter.com/{{ rep['overview']['twitter_id'] }}">{{ rep['overview']['twitter_id'] }}</a><span ng-show="!rep['overview']['twitter_id']">This member's Twitter page unavailable.</span><br/>
+            <span class="icon-facebook-sign contact" tooltip="Facebook" tooltip-placement="left"></span><a href="https://facebook.com/{{ rep['overview']['facebook_id'] }}">{{ rep['overview']['facebook_id'] }}</a><span ng-show="!rep['overview']['facebook_id']">This member's Facebook page unavailable.</span>
+          </p>
+      </div>
+
       <div class="row-fluid span12 text-left">
         <div class="donorInfo">
           <dl class="dl-horizontal">
@@ -51,6 +44,7 @@
           </dl>
         </div>
       </div>
+
     </div>
 
     <div class="span6">
@@ -67,6 +61,7 @@
           </dl>
         </div>
       </div>
+
       <div class="row-fluid span12 text-left">
         <div class="CommitteeInfo">
           <h2 class="red">Leadership Positions</h2>
@@ -80,6 +75,7 @@
           </dl>
         </div>
       </div>
+
     </div>
 
     </div>
