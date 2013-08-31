@@ -4,6 +4,23 @@
 <input class="zip_field" ng-model="selected_zip"></input>
 <button ng-click="findDistrictByZip()">Find District by Zip Code</button>
 -->
+<div id="map_dialog">
+	<h4>District {{state_district.state}}-{{state_district.district}}</h4>
+	<div ng-repeat="rep in district_reps">
+		<h5 class="center">{{rep.title}}. {{rep.first_name}} {{rep.last_name}}</h5>
+		<div class="small_rep_image pull-left">
+		    <img class="img-rounded" src="https://s3.amazonaws.com/assets.sunlightfoundation.com/moc/40x50/{{rep.bioguide_id}}.jpg" onError="this.onerror=null;this.src='/images/noimage.gif'"/>
+		</div>
+		<a href="/#/">
+			<div class="small_rep_details">
+				<strong>Term:</strong><span>{{rep.term_start}} to {{rep.term_end}}</span><br/>
+				<strong>Phone:</strong><span>{{rep.phone}}</span><br/>
+				<strong>Website:</strong><span>{{rep.website}}</span><br/>
+				<strong>Twitter:</strong><span ng-hide="!rep.twitter_id.length">@{{rep.twitter_id}}</span>
+			</div>
+		</a>
+	</div>
+</div>
 <div class="container map">
 	<span class="help-inline error-text"></span>
 	<div class="control-group input-prepend row-fluid span4">
@@ -16,10 +33,9 @@
 		</div>
 	</div>
 	<div class="row-fluid span5">
-	<!-- 		<select ng-model="fake" ng-change="setDistrictThroughSelect(fake)" ng-options="value[0] as value[1] for (key, value) in FIPS_to_state"></select>-->		
+	<!-- 		<select ng-model="fake" ng-change="setDistrictThroughSelect(fake)" ng-options="value[0] as value[1] for (key, value) in FIPS_to_state"></select>-->
 		 <input type="text" ng-model="state.selected" typeahead="state as state.name for state in STATES | filter:$viewValue | limitTo:8" typeahead-on-select='onStateSelect($item, $model, $label)' placeholder="Example: California or CA"></input>
 	</div>
 	<div id="map_holder"> </div>
-	<div id="map_dialog"></div>
 </div>
 <sub-view template="partials/footer"></sub-view>
