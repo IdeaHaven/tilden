@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('IndividualCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
+  .controller('IndividualCtrl', ['$scope', '$routeParams', 'ApiGet', ($scope, $routeParams, ApiGet) ->
 
 
 ######################
@@ -91,10 +91,20 @@ angular.module('appApp.controllers')
         $scope.reps[bioguide_id].littleSis.donors = sorted
       else console.log "Error: ", error
 
+    $scope.setRepToRouteParams = () ->
+      if $routeParams.bioguide_id.length > 0
+        ApiGet.congress "legislators?bioguide_id=#{$routeParams.bioguide_id}", (error, data) ->
+          if not error
+            if data.length
+              this_name = "#{data[0].title}. #{data[0].first_name} #{data[0].last_name}"
+              $scope.selected.rep1 = {bioguide_id: data[0].bioguide_id, name: this_name}
+          else
+            console.log "Error, Senator/Rep not found."
+          # set default focus
 
 ##############
 ## Initial Calls
 ##############
-
+    $scope.setRepToRouteParams()
 
   ])
