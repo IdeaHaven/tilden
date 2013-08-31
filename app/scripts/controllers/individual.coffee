@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('IndividualCtrl', ['$scope', 'ApiGet', ($scope, ApiGet) ->
+  .controller('IndividualCtrl', ['$scope', '$routeParams', 'ApiGet', ($scope, $routeParams, ApiGet) ->
 
 
 ######################
@@ -24,8 +24,7 @@ angular.module('appApp.controllers')
     $scope.selected_watcher_functions = (rep, bioguide_id)->
       $scope.get_transparencydata_id($scope.selected.rep1.bioguide_id)
       ApiGet.littleSis "entities/bioguide_id/#{$scope.selected.rep1.bioguide_id}.json?", $scope.callback_littleSis_id, this, $scope.selected.rep1.bioguide_id
-      ApiGet.nyt "members/#{$scope.selected.rep1.bioguide_id}", $scope.callback_nyt, this, $scope.selected.rep1.bioguide_id
-
+      $scope.get_committees($scope.selected.rep1.bioguide_id)
 
     $scope.get_transparencydata_id = (bioguide_id)->
       $scope.reps[bioguide_id] = $scope.reps[bioguide_id] or {}
@@ -56,10 +55,23 @@ angular.module('appApp.controllers')
         $scope.reps[bioguide_id].nyt.overview = data
       else console.log "Error: ", error
 
+    $scope.get_committees = (bioguide_id)->
+      #if not $scope.reps[bioguide_id].leadership_role  # no committees if a leader
+        #$scope.reps[bioguide_id].leader = false
+        #if not $scope.loaded.committees
+      ApiGet.congress "committees?member_ids=#{bioguide_id}", $scope.callback_committees, this, bioguide_id
+      #else
+        #$scope.reps[bioguide_id].leader = true
+
+    $scope.callback_committees = (error, data, bioguide_id)->
+      if not error
+        console.log(data)
+        $scope.reps[bioguide_id].committees = data
+      else console.log "Error: ", error
+
     $scope.callback_littleSis_id = (error, data, bioguide_id)->
       if not error
         $scope.reps[bioguide_id].littleSis = $scope.reps[bioguide_id].littleSis or {}
-        console.log(data)
         $scope.reps[bioguide_id].littleSis.id = data.Response.Data.Entities.Entity.id
         $scope.reps[bioguide_id].littleSis.overview = data.Response.Data.Entities.Entity
         #Call dependent on id
@@ -68,7 +80,6 @@ angular.module('appApp.controllers')
 
     $scope.callback_littleSisDonors = (error, data, bioguide_id)->
       match = []
-      console.log(data)
 
       if not error
         _.each data.Response.Data.RelatedEntities.Entity, (val) ->
@@ -91,10 +102,25 @@ angular.module('appApp.controllers')
         $scope.reps[bioguide_id].littleSis.donors = sorted
       else console.log "Error: ", error
 
+    $scope.setRepToRouteParams = () ->
+      if $routeParams.bioguide_id.length > 0
+        if $scope.reps[$routeParams.bioguide_id]
+          $scope.selected.rep1 =
+            bioguide_id: bioguide_id
+            name: $scope.reps[bioguide_id].overview.fullname
+        else
+          console.log "Error, Senator/Rep not found."
+          # set default focus
 
 ##############
 ## Initial Calls
 ##############
 
+    $scope.setRepToRouteParams()
+
+    $scope.rep = $scope.reps[$scope.selected.rep1.bioguide_id]
+    $scope.get_transparencydata_id($scope.selected.rep1.bioguide_id)
+    ApiGet.littleSis "entities/bioguide_id/#{$scope.selected.rep1.bioguide_id}.json?", $scope.callback_littleSis_id, this, $scope.selected.rep1.bioguide_id
+    $scope.get_committees($scope.selected.rep1.bioguide_id)
 
   ])

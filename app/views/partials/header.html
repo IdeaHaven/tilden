@@ -1,15 +1,16 @@
 <header id="header" class="clearfix">
-
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
+      <a class="brand" href="#"><img class="logo header" src="images/logo-tilden.png" />Tilden</a>
+
       <div class="dropdown">
         <button class="btn btn-navbar dropdown-toggle pull-right">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        </a>
+
         <ul class="dropdown-menu pull-right">
           <liref="/#/">Home</a></li>
           <li><a href="/#/district_map/">District Map</a></li>
@@ -21,21 +22,20 @@
         </ul>
       </div>
 
-      <a href="#" class="brand" style="margin-left:25px; margin-right:50px;">Tilden</a>
 
       <div class="nav-collapse">
         <ul class="nav">
-          <li ng-class=" {active: isActive('/')}"><a href="/#/">Home</a></li>
-          <li ng-class=" {active: isActive('/district_map')}" class="text-left"><a href="/#/district_map/">District Map</a></li>
-          <li ng-class=" {active: isActive('/bills')}" class="text-left"><a href="/#/bills/BILLS-113hr3059ih">Bill Search</a></li>
-          <li ng-class=" {active: isActive('/compare')}" class="text-right"><a href="/#/compare/">Compare Reps</a></li>
-          <li ng-class=" {active: isActive('/words')}" class="text-right"><a href="/#/words/">Word Explorer</a></li>
-          <li ng-class=" {active: isActive('/individual')}" class="text-right"><a href="/#/individual/">Individual</a></li>
-          <li ng-class=" {active: isActive('/about')}" class="text-right"><a href="/#/about/">About</a></li>
+          <li ng-class=" {active: isActive('/')}"><a href="#"><i class="icon icon-home"></i> Home</a></li>
+          <li ng-class=" {active: isActive('/district_map')}" class="text-left"><a href="/#/district_map/"><i class="icon icon-globe"></i> District Map</a></li>
+          <li ng-class=" {active: isActive('/individual')}" class="text-right"><a href="/#/individual/"><i class="icon icon-user"></i> Individual</a></li>
+          <li ng-class=" {active: isActive('/compare')}" class="text-right"><a href="/#/compare/"><i class="icon icon-group"></i> Compare Reps</a></li>
+          <li ng-class=" {active: isActive('/words')}" class="text-right"><a href="/#/words/"><i class="icon icon-comment"></i> Word Explorer</a></li>
+          <li ng-class=" {active: isActive('/bills')}" class="text-left"><a href="/#/bills/BILLS-113hr3059ih"><i class="icon icon-search"></i> Bill Search</a></li>
+          <li ng-class=" {active: isActive('/about')}" class="text-right"><a href="/#/about/"><i class="icon icon-question-sign"></i> About</a></li>
         </ul>
       </div>
+
     </div>
   </div>
 </div>
-
 </header>

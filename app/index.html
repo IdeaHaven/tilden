@@ -17,7 +17,7 @@
       <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
       <!-- endbuild -->
   </head>
-  <body ng-app="appApp" class="index-page" ng-controller="AppCtrl">
+  <body ng-app="appApp" ng-controller="AppCtrl">
 
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
@@ -29,7 +29,13 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div ng-view="" id="body_container"></div>
+    <!-- #wrap, #push and #footer are used for sticky footer -->
+    <ng-include src="'/views/partials/header.html'"></ng-include>
+    <div id="wrap">
+      <div class="row-fluid" ng-view></div>
+      <div id="push"></div>
+    </div>
+    <ng-include src="'views/partials/footer.html'"></ng-include>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
