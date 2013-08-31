@@ -5,7 +5,6 @@ angular.module('appApp.controllers')
     $scope.supportGeo = $window.navigator
     $scope.position = null
     $scope.selected_zip = null
-    $scope.warning = null
     $scope.state_district = {state: null, district: null}
     $scope.district_reps = []
     $scope.map_width = 0
@@ -26,10 +25,15 @@ angular.module('appApp.controllers')
     $scope.findDistrictByZip = () ->
       ApiGet.congress "districts/locate?zip=#{$scope.selected_zip}", $scope.setDistrict, this
 
+
     $scope.setDistrict = (error, data) ->
       if not error
         unless data.length
-          return $scope.warning = "No district was found for #{$scope.selected_zip}."
+          # change class of input field.
+          $('.control-group').addClass("error") # TODO: maybe make this less specific, agree
+          $('.help-inline').html("Sorry, No district was found at that zipcode. <a target='_blank' href='http://sunlightfoundation.com/blog/2012/01/19/dont-use-zipcodes/'><i class='icon-question-sign'></i></a>")
+          $('.controls input').attr("id", "customInputError")
+          # TODO: Maybe post a link to Sunlight Foundation's article about location by zipcode in this message.
         $scope.state_district = {state: data[0].state, district: data[0].district}
       else console.log "Error: ", error
 
@@ -114,7 +118,6 @@ angular.module('appApp.controllers')
         .attr("class", "full-display")
         .style("opacity", 1e-6)
         .style("z-index", "15")
-      $scope.makeMapGradients()
       $scope.makeMapGradients()      
       queue().defer(d3.json, "data/us.json").defer(d3.json, "data/us-congress-113.json").await ready
 
@@ -135,8 +138,8 @@ angular.module('appApp.controllers')
           .attr("y2", "100%")
         .selectAll("stop")
           .data([
-            {offset: "0%", color: "#d2ff52"},
-            {offset: "100%", color: "#91e842"}
+            {offset: "0%", color: "#B4D651"},
+            {offset: "100%", color: "#5FCC00"}
           ])
         .enter().append("stop")
           .attr("offset", (d)-> return d.offset)
@@ -151,8 +154,8 @@ angular.module('appApp.controllers')
           .attr("y2", "100%")
         .selectAll("stop")
           .data([
-            {offset: "0%", color: "#f1e767"},
-            {offset: "100%", color: "#FCA625"}
+            {offset: "0%", color: "#ff9"},
+            {offset: "100%", color: "#FF9900"}
           ])
         .enter().append("stop")
           .attr("offset", (d)-> return d.offset)
@@ -193,6 +196,8 @@ angular.module('appApp.controllers')
               for state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
                 if data[0].state is state
                   data[0].district = "0"
+               if data[0].state is "DC"
+                  data[0].district = "98"
               if not data[0].district then data[0].district = "1"
             $scope.state_district = {state: data[0].state, district: data[0].district}
           else console.log "Error, Senator/Rep not found."
@@ -270,12 +275,15 @@ angular.module('appApp.controllers')
         $scope.drawMap()
 
     $scope.setDistrictThroughSelect = (state) ->
-      console.log "Called for state: ", state
+      state = state.toUpperCase()
       setDist = false
       for one_district_state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
         if state is one_district_state
           setDist = true
           $scope.state_district = {state: state, district: "0"}
+        if state is "DC"
+          setDist = true
+          $scope.state_district = {state: state, district: "98"}
       if !setDist
         $scope.state_district = {state: state, district: "1"}
 
@@ -291,6 +299,20 @@ angular.module('appApp.controllers')
       if $scope.district_reps.length and $scope.state_district.state
         $scope.showDistrictDialog()
     , true)
+
+    $scope.$watch('selected_zip', (newVals, oldVals) ->
+      if newVals and newVals != oldVals
+        $scope.findDistrictByZip()
+      if !newVals
+        $('.control-group').removeClass("error") # TODO: maybe make this less specific, agree
+        $('.help-inline').html("")
+        $('.controls input').attr("id", "")
+    )
+
+    $scope.$watch('state.selected', (newVals, oldVals) ->
+      if typeof newVals is 'object'
+        $scope.setDistrictThroughSelect(newVals.code)
+    )
 
     $scope.$watch( (()-> angular.element(window)[0].innerWidth), ((newValue, oldValue)-> $scope.changeMapSize(newValue)) )
     window.onresize = (()-> $scope.$apply())
