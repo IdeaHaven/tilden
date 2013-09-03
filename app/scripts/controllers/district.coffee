@@ -93,7 +93,6 @@ angular.module('appApp.controllers')
       if $scope.map_width is 960
         district_element.call($scope.zoomIn)
       else unless $scope.usMap.text().slice(0, 2) is $scope.state_district.state
-          console.log "Called zoomIn for state view"
           $("#map_holder").html('')
           $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
 
@@ -295,12 +294,12 @@ angular.module('appApp.controllers')
       for one_district_state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
         if state is one_district_state
           setDist = true
-          $scope.state_district = {state: state, district: "0"}
-        if state is "DC"
-          setDist = true
-          $scope.state_district = {state: state, district: "98"}
+          return $scope.state_district = {state: state, district: "0"}
+      for territory in ["AS","DC", "FM", "GU", "MH", "MP", "PW", "PR"]
+        if state is territory
+          return $('.help-inline.error-text').text('Sorry, this map does not display data for Congressional Delegates.').delay(5500).fadeOut(500)
       if !setDist
-        $scope.state_district = {state: state, district: "1"}
+        return $scope.state_district = {state: state, district: "1"}
 
 
     $scope.defaultFocus()
