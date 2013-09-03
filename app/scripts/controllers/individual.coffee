@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('IndividualCtrl', ['$scope', '$routeParams', 'ApiGet', ($scope, $routeParams, ApiGet) ->
+  .controller('IndividualCtrl', ['$scope', '$location', '$routeParams', 'ApiGet', ($scope, $location, $routeParams, ApiGet) ->
 
 
 ######################
@@ -49,23 +49,11 @@ angular.module('appApp.controllers')
         $scope.reps[bioguide_id].influence.bio = data
       else console.log "Error: ", error
 
-    $scope.callback_nyt = (error, data, bioguide_id)->
-      if not error
-        $scope.reps[bioguide_id].nyt = $scope.reps[bioguide_id].nyt or {}
-        $scope.reps[bioguide_id].nyt.overview = data
-      else console.log "Error: ", error
-
     $scope.get_committees = (bioguide_id)->
-      #if not $scope.reps[bioguide_id].leadership_role  # no committees if a leader
-        #$scope.reps[bioguide_id].leader = false
-        #if not $scope.loaded.committees
       ApiGet.congress "committees?member_ids=#{bioguide_id}", $scope.callback_committees, this, bioguide_id
-      #else
-        #$scope.reps[bioguide_id].leader = true
 
     $scope.callback_committees = (error, data, bioguide_id)->
       if not error
-        console.log(data)
         $scope.reps[bioguide_id].committees = data
       else console.log "Error: ", error
 
@@ -106,11 +94,17 @@ angular.module('appApp.controllers')
       if $routeParams.bioguide_id.length > 0
         if $scope.reps[$routeParams.bioguide_id]
           $scope.selected.rep1 =
-            bioguide_id: bioguide_id
-            name: $scope.reps[bioguide_id].overview.fullname
+            bioguide_id: $routeParams.bioguide_id
+            name: $scope.reps[$routeParams.bioguide_id].overview.fullname
         else
           console.log "Error, Senator/Rep not found."
           # set default focus
+
+    $scope.onSelect = ($item, $model, $label, rep)->
+      if rep is 'rep2'
+        $scope.selected[rep] = $item
+        $location.path("/compare")
+      else $scope.selected[rep] = $item
 
 ##############
 ## Initial Calls

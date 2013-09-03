@@ -272,7 +272,10 @@ angular.module('appApp.controllers')
     $scope.changeMapSize = (windowSize) ->
       if windowSize <= 400 and $scope.map_width is 0
         unless $scope.state_district.state
-          $scope.drawMapByState("6")
+          if !$scope.state_district.state and !$routeParams.bioguide_id
+            $scope.drawMapByState("6")
+          else 
+            $scope.drawMapByState()
         else $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
       else if windowSize > 400 and $scope.map_width is 0
         $scope.drawMap()
@@ -291,12 +294,12 @@ angular.module('appApp.controllers')
       for one_district_state in ["AK", "DE", "MT", "ND", "SD", "VT", "WY"]
         if state is one_district_state
           setDist = true
-          $scope.state_district = {state: state, district: "0"}
-        if state is "DC"
-          setDist = true
-          $scope.state_district = {state: state, district: "98"}
+          return $scope.state_district = {state: state, district: "0"}
+      for territory in ["AS","DC", "FM", "GU", "MH", "MP", "PW", "PR"]
+        if state is territory
+          $('.help-inline.error-text').html('Sorry, this map does not display data for Congressional Delegates.')
       if !setDist
-        $scope.state_district = {state: state, district: "1"}
+        return $scope.state_district = {state: state, district: "1"}
 
     $scope.defaultFocus()
 
@@ -316,13 +319,16 @@ angular.module('appApp.controllers')
         $scope.findDistrictByZip()
       if !newVals
         $('.control-group').removeClass("error") # TODO: maybe make this less specific, agree
-        $('.help-inline').html("")
+        $('.help-inline').html("").show()
         $('.controls input').attr("id", "")
     )
 
     $scope.$watch('state.selected', (newVals, oldVals) ->
       if typeof newVals is 'object'
         $scope.setDistrictThroughSelect(newVals.code)
+      if !newVals
+        $('.help-inline').html("").show()
+
     )
 
     $scope.$watch( (()-> angular.element(window)[0].innerWidth), ((newValue, oldValue)-> $scope.changeMapSize(newValue)) )
