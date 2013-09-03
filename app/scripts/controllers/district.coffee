@@ -93,6 +93,7 @@ angular.module('appApp.controllers')
       if $scope.map_width is 960
         district_element.call($scope.zoomIn)
       else unless $scope.usMap.text().slice(0, 2) is $scope.state_district.state
+          console.log "Called zoomIn for state view"
           $("#map_holder").html('')
           $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
 
@@ -272,7 +273,10 @@ angular.module('appApp.controllers')
     $scope.changeMapSize = (windowSize) ->
       if windowSize <= 400 and $scope.map_width is 0
         unless $scope.state_district.state
-          $scope.drawMapByState("6")
+          if !$scope.state_district.state and !$routeParams.bioguide_id
+            $scope.drawMapByState("6")
+          else 
+            $scope.drawMapByState()
         else $scope.drawMapByState($scope.state_to_FIPS[$scope.state_district.state])
       else if windowSize > 400 and $scope.map_width is 0
         $scope.drawMap()
@@ -297,6 +301,7 @@ angular.module('appApp.controllers')
           $scope.state_district = {state: state, district: "98"}
       if !setDist
         $scope.state_district = {state: state, district: "1"}
+
 
     $scope.defaultFocus()
 
