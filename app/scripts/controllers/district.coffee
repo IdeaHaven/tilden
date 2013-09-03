@@ -297,10 +297,9 @@ angular.module('appApp.controllers')
           return $scope.state_district = {state: state, district: "0"}
       for territory in ["AS","DC", "FM", "GU", "MH", "MP", "PW", "PR"]
         if state is territory
-          return $('.help-inline.error-text').text('Sorry, this map does not display data for Congressional Delegates.').delay(5500).fadeOut(500)
+          $('.help-inline.error-text').html('Sorry, this map does not display data for Congressional Delegates.')
       if !setDist
         return $scope.state_district = {state: state, district: "1"}
-
 
     $scope.defaultFocus()
 
@@ -320,13 +319,16 @@ angular.module('appApp.controllers')
         $scope.findDistrictByZip()
       if !newVals
         $('.control-group').removeClass("error") # TODO: maybe make this less specific, agree
-        $('.help-inline').html("")
+        $('.help-inline').html("").show()
         $('.controls input').attr("id", "")
     )
 
     $scope.$watch('state.selected', (newVals, oldVals) ->
       if typeof newVals is 'object'
         $scope.setDistrictThroughSelect(newVals.code)
+      if !newVals
+        $('.help-inline').html("").show()
+
     )
 
     $scope.$watch( (()-> angular.element(window)[0].innerWidth), ((newValue, oldValue)-> $scope.changeMapSize(newValue)) )
