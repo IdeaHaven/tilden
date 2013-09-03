@@ -1,8 +1,8 @@
 {
-  "name": "influence",
-  "version": "0.0.1",
+  "name": "Tilden",
+  "version": "0.1.0",
   "author": "Idea Haven <greg@ideahaven.co>",
-  "description": "in dev web application see README for more information",
+  "description": "Data aggregation and visualization platform that correlates campaign contributions with the legislative record and vocabulary of elected representatives.",
   "contributors": [
     {
       "name": "Gregory Hilkert",

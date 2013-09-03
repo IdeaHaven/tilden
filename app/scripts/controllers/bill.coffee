@@ -17,7 +17,7 @@ angular.module('appApp.controllers')
 
     makeBillCode = ->
       return "BILLS-#{$scope.bill.congress}#{$scope.bill.bill_type}#{$scope.bill.number}#{$scope.bill.last_version.version_code}"
-    
+
     makeBillUrl = (billCode) ->
       return "http://www.gpo.gov/fdsys/pkg/#{billCode}/pdf/#{billCode}.pdf"
 
@@ -28,7 +28,7 @@ angular.module('appApp.controllers')
       return "#{bill}-#{congress}"
 
     getBillTextOnLoad = ->
-      if $location.path() != "/bills" then getBillText(makeBillUrl($location.path().split("").slice(7).join("")))
+      if $location.path() is not "/bills" then getBillText(makeBillUrl($location.path().split("").slice(7).join("")))
       getBillTitle()
 
     getBillTitle = ->
@@ -38,6 +38,7 @@ angular.module('appApp.controllers')
         url: "http://congress.api.sunlightfoundation.com/bills?apikey=3cdfa27b289e4d4090fd1b176c45e6cf&bill_id=#{bill_id}"
       ).success((data, status) ->
         bioguide_id = data.results[0].sponsor_id
+        $scope.sponsor_id = bioguide_id
         $scope.sponsor = $scope.reps[bioguide_id].overview.fullname
         $scope.selected.rep1 =
           bioguide_id: bioguide_id

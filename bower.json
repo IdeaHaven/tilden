@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "version": "0.0.0",
+  "name": "Tilden",
+  "version": "0.1.0",
   "dependencies": {
     "angular": "PatternConsulting/bower-angular#v1.1.5",
     "json3": "~3.2.4",
