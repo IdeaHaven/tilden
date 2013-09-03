@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('IndividualCtrl', ['$scope', '$routeParams', 'ApiGet', ($scope, $routeParams, ApiGet) ->
+  .controller('IndividualCtrl', ['$scope', '$location', '$routeParams', 'ApiGet', ($scope, $location, $routeParams, ApiGet) ->
 
 
 ######################
@@ -99,6 +99,12 @@ angular.module('appApp.controllers')
         else
           console.log "Error, Senator/Rep not found."
           # set default focus
+
+    $scope.onSelect = ($item, $model, $label, rep)->
+      if rep is 'rep2'
+        $scope.selected[rep] = $item
+        $location.path("/compare")
+      else $scope.selected[rep] = $item
 
 ##############
 ## Initial Calls

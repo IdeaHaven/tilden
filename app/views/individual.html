@@ -82,6 +82,12 @@
             <span class="icon-globe contact" tooltip="See congressional district"> </span><a href="/#/district_map/{{selected.rep1.bioguide_id}}">View this member's district or state</a></br>
             <span class="icon-comment contact" tooltip="See words spoken in congress"></span><a href="/#/words/">See words this member spoke in congress</a></br>
             <span class="icon-group contact" tooltip="Compare to another representative"></span><span>Compare to someone else in congress</span></br>
+            <div class="row-fluid">
+            <div class="input-append offset1">
+              <input id="appendedInputButton" type="text" ng-model="rep2" typeahead="rep as rep.name for rep in reps_list | filter:$viewValue | limitTo:8" typeahead-on-select='onSelect($item, $model, $label, "rep2")' placeholder="Find Representative by Name"></input>
+              <button class="btn">Compare</btn>
+            </div>
+            </div>
           </p>
       </div>
 
