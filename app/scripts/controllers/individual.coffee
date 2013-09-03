@@ -94,8 +94,8 @@ angular.module('appApp.controllers')
       if $routeParams.bioguide_id.length > 0
         if $scope.reps[$routeParams.bioguide_id]
           $scope.selected.rep1 =
-            bioguide_id: bioguide_id
-            name: $scope.reps[bioguide_id].overview.fullname
+            bioguide_id: $routeParams.bioguide_id
+            name: $scope.reps[$routeParams.bioguide_id].overview.fullname
         else
           console.log "Error, Senator/Rep not found."
           # set default focus
