@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('appApp.controllers')
-  .controller('IndividualCtrl', ['$scope', '$routeParams', 'ApiGet', ($scope, $routeParams, ApiGet) ->
+  .controller('IndividualCtrl', ['$scope', '$location', '$routeParams', 'ApiGet', ($scope, $location, $routeParams, ApiGet) ->
 
 
 ######################
@@ -94,11 +94,17 @@ angular.module('appApp.controllers')
       if $routeParams.bioguide_id.length > 0
         if $scope.reps[$routeParams.bioguide_id]
           $scope.selected.rep1 =
-            bioguide_id: bioguide_id
-            name: $scope.reps[bioguide_id].overview.fullname
+            bioguide_id: $routeParams.bioguide_id
+            name: $scope.reps[$routeParams.bioguide_id].overview.fullname
         else
           console.log "Error, Senator/Rep not found."
           # set default focus
+
+    $scope.onSelect = ($item, $model, $label, rep)->
+      if rep is 'rep2'
+        $scope.selected[rep] = $item
+        $location.path("/compare")
+      else $scope.selected[rep] = $item
 
 ##############
 ## Initial Calls
