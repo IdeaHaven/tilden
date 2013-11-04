@@ -72,7 +72,7 @@ angular.module('appApp.controllers')
       if not error
         _.each data.Response.Data.RelatedEntities.Entity, (val) ->
           if val.Relationships.Relationship.amount
-            if val.Relationships.Relationship.amount >= 15000
+            if val.Relationships.Relationship.amount >= 12000
               match.push
                 name: val.name
                 summary: val.summary
@@ -80,7 +80,7 @@ angular.module('appApp.controllers')
 
           else if val.Relationships.Relationship[0]
             _.each val.Relationships.Relationship, (subVal) ->
-              if subVal.amount >= 15000
+              if subVal.amount >= 12000
                 match.push
                   name: val.name
                   summary: val.summary
